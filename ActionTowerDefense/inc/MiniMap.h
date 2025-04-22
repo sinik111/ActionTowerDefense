@@ -5,6 +5,7 @@
 namespace Gdiplus
 {
 	class Bitmap;
+	class Graphics;
 }
 
 class Camera;
@@ -14,14 +15,16 @@ class MiniMap :
 	public Object
 {
 private:
+	Gdiplus::Bitmap* m_pBuffer;
+	Gdiplus::Graphics* m_pGraphics;
 	std::vector<Gdiplus::Bitmap*> m_TileImages;
 	std::vector<short> m_Tiles;
 	int m_Rows;
 	int m_Columns;
 
 public:
-	MiniMap() = default;
-	~MiniMap() = default;
+	MiniMap();
+	~MiniMap();
 
 public:
 	void Initialize() override;

@@ -2,6 +2,7 @@
 #include "TileMap.h"
 
 #include <sstream>
+#include <cmath>
 
 #include "ResourceManager.h"
 #include "GDIRenderer.h"
@@ -70,41 +71,65 @@ void TileMap::Render(const Camera& camera) const
 
 	//int drawCount = 0;
 
-	for (int i = 0; i < m_Rows * m_Columns; ++i)
+	int startCol = max((int)(cameraPosition.x / srcRect.Width), 0);
+	int endCol = min((int)((cameraPosition.x + cameraWidth) / srcRect.Width) + 1, m_Columns);
+
+	int startRow = max((int)(cameraPosition.y / srcRect.Height), 0);
+	int endRow = min((int)((cameraPosition.y + cameraHeight) / srcRect.Height) + 1, m_Rows);
+
+	for (int row = startRow; row < endRow; ++row)
 	{
-
-		if (cameraPosition.x + cameraWidth < i % m_Rows * srcRect.Width)
+		for (int col = startCol; col < endCol; ++col)
 		{
-			continue;
+			int i = row * m_Columns + col;
+			Gdiplus::Bitmap* image = m_TileImages[m_Tiles[i]];
+
+			dstRect.X = col * srcRect.Width + (int)cameraViewPos.x;
+			dstRect.Y = row * srcRect.Height + (int)cameraViewPos.y;
+
+		//	++drawCount;
+
+			GDIRenderer::Get().DrawImage(image, dstRect, srcRect);
 		}
-
-		if (cameraPosition.x > (i + 1) % m_Rows * srcRect.Width)
-		{
-			continue;
-		}
-
-		if (cameraPosition.y + cameraHeight < i / m_Rows * srcRect.Height)
-		{
-			continue;
-		}
-
-		if (cameraPosition.y > (i / m_Rows + 1) * srcRect.Height)
-		{
-			continue;
-		}
-
-		Gdiplus::Bitmap* image = m_TileImages[m_Tiles[i]];
-
-		dstRect.X = (i % m_Rows * srcRect.Width) + (int)cameraViewPos.x;
-		dstRect.Y = (i / m_Rows * srcRect.Height) + (int)cameraViewPos.y;
-
-		//Debug::Log(std::to_string(dstRect.X));
-		//Debug::Log(std::to_string(dstRect.Y));
-
-		//g.DrawImage(image, dstRect.X, dstRect.Y, srcRect.Width, srcRect.Height);
-		//++drawCount;
-		GDIRenderer::Get().DrawImage(image, dstRect, srcRect);
 	}
+
+	//Debug::Log(std::to_string(drawCount));
+
+	//for (int i = 0; i < m_Rows * m_Columns; ++i)
+	//{
+
+	//	if (cameraPosition.x + cameraWidth < i % m_Rows * srcRect.Width)
+	//	{
+	//		continue;
+	//	}
+
+	//	if (cameraPosition.x > (i + 1) % m_Rows * srcRect.Width)
+	//	{
+	//		continue;
+	//	}
+
+	//	if (cameraPosition.y + cameraHeight < i / m_Rows * srcRect.Height)
+	//	{
+	//		continue;
+	//	}
+
+	//	if (cameraPosition.y > (i / m_Rows + 1) * srcRect.Height)
+	//	{
+	//		continue;
+	//	}
+
+	//	Gdiplus::Bitmap* image = m_TileImages[m_Tiles[i]];
+
+	//	dstRect.X = (i % m_Rows * srcRect.Width) + (int)cameraViewPos.x;
+	//	dstRect.Y = (i / m_Rows * srcRect.Height) + (int)cameraViewPos.y;
+
+	//	//Debug::Log(std::to_string(dstRect.X));
+	//	//Debug::Log(std::to_string(dstRect.Y));
+
+	//	//g.DrawImage(image, dstRect.X, dstRect.Y, srcRect.Width, srcRect.Height);
+	//	//++drawCount;
+	//	GDIRenderer::Get().DrawImage(image, dstRect, srcRect);
+	//}
 
 	//Debug::Log(std::to_string(drawCount));
 

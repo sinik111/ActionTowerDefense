@@ -3,10 +3,10 @@ Play	Image	PlayerWalk	image/Walk.png
 Play	Image	PlayerAttack	image/Attack.png
 Play	Image	PlayerIdle	image/Idle.png
 Play	Text	PlayerAnimationData	data/PlayerAnimationData.txt
-Play	Image	Tile0	image/Tile0.png
-Play	Image	Tile1	image/Tile1.png
-Play	Image	MiniTile0	image/MiniTile0.png
-Play	Image	MiniTile1	image/MiniTile1.png
+Play	Image	Tile0	image/Tile0.bmp
+Play	Image	Tile1	image/Tile1.bmp
+Play	Image	MiniTile0	image/MiniTile0.bmp
+Play	Image	MiniTile1	image/MiniTile1.bmp
 Play	Text	TileMapData	data/TileMapData.txt
 Play	Image	EnterGate	image/EnterGate.png
 Play	Text	EnterGateCreateData	data/EnterGateCreateData.txt
