@@ -74,9 +74,9 @@ void SceneManager::CheckSceneChanged()
 			m_pCurrentScene->Unload();
 		}
 
-		m_pNextScene->Enter();
-
 		m_pCurrentScene = m_pNextScene;
 		m_pNextScene = nullptr;
+
+		m_pCurrentScene->Enter();
 	}
 }

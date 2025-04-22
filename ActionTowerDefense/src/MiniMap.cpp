@@ -9,9 +9,11 @@
 #include "Camera.h"
 #include "Debug.h"
 #include "SceneManager.h"
+#include "GameData.h"
 
 MiniMap::MiniMap()
-	: m_pBuffer(nullptr), m_pGraphics(nullptr), m_Rows(0), m_Columns(0)
+	: m_pBuffer(nullptr), m_pGraphics(nullptr), m_Rows(0), m_Columns(0),
+	m_TileSize(0), m_pMiniMapPlayer(nullptr), m_StartPosition(Vector2::Zero)
 {
 }
 
@@ -29,15 +31,12 @@ MiniMap::~MiniMap()
 		m_pBuffer = nullptr;
 	}
 }
-Gdiplus::Rect dstRect;
-Gdiplus::Rect srcRect;
-int startPositionX;
-int startPositionY;
+
 void MiniMap::Initialize()
 {
-
-
 	m_RenderLayer = RenderLayer::ScreenUI;
+
+	m_pMiniMapPlayer = ResourceManager::Get().GetImage(L"Play", L"MiniMapPlayer");
 
 	const std::wstring& data = ResourceManager::Get().GetString(L"Play", L"TileMapData");
 
@@ -64,44 +63,29 @@ void MiniMap::Initialize()
 
 	m_pGraphics = new Gdiplus::Graphics(m_pBuffer);
 
-
+	m_TileSize = m_TileImages[0]->GetWidth();
+	
+	Gdiplus::Rect dstRect;
+	Gdiplus::Rect srcRect;
 
 	srcRect.X = 0;
 	srcRect.Y = 0;
-	srcRect.Width = m_TileImages[0]->GetWidth();
-	srcRect.Height = m_TileImages[0]->GetWidth();
+	srcRect.Width = m_TileSize;
+	srcRect.Height = m_TileSize;
 
-	dstRect.Width = srcRect.Width;
-	dstRect.Height = srcRect.Height;
+	dstRect.Width = m_TileSize;
+	dstRect.Height = m_TileSize;
 
 	int cameraWidth = SceneManager::Get().GetCurrentCamera()->GetWidth();
 	int cameraHeight = SceneManager::Get().GetCurrentCamera()->GetHeight();
 
-	/*int */startPositionX = cameraWidth - m_Rows * srcRect.Width;
-	/*int */startPositionY = cameraHeight - m_Columns * srcRect.Height;
+	m_StartPosition.x = (float)(cameraWidth - m_Rows * m_TileSize);
+	m_StartPosition.y = (float)(cameraHeight - m_Columns * m_TileSize);
 
-	GDIRenderer::Get().DrawRectangle(Gdiplus::Color(1, 1, 1),
-		Gdiplus::Rect(startPositionX - 10, startPositionY - 10,
-			cameraWidth - (startPositionX - 10),
-			cameraWidth - (startPositionY - 10)));
+	ReDrawMiniMap();
 
-
-
-	//int drawCount = 0;
-	for (int i = 0; i < m_Rows * m_Columns; ++i)
-	{
-		Gdiplus::Bitmap* image = m_TileImages[m_Tiles[i]];
-
-		//dstRect.X = startPositionX + (i % m_Rows * srcRect.Width);
-		//dstRect.Y = startPositionY + (i / m_Rows * srcRect.Height);
-
-		dstRect.X = i % m_Rows * srcRect.Width;
-		dstRect.Y = i / m_Rows * srcRect.Height;
-
-		m_pGraphics->DrawImage(image, dstRect.X, dstRect.Y, srcRect.Width, srcRect.Height);
-		//++drawCount;
-		//GDIRenderer::Get().DrawImage(image, dstRect, srcRect);
-	}
+	m_DstRect = Gdiplus::Rect((int)m_StartPosition.x, (int)m_StartPosition.y, m_Rows * m_TileSize, m_Columns * m_TileSize);
+	m_SrcRect = Gdiplus::Rect(0, 0, m_Rows * m_TileSize, m_Columns * m_TileSize);
 }
 
 void MiniMap::Destroy()
@@ -116,11 +100,45 @@ void MiniMap::Update()
 
 void MiniMap::Render(const Camera& camera) const
 {
+	GDIRenderer::Get().DrawImage(m_pBuffer, m_DstRect, m_SrcRect);
 
+	const std::vector<MiniMapInfo>& infos = GameData::Get().GetMiniMapInfo();
 
-	//Debug::Log(std::to_string(drawCount));
+	for (auto& info : infos)
+	{
+		switch (info.type)
+		{
+		case MiniMapObjectType::Player:
+			float scale = 8.0f / 128.0f; // 미니맵 타일 / 월드 타일
 
-	GDIRenderer::Get().DrawImage(m_pBuffer,
-		Gdiplus::Rect(startPositionX, startPositionY, m_Rows * srcRect.Width, m_Columns * srcRect.Height),
-		Gdiplus::Rect(0, 0, m_Rows * srcRect.Width, m_Columns * srcRect.Height));
+			Vector2 miniPosition = m_StartPosition + info.position * scale;
+
+			Gdiplus::Rect dstRect;
+			dstRect.X = (int)miniPosition.x - m_pMiniMapPlayer->GetWidth() / 2;
+			dstRect.Y = (int)miniPosition.y - m_pMiniMapPlayer->GetHeight() / 2;
+			dstRect.Width = m_pMiniMapPlayer->GetWidth();
+			dstRect.Height = m_pMiniMapPlayer->GetHeight();
+
+			GDIRenderer::Get().DrawImage(m_pMiniMapPlayer, dstRect,
+				Gdiplus::Rect(0, 0, m_pMiniMapPlayer->GetWidth(), m_pMiniMapPlayer->GetHeight()));
+			break;
+		}
+	}
+
+	GameData::Get().ClearMiniMapInfo();
+}
+
+void MiniMap::ReDrawMiniMap() const
+{
+	m_pGraphics->Clear(Gdiplus::Color(0, 0, 0));
+
+	for (int i = 0; i < m_Rows * m_Columns; ++i)
+	{
+		Gdiplus::Bitmap* image = m_TileImages[m_Tiles[i]];
+
+		int posX = i % m_Rows * m_TileSize;
+		int posY = i / m_Rows * m_TileSize;
+
+		m_pGraphics->DrawImage(image, posX, posY, m_TileSize, m_TileSize);
+	}
 }

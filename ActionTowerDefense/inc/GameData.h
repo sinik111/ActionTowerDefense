@@ -16,6 +16,12 @@ struct MiniMapInfo
 {
 	Vector2 position;
 	MiniMapObjectType type;
+
+	MiniMapInfo(const Vector2& position, MiniMapObjectType type)
+		: position(position), type(type)
+	{
+
+	}
 };
 
 class GameData :

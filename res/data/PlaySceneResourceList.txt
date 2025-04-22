@@ -10,3 +10,4 @@ Play	Image	MiniTile1	image/MiniTile1.bmp
 Play	Text	TileMapData	data/TileMapData.txt
 Play	Image	EnterGate	image/EnterGate.png
 Play	Text	EnterGateCreateData	data/EnterGateCreateData.txt
+Play	Image	MiniMapPlayer	image/MiniMapPlayer.bmp

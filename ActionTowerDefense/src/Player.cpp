@@ -14,6 +14,7 @@
 #include "CollisionManager.h"
 #include "RenderManager.h"
 #include "SceneManager.h"
+#include "GameData.h"
 
 Player::Player()
 	: m_Speed(0.0f), m_current_state(PlayerState::None), m_next_state(PlayerState::None),
@@ -165,6 +166,8 @@ void Player::Update()
 	if (!m_IsDestroyed)
 	{
 		CollisionManager::Get().RegisterGameObject(L"Player", this);
+		GameData::Get().RegisterMiniMapInfo(m_Position, MiniMapObjectType::Player);
+		//Debug::Log(m_Position.ToString());
 	}
 
 	__super::Update();

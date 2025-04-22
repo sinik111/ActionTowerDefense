@@ -3,7 +3,7 @@
 
 void GameData::RegisterMiniMapInfo(const Vector2& position, MiniMapObjectType type)
 {
-	//m_MiniMapInfo.emplace_back(position, type);
+	m_MiniMapInfo.emplace_back(position, type);
 }
 
 const std::vector<MiniMapInfo>& GameData::GetMiniMapInfo()
