@@ -30,6 +30,12 @@ private:
 	ULONG_PTR m_GdiplusToken;
 	Gdiplus::Graphics* m_pBackBufferGraphics;
 
+	// 그리기 도구
+	Gdiplus::Pen* m_pPen;
+	Gdiplus::FontFamily* m_pFontFamily;
+	std::unordered_map<int, Gdiplus::Font*> m_pFonts;
+	Gdiplus::SolidBrush* m_pBrush;
+
 private: // 생성자, 소멸자
 	GDIRenderer();
 	~GDIRenderer() = default;
@@ -42,11 +48,14 @@ public: // 그리기
 	void BeginDraw() const;
 	void DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dst_rect, const Gdiplus::Rect& src_rect) const;
 	void DrawRectangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect) const;
-	void DrawString(const wchar_t* text, const Gdiplus::Color& color, const Vector2& position, float size) const;
+	void DrawString(const wchar_t* text, const Gdiplus::Color& color, const Vector2& position, int size);
 	void EndDraw() const;
 
 public:
 	int GetWidth() const;
 	int GetHeight() const;
 	HWND GetHWND() const;
+
+private:
+	Gdiplus::Font* GetFont(int size);
 };

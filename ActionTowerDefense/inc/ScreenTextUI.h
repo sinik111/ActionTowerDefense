@@ -11,10 +11,10 @@ class ScreenTextUI :
 private:
 	std::wstring m_Text;
 	Gdiplus::Color m_Color;
-	float m_Size;
+	int m_Size;
 
 public:
-	ScreenTextUI(const std::wstring& text, const Vector2& position, const Gdiplus::Color& color, float size);
+	ScreenTextUI(const std::wstring& text, const Vector2& position, const Gdiplus::Color& color, int size);
 	~ScreenTextUI() = default;
 
 public:

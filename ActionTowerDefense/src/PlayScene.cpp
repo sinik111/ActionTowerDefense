@@ -42,7 +42,7 @@ void PlayScene::Enter()
 	pBg->Initialize();
 	m_Objects.push_back(pBg);
 
-	ScreenTextUI* pTextUI = new ScreenTextUI(L"Game", Vector2(200.0f, 200.0f), Gdiplus::Color(0, 0, 1), 36.0f);
+	ScreenTextUI* pTextUI = new ScreenTextUI(L"Game", Vector2(200.0f, 200.0f), Gdiplus::Color(0, 0, 1), 36);
 	pTextUI->Initialize();
 	m_Objects.push_back(pTextUI);
 

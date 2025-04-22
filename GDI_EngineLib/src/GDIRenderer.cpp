@@ -12,7 +12,8 @@
 
 GDIRenderer::GDIRenderer()
 	: m_hWnd(nullptr), m_Width(0), m_Height(0), m_FrontBufferDC(nullptr), m_BackBufferDC(nullptr),
-	m_BackBufferBitmap(nullptr), m_GdiplusToken(0), m_pBackBufferGraphics(nullptr)
+	m_BackBufferBitmap(nullptr), m_GdiplusToken(0), m_pBackBufferGraphics(nullptr), m_pPen(nullptr),
+	m_pFontFamily(nullptr), m_pBrush(nullptr)
 {
 	
 }
@@ -71,12 +72,37 @@ ResultCode GDIRenderer::Initialize(HWND hWnd, int width, int height)
 	m_pBackBufferGraphics->SetSmoothingMode(Gdiplus::SmoothingModeNone);
 	m_pBackBufferGraphics->SetInterpolationMode(Gdiplus::InterpolationModeLowQuality);
 	//m_pBackBufferGraphics->SetCompositingMode(Gdiplus::CompositingModeSourceCopy);
+	m_pPen = new Gdiplus::Pen(Gdiplus::Color(0, 0, 0));
+
+	m_pFontFamily = new Gdiplus::FontFamily(L"¸¼Àº °íµñ");
+
+	
+
+	m_pBrush = new Gdiplus::SolidBrush(Gdiplus::Color(0, 0, 0));
 
 	return ResultCode::OK;
 }
 
 void GDIRenderer::Shutdown()
 {
+	for (auto pair : m_pFonts)
+	{
+		delete pair.second;
+	}
+	m_pFonts.clear();
+
+	if (m_pFontFamily != nullptr)
+	{
+		delete m_pFontFamily;
+		m_pFontFamily = nullptr;
+	}
+
+	if (m_pPen != nullptr)
+	{
+		delete m_pPen;
+		m_pPen = nullptr;
+	}
+
 	if (m_pBackBufferGraphics != nullptr)
 	{
 		delete m_pBackBufferGraphics;
@@ -120,20 +146,16 @@ void GDIRenderer::DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dst_rec
 
 void GDIRenderer::DrawRectangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect) const
 {
-	Gdiplus::Pen pen(color);
+	m_pPen->SetColor(color);
 
-	m_pBackBufferGraphics->DrawRectangle(&pen, rect);
+	m_pBackBufferGraphics->DrawRectangle(m_pPen, rect);
 }
 
-void GDIRenderer::DrawString(const wchar_t* text, const Gdiplus::Color& color, const Vector2& position, float size) const
+void GDIRenderer::DrawString(const wchar_t* text, const Gdiplus::Color& color, const Vector2& position, int size)
 {
-	Gdiplus::Pen pen(color);
+	m_pBrush->SetColor(color);
 
-	Gdiplus::FontFamily fontFamily(L"¸¼Àº °íµñ");
-	Gdiplus::Font font(&fontFamily, size, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
-	Gdiplus::SolidBrush brush(color);
-
-	m_pBackBufferGraphics->DrawString(text, -1, &font, Gdiplus::PointF(position.x, position.y), &brush);
+	m_pBackBufferGraphics->DrawString(text, -1, GetFont(size), Gdiplus::PointF(position.x, position.y), m_pBrush);
 }
 
 void GDIRenderer::EndDraw() const
@@ -154,4 +176,19 @@ int GDIRenderer::GetHeight() const
 HWND GDIRenderer::GetHWND() const
 {
 	return m_hWnd;
+}
+
+Gdiplus::Font* GDIRenderer::GetFont(int size)
+{
+	auto iter = m_pFonts.find(size);
+	if (iter != m_pFonts.end())
+	{
+		return iter->second;
+	}
+
+	Gdiplus::Font* pFont = new Gdiplus::Font(m_pFontFamily, (float)size, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
+
+	m_pFonts[size] = pFont;
+
+	return pFont;
 }
