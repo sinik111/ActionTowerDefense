@@ -2,22 +2,15 @@
 
 #include "Object.h"
 
-namespace Gdiplus
-{
-	class Bitmap;
-}
+class Camera;
 
-class StaticBackground :
+class EnterGate :
 	public Object
 {
-private:
-	Gdiplus::Bitmap* m_Image;
-	int m_Width;
-	int m_Height;
-
+	
 public:
-	StaticBackground(Gdiplus::Bitmap* image);
-	~StaticBackground() = default;
+	EnterGate() = default;
+	~EnterGate() = default;
 
 public:
 	void Initialize() override;

@@ -68,6 +68,10 @@ ResultCode GDIRenderer::Initialize(HWND hWnd, int width, int height)
 		return ResultCode::FAIL;
 	}
 
+	m_pBackBufferGraphics->SetSmoothingMode(Gdiplus::SmoothingModeNone);
+	m_pBackBufferGraphics->SetInterpolationMode(Gdiplus::InterpolationModeLowQuality);
+	//m_pBackBufferGraphics->SetCompositingMode(Gdiplus::CompositingModeSourceCopy);
+
 	return ResultCode::OK;
 }
 
@@ -121,12 +125,12 @@ void GDIRenderer::DrawRectangle(const Gdiplus::Color& color, const Gdiplus::Rect
 	m_pBackBufferGraphics->DrawRectangle(&pen, rect);
 }
 
-void GDIRenderer::DrawString(const wchar_t* text, const Gdiplus::Color& color, const Vector2& position) const
+void GDIRenderer::DrawString(const wchar_t* text, const Gdiplus::Color& color, const Vector2& position, float size) const
 {
 	Gdiplus::Pen pen(color);
 
 	Gdiplus::FontFamily fontFamily(L"¸¼Àº °íµñ");
-	Gdiplus::Font font(&fontFamily, 24, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
+	Gdiplus::Font font(&fontFamily, size, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
 	Gdiplus::SolidBrush brush(color);
 
 	m_pBackBufferGraphics->DrawString(text, -1, &font, Gdiplus::PointF(position.x, position.y), &brush);

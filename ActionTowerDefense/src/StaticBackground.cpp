@@ -26,7 +26,8 @@ void StaticBackground::Update()
 	__super::Update();
 }
 
-void StaticBackground::Render() const
+void StaticBackground::Render(const Camera& camera) const
 {
-	//GDIRenderer
+	GDIRenderer::Get().DrawImage(m_Image, Gdiplus::Rect(0, 0, m_Width, m_Height),
+		Gdiplus::Rect(0, 0, m_Width, m_Height));
 }

@@ -4,12 +4,12 @@
 
 enum class ResultCode;
 
-class TitleScene :
+class PlayScene :
 	public Scene
 {
 public:
-	TitleScene() = default;
-	~TitleScene();
+	PlayScene() = default;
+	~PlayScene();
 
 public:
 	ResultCode Load() override;

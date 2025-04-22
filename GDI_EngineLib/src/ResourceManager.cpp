@@ -3,9 +3,11 @@
 
 #include <ole2.h>
 #include <gdiplus.h>
+#include <sstream>
 
 #include "Debug.h"
 #include "ResultCode.h"
+#include "FileLoader.h"
 
 ResultCode ResourceManager::AddImage(const std::wstring& group, const std::wstring& name, Gdiplus::Bitmap* image)
 {
@@ -72,6 +74,50 @@ std::wstring ResourceManager::GetString(const std::wstring& group, const std::ws
 	}
 
 	return strings[name];
+}
+
+ResultCode ResourceManager::AddByData(const std::wstring& data)
+{
+	ResultCode rc = ResultCode::OK;
+
+	std::wstringstream wss(data);
+
+	std::wstring groupName, resourceType, resourceName, fileName;
+	while (!wss.eof())
+	{
+		wss >> groupName >> resourceType >> resourceName >> fileName;
+
+		if (resourceType == L"Image")
+		{
+			Gdiplus::Bitmap* image = FileLoader::Get().LoadImageFile(fileName);
+			if (image == nullptr)
+			{
+				return ResultCode::FAIL;
+			}
+
+			rc = ResourceManager::Get().AddImage(groupName, resourceName, image);
+			if (rc != ResultCode::OK)
+			{
+				return rc;
+			}
+		}
+		else if (resourceType == L"Text")
+		{
+			std::wstring data = FileLoader::Get().LoadTextFile(fileName);
+			if (data == L"")
+			{
+				return ResultCode::FAIL;
+			}
+
+			rc = ResourceManager::Get().AddString(groupName, resourceName, data);
+			if (rc != ResultCode::OK)
+			{
+				return rc;
+			}
+		}
+	}
+
+	return ResultCode::OK;
 }
 
 void ResourceManager::ReleaseResources(const std::wstring& group)

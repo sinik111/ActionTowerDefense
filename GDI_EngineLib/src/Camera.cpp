@@ -19,13 +19,13 @@ void Camera::Update()
 {
 }
 
-void Camera::Render() const
+void Camera::Render(const Camera& camera) const
 {
 }
 
 Vector2 Camera::GetPosition() const
 {
-	return Vector2(m_Position.x - m_Width / 2, m_Position.y - m_Height / 2);
+	return m_Position;
 }
 
 Vector2 Camera::ToCameraView(const Vector2& position) const
@@ -35,5 +35,15 @@ Vector2 Camera::ToCameraView(const Vector2& position) const
 
 void Camera::SetPosition(const Vector2& position)
 {
-	m_Position = position;
+	m_Position = Vector2(position.x - m_Width / 2, position.y - m_Height / 2);
+}
+
+int Camera::GetWidth() const
+{
+	return m_Width;
+}
+
+int Camera::GetHeight() const
+{
+	return m_Height;
 }

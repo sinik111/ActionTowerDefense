@@ -4,6 +4,8 @@
 #include <algorithm>
 
 #include "Object.h"
+#include "SceneManager.h"
+#include "Camera.h"
 
 void RenderManager::AddObject(RenderLayer layer, const Object* object)
 {
@@ -23,11 +25,13 @@ void RenderManager::SortObjects()
 
 void RenderManager::RenderObjects() const
 {
+	Camera* pCamera = SceneManager::Get().GetCurrentCamera();
+
 	for (int i = 0; i < (int)RenderLayer::MAX; ++i)
 	{
 		for (auto object : m_RenderObjects[i])
 		{
-			object->Render();
+			object->Render(*pCamera);
 		}
 	}
 }

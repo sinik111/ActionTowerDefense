@@ -34,6 +34,12 @@
     <Filter Include="헤더 파일\Scene">
       <UniqueIdentifier>{570d0df0-bfdc-4ae8-ac3b-3da53fa9ea65}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\GamePlay">
+      <UniqueIdentifier>{39022a6a-da43-4bfc-975f-d3a3906fbc0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\GamePlay">
+      <UniqueIdentifier>{900f4c18-4048-410c-b9af-590420a20692}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\GameApp.h">
@@ -52,6 +58,30 @@
       <Filter>헤더 파일\Scene</Filter>
     </ClInclude>
     <ClInclude Include="inc\StaticBackground.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ScreenTextUI.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\WorldTextUI.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Player.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\PlayScene.h">
+      <Filter>헤더 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TileMap.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MiniMap.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GameData.h">
+      <Filter>헤더 파일\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\EnterGate.h">
       <Filter>헤더 파일\Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -79,6 +109,30 @@
       <Filter>소스 파일\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\StaticBackground.cpp">
+      <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ScreenTextUI.cpp">
+      <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WorldTextUI.cpp">
+      <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player.cpp">
+      <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlayScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileMap.cpp">
+      <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniMap.cpp">
+      <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameData.cpp">
+      <Filter>소스 파일\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnterGate.cpp">
       <Filter>소스 파일\Object</Filter>
     </ClCompile>
   </ItemGroup>

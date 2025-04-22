@@ -26,10 +26,10 @@ void SceneManager::Update()
 	m_pCurrentScene->Update();
 }
 
-void SceneManager::Render()
-{
-	m_pCurrentScene->Render();
-}
+//void SceneManager::Render()
+//{
+//	m_pCurrentScene->Render();
+//}
 
 void SceneManager::ChangeScene(const std::wstring& name)
 {

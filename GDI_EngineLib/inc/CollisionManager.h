@@ -20,7 +20,7 @@ private:
 
 public:
 	void ClearCandidates();
-	void ResisterGameObject(const std::wstring& groupName, Object* object);
+	void RegisterGameObject(const std::wstring& groupName, Object* object);
 
 public:
 	void CheckCollision(const std::wstring& group1Name, const std::wstring& group2Name);

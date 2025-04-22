@@ -31,7 +31,7 @@ public:
 
 public:
 	virtual void Update();
-	virtual void Render();
+	//virtual void Render();
 
 public:
 	Camera* GetCamera();

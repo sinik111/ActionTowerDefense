@@ -8,24 +8,21 @@
 #include "ResourceManager.h"
 #include "FileLoader.h"
 #include "GDIRenderer.h"
+#include "StaticBackground.h"
+#include "ScreenTextUI.h"
+#include "Input.h"
+#include "SceneManager.h"
+
+TitleScene::~TitleScene()
+{
+	Unload();
+}
 
 ResultCode TitleScene::Load()
 {
 	Debug::Log("Load Title Scene - TitleScene::Load");
 
 	ResultCode rc = ResultCode::OK;
-
-	std::wstring data = FileLoader::Get().LoadTextFile(L"data/TitleSceneResourceList.txt");
-	if (data == L"")
-	{
-		return ResultCode::FAIL;
-	}
-
-	rc = ResourceManager::Get().AddString(L"Title", L"TitleSceneResourceList", data);
-	if (rc != ResultCode::OK)
-	{
-		return rc;
-	}
 
 	rc = LoadResources();
 	if (rc != ResultCode::OK)
@@ -38,25 +35,40 @@ ResultCode TitleScene::Load()
 
 void TitleScene::Enter()
 {
+	__super::Enter();
+
 	Debug::Log("Enter Title Scene - TitleScene::Enter");
+
+	StaticBackground* pBg = new StaticBackground(ResourceManager::Get().GetImage(L"Title", L"TitleBackground"));
+	pBg->Initialize();
+	m_Objects.push_back(pBg);
+
+	ScreenTextUI* pTextUI = new ScreenTextUI(L"Game", Vector2(100.0f, 100.0f), Gdiplus::Color(0, 1, 0), 24.0f);
+	pTextUI->Initialize();
+	m_Objects.push_back(pTextUI);
 }
 
 void TitleScene::Exit()
 {
-	Debug::Log("Exit Title Scene - TitleScene::Enter");
+	Debug::Log("Exit Title Scene - TitleScene::Exit");
 
 	__super::Exit();
 }
 
 void TitleScene::Unload()
 {
-	Debug::Log("Unload Title Scene - TitleScene::Enter");
+	Debug::Log("Unload Title Scene - TitleScene::Unload");
 
 	ResourceManager::Get().ReleaseResources(L"Title");
 }
 
 void TitleScene::Update()
 {
+	if (Input::IsKeyReleased('1'))
+	{
+		SceneManager::Get().ChangeScene(L"PlayScene");
+	}
+
 	__super::Update();
 }
 
@@ -64,43 +76,16 @@ ResultCode TitleScene::LoadResources()
 {
 	ResultCode rc = ResultCode::OK;
 
-	std::wstring data = ResourceManager::Get().GetString(L"Title", L"TitleSceneResourceList");
-
-	std::wstringstream wss(data);
-
-	std::wstring groupName, resourceType, resourceName, fileName;
-	while (!wss.eof())
+	std::wstring data = FileLoader::Get().LoadTextFile(L"data/TitleSceneResourceList.txt");
+	if (data == L"")
 	{
-		wss >> groupName >> resourceType >> resourceName >> fileName;
+		return ResultCode::FAIL;
+	}
 
-		if (resourceType == L"Image")
-		{
-			Gdiplus::Bitmap* image = FileLoader::Get().LoadImageFile(fileName);
-			if (image == nullptr)
-			{
-				return ResultCode::FAIL;
-			}
-
-			rc = ResourceManager::Get().AddImage(groupName, resourceName, image);
-			if (rc != ResultCode::OK)
-			{
-				return rc;
-			}
-		}
-		else if (resourceType == L"Text")
-		{
-			std::wstring data = FileLoader::Get().LoadTextFile(fileName);
-			if (data == L"")
-			{
-				return ResultCode::FAIL;
-			}
-
-			rc = ResourceManager::Get().AddString(groupName, resourceName, data);
-			if (rc != ResultCode::OK)
-			{
-				return rc;
-			}
-		}
+	rc = ResourceManager::Get().AddByData(data);
+	if (rc != ResultCode::OK)
+	{
+		return rc;
 	}
 
 	return ResultCode::OK;

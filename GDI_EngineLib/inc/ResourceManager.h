@@ -32,6 +32,8 @@ public:
 	ResultCode AddString(const std::wstring& group, const std::wstring& name, const std::wstring& data);
 	std::wstring GetString(const std::wstring& group, const std::wstring& name);
 
+	ResultCode AddByData(const std::wstring& data);
+
 public:
 	void ReleaseResources(const std::wstring& group);
 };

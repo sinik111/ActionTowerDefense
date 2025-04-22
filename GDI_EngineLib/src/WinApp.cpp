@@ -141,7 +141,7 @@ void WinApp::Run()
 {
 	MSG msg = {};
 
-	while (true)
+	while (m_IsRunning)
 	{
 		if (PeekMessageW(&msg, NULL, 0, 0, PM_REMOVE))
 		{

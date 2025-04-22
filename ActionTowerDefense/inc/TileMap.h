@@ -7,17 +7,21 @@ namespace Gdiplus
 	class Bitmap;
 }
 
-class StaticBackground :
+class Camera;
+enum class ResultCode;
+
+class TileMap :
 	public Object
 {
 private:
-	Gdiplus::Bitmap* m_Image;
-	int m_Width;
-	int m_Height;
+	std::vector<Gdiplus::Bitmap*> m_TileImages;
+	std::vector<short> m_Tiles;
+	int m_Rows;
+	int m_Columns;
 
 public:
-	StaticBackground(Gdiplus::Bitmap* image);
-	~StaticBackground() = default;
+	TileMap() = default;
+	~TileMap() = default;
 
 public:
 	void Initialize() override;

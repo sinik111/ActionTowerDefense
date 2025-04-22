@@ -6,6 +6,7 @@
 #include "FileLoader.h"
 #include "TitleScene.h"
 #include "SceneManager.h"
+#include "PlayScene.h"
 
 ResultCode GameApp::Initialize()
 {
@@ -22,8 +23,8 @@ ResultCode GameApp::Initialize()
 
 	m_X = CW_USEDEFAULT;
 	m_Y = CW_USEDEFAULT;
-	m_Width = 800;
-	m_Height = 600;
+	m_Width = 1280;
+	m_Height = 720;
 
 	m_ClassName = L"gdi";
 	m_WindowName = L"ActionTowerDefense";
@@ -45,8 +46,11 @@ ResultCode GameApp::Initialize()
 	}
 
 	SceneManager::Get().CreateScene<TitleScene>(L"TitleScene");
+	SceneManager::Get().CreateScene<PlayScene>(L"PlayScene");
 
 	SceneManager::Get().ChangeScene(L"TitleScene");
+
+	m_IsRunning = true;
 
 	return ResultCode::OK;
 }
@@ -63,6 +67,13 @@ void GameApp::MessageProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	switch (uMsg)
 	{
 	case WM_CREATE:
+		break;
+
+	case WM_KEYUP:
+		if (wParam == VK_ESCAPE)
+		{
+			m_IsRunning = false;
+		}
 		break;
 	}
 }

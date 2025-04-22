@@ -10,7 +10,7 @@ void CollisionManager::ClearCandidates()
 	m_CandidateGroups.clear();
 }
 
-void CollisionManager::ResisterGameObject(const std::wstring& groupName, Object* object)
+void CollisionManager::RegisterGameObject(const std::wstring& groupName, Object* object)
 {
 	m_CandidateGroups[groupName].push_back(object);
 }

@@ -27,7 +27,7 @@ public:
 
 public:
 	void Update();
-	void Render();
+	//void Render();
 
 public:
 	void ChangeScene(const std::wstring& name);

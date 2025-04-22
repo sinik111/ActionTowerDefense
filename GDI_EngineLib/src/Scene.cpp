@@ -44,13 +44,13 @@ void Scene::Update()
 	}
 }
 
-void Scene::Render()
-{
-	for (auto& object : m_Objects)
-	{
-		object->Render();
-	}
-}
+//void Scene::Render()
+//{
+//	for (auto& object : m_Objects)
+//	{
+//		object->Render();
+//	}
+//}
 
 Camera* Scene::GetCamera()
 {
