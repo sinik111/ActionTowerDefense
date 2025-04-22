@@ -38,15 +38,21 @@ void PlayScene::Enter()
 
 	Debug::Log("Enter Play Scene - PlayScene::Enter");
 
-	StaticBackground* pBg = new StaticBackground(ResourceManager::Get().GetImage(L"Play", L"PlayBackground"));
+	CreateObject<StaticBackground>(ResourceManager::Get().GetImage(L"Play", L"PlayBackground"));
+	CreateObject<ScreenTextUI>(L"Game", Vector2(200.0f, 200.0f), Gdiplus::Color(0, 0, 1), 36);
+	CreateObject<Player>();
+	CreateObject<TileMap>();
+	CreateObject<MiniMap>();
+
+	/*StaticBackground* pBg = new StaticBackground();
 	pBg->Initialize();
-	m_Objects.push_back(pBg);
+	m_Objects.push_back(pBg);*/
 
-	ScreenTextUI* pTextUI = new ScreenTextUI(L"Game", Vector2(200.0f, 200.0f), Gdiplus::Color(0, 0, 1), 36);
+	/*ScreenTextUI* pTextUI = new ScreenTextUI(L"Game", Vector2(200.0f, 200.0f), Gdiplus::Color(0, 0, 1), 36);
 	pTextUI->Initialize();
-	m_Objects.push_back(pTextUI);
+	m_Objects.push_back(pTextUI);*/
 
-	Player* pPlayer = new Player();
+	/*Player* pPlayer = new Player();
 	pPlayer->Initialize();
 	m_Objects.push_back(pPlayer);
 
@@ -56,7 +62,7 @@ void PlayScene::Enter()
 
 	MiniMap* pMiniMap = new MiniMap();
 	pMiniMap->Initialize();
-	m_Objects.push_back(pMiniMap);
+	m_Objects.push_back(pMiniMap);*/
 }
 
 void PlayScene::Exit()

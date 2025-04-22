@@ -5,7 +5,7 @@
 #include "Camera.h"
 #include "RenderManager.h"
 
-WorldTextUI::WorldTextUI(const std::wstring& text, const Vector2& position, const Gdiplus::Color& color, float size)
+WorldTextUI::WorldTextUI(const std::wstring& text, const Vector2& position, const Gdiplus::Color& color, int size)
 	: m_Text(text), m_Color(color), m_Size(size)
 {
 	m_Position = position;

@@ -11,10 +11,10 @@ class WorldTextUI :
 private:
 	std::wstring m_Text;
 	Gdiplus::Color m_Color;
-	float m_Size;
+	int m_Size;
 
 public:
-	WorldTextUI(const std::wstring& text, const Vector2& position, const Gdiplus::Color& color, float size);
+	WorldTextUI(const std::wstring& text, const Vector2& position, const Gdiplus::Color& color, int size);
 	~WorldTextUI() = default;
 
 public:

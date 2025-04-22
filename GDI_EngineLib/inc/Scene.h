@@ -14,13 +14,14 @@ public:
 	Scene() = default;
 	virtual ~Scene();
 
-	template<typename T>
-	T* CreateObject()
+	template<typename T, typename... Args>
+	T* CreateObject(Args&&... args)
 	{
-		T* pObject = new T();
+		Object* pObject = new T(std::forward<Args>(args)...);
 		m_Objects.push_back(pObject);
+		pObject->Initialize();
 
-		return pObject;
+		return (T*)pObject;
 	}
 
 public:
