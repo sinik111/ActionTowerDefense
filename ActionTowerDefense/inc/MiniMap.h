@@ -17,6 +17,7 @@ class MiniMap :
 {
 private:
 	Gdiplus::Bitmap* m_pMiniMapPlayer;
+	Gdiplus::Bitmap* m_pMiniMapEnterGate;
 	Gdiplus::Bitmap* m_pBuffer;
 	Gdiplus::Graphics* m_pGraphics;
 	std::vector<Gdiplus::Bitmap*> m_TileImages;

@@ -11,3 +11,8 @@ Play	Text	TileMapData	data/TileMapData.txt
 Play	Image	EnterGate	image/EnterGate.png
 Play	Text	EnterGateCreateData	data/EnterGateCreateData.txt
 Play	Image	MiniMapPlayer	image/MiniMapPlayer.bmp
+Play	Text	EnemyCreateData1	data/EnemyCreateData1.txt
+Play	Text	EnemyCreateData2	data/EnemyCreateData2.txt
+Play	Text	EnemyCreateData3	data/EnemyCreateData3.txt
+Play	Image	MiniMapEnterGate	image/MiniMapEnterGate.bmp
+Play	Image	Enemy	image/Enemy.bmp

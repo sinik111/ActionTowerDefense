@@ -3,6 +3,11 @@
 
 #include "Vector2.h"
 
+Collider::Collider()
+	: height(0.0f), width(0.0f), type(ColliderType())
+{
+}
+
 void Collider::SetColliderInfo(ColliderType type, const Vector2& position, const Vector2& offset, float width, float height)
 {
 	this->type = type;

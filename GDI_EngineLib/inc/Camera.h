@@ -27,4 +27,6 @@ public:
 	int GetHeight() const;
 	Vector2 ToCameraView(const Vector2& position) const;
 	void SetPosition(const Vector2& position);
+
+	bool IsOutOfView(const Vector2& position, int width, int height);
 };

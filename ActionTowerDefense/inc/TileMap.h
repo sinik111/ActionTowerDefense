@@ -1,11 +1,7 @@
 #pragma once
 
 #include "Object.h"
-
-namespace Gdiplus
-{
-	class Bitmap;
-}
+#include "GDIRenderer.h"
 
 class Camera;
 enum class ResultCode;
@@ -16,11 +12,12 @@ class TileMap :
 private:
 	std::vector<Gdiplus::Bitmap*> m_TileImages;
 	std::vector<short> m_Tiles;
+	Gdiplus::Rect m_SrcRect;
 	int m_Rows;
 	int m_Columns;
 
 public:
-	TileMap() = default;
+	TileMap();
 	~TileMap() = default;
 
 public:

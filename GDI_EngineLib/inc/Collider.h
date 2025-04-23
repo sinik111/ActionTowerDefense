@@ -19,6 +19,9 @@ public:
 	ColliderType type;
 
 public:
+	Collider();
+
+public:
 	void SetColliderInfo(ColliderType type, const Vector2& position, const Vector2& offset, float width, float height);
 
 	void UpdateCollider(const Vector2& position);

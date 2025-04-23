@@ -9,16 +9,16 @@ namespace Gdiplus
 
 class Camera;
 
-class EnterGate :
+class Enemy :
 	public Object
 {
 private:
 	Gdiplus::Bitmap* m_pImage;
-	int m_GateNumber;
-	
+	const std::vector<Vector2>& m_MoveData;
+
 public:
-	EnterGate(int gateNumber, int row, int column);
-	~EnterGate() = default;
+	Enemy(const Vector2& position, const std::vector<Vector2>& moveData);
+	~Enemy() = default;
 
 public:
 	void Initialize() override;
@@ -27,4 +27,7 @@ public:
 public:
 	void Update() override;
 	void Render(const Camera& camera) const override;
+
+public:
+	void Collide(Object& object, const std::wstring& groupName) override;
 };

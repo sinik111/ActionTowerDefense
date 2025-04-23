@@ -15,7 +15,7 @@ ResultCode GameApp::Initialize()
 	HINSTANCE hInstance = GetModuleHandleW(NULL);
 
 	m_ClassStyle = CS_HREDRAW | CS_VREDRAW;
-	m_WindowStyle = WS_OVERLAPPEDWINDOW;
+	m_WindowStyle = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU;
 
 	m_hCursor = LoadCursorW(NULL, IDC_ARROW);
 	m_hIcon = LoadIconW(hInstance, MAKEINTRESOURCE(IDI_ACTIONTOWERDEFENSE));

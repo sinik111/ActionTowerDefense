@@ -176,17 +176,17 @@ void Player::Update()
 void Player::Render(const Camera& camera) const
 {
 	Gdiplus::Bitmap* image;
-	Gdiplus::Rect dst_rect;
-	Gdiplus::Rect src_rect;
+	Gdiplus::Rect dstRect;
+	Gdiplus::Rect srcRect;
 
 	Vector2 cameraViewPos = camera.ToCameraView(m_Position);
 
-	m_animation_controller.GetCurrentAnimation()->GetFrameInfo(image, dst_rect, src_rect);
+	m_animation_controller.GetCurrentAnimation()->GetFrameInfo(image, dstRect, srcRect);
 
-	dst_rect.X = (int)(cameraViewPos.x - src_rect.Width / 2);
-	dst_rect.Y = (int)(cameraViewPos.y - src_rect.Height / 2);
+	dstRect.X = (int)(cameraViewPos.x - srcRect.Width / 2);
+	dstRect.Y = (int)(cameraViewPos.y - srcRect.Height / 2);
 
-	GDIRenderer::Get().DrawImage(image, dst_rect, src_rect);
+	GDIRenderer::Get().DrawImage(image, dstRect, srcRect);
 
 #ifdef _DEBUG
 	Vector2 collierCameraViewPos = camera.ToCameraView(m_Collider.position);

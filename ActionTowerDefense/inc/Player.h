@@ -3,9 +3,6 @@
 #include "Object.h"
 #include "AnimationController.h"
 
-enum class ResultCode;
-
-class GDIRenderer;
 class Camera;
 
 enum class PlayerState

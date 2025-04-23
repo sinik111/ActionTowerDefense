@@ -46,5 +46,5 @@ void RenderManager::ClearObjects()
 
 bool RenderManager::ObjectYComparer(const Object* a, const Object* b)
 {
-	return a->GetCollider().position.y < b->GetCollider().position.y;
+	return a->GetPosition().y < b->GetPosition().y;
 }
