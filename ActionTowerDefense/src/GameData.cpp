@@ -15,3 +15,13 @@ void GameData::ClearMiniMapInfo()
 {
 	m_MiniMapInfo.clear();
 }
+
+void GameData::SetPlayStartTime()
+{
+	m_PlayStartTime = Clock::now();
+}
+
+float GameData::GetElapsedSeconds()
+{
+	return MyTime::GetElapsedTime(m_PlayStartTime);
+}

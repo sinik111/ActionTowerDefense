@@ -1,15 +1,20 @@
 #include "framework.h"
 #include "EnterGate.h"
 
+#include <sstream>
+
 #include "RenderManager.h"
 #include "ResourceManager.h"
 #include "GDIRenderer.h"
 #include "Camera.h"
 #include "GameData.h"
 #include "SceneManager.h"
+#include "Scene.h"
+#include "Enemy.h"
+#include "Constant.h"
 
 EnterGate::EnterGate(int gateNumber, int row, int column)
-	: m_pImage(nullptr), m_GateNumber(gateNumber)
+	: m_pImage(nullptr), m_GateNumber(gateNumber), m_CreateIndex(0)
 {
 	m_Position = Vector2(128.0f * row + 64.0f, 128.0f * column + 64.0f);
 
@@ -19,6 +24,31 @@ EnterGate::EnterGate(int gateNumber, int row, int column)
 void EnterGate::Initialize()
 {
 	m_pImage = ResourceManager::Get().GetImage(L"Play", L"EnterGate");
+
+	const std::wstring& createData = ResourceManager::Get().GetString(L"Play", L"EnemyCreateData" + std::to_wstring(m_GateNumber));
+
+	std::wstringstream wss(createData);
+
+	while (!wss.eof())
+	{
+		float createTime;
+		int type;
+		wss >> createTime >> type;
+		m_EnemyCreateDatas.emplace_back(createTime, type);
+	}
+
+	wss.clear();
+
+	const std::wstring& moveData = ResourceManager::Get().GetString(L"Play", L"EnemyMoveData" + std::to_wstring(m_GateNumber));
+
+	wss.str(moveData);
+
+	while (!wss.eof())
+	{
+		float x, y;
+		wss >> x >> y;
+		m_MoveData.emplace_back(x * TILE_SIZE + TILE_SIZE / 2 , y * TILE_SIZE + TILE_SIZE / 2);
+	}
 }
 
 void EnterGate::Destroy()
@@ -28,13 +58,20 @@ void EnterGate::Destroy()
 
 void EnterGate::Update()
 {
-	if (!m_IsDestroyed)
+	if (m_CreateIndex < m_EnemyCreateDatas.size())
 	{
-		GameData::Get().RegisterMiniMapInfo(m_Position, MiniMapObjectType::EnterGate);
-		if (!SceneManager::Get().GetCurrentCamera()->IsOutOfView(m_Position, m_pImage->GetWidth(), m_pImage->GetHeight()))
+		if (m_EnemyCreateDatas[m_CreateIndex].createTime < GameData::Get().GetElapsedSeconds())
 		{
-			RenderManager::Get().AddObject(m_RenderLayer, this);
+			SceneManager::Get().GetCurrentScene()->CreateObjectLate<Enemy>(m_Position, m_MoveData);
+
+			++m_CreateIndex;
 		}
+	}
+	
+	GameData::Get().RegisterMiniMapInfo(m_Position, MiniMapObjectType::EnterGate);
+	if (!SceneManager::Get().GetCurrentCamera()->IsOutOfView(m_Position, m_pImage->GetWidth(), m_pImage->GetHeight()))
+	{
+		RenderManager::Get().AddObject(m_RenderLayer, this);
 	}
 
 	//__super::Update();

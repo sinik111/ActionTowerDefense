@@ -8,6 +8,7 @@ class Scene
 {
 protected:
 	std::vector<Object*> m_Objects;
+	std::vector<Object*> m_WaitObjects;
 	Camera* m_pCamera;
 
 public:
@@ -19,6 +20,16 @@ public:
 	{
 		Object* pObject = new T(std::forward<Args>(args)...);
 		m_Objects.push_back(pObject);
+		pObject->Initialize();
+
+		return (T*)pObject;
+	}
+
+	template<typename T, typename... Args>
+	T* CreateObjectLate(Args&&... args)
+	{
+		Object* pObject = new T(std::forward<Args>(args)...);
+		m_WaitObjects.push_back(pObject);
 		pObject->Initialize();
 
 		return (T*)pObject;

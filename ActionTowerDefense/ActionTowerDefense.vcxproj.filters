@@ -40,6 +40,18 @@
     <Filter Include="헤더 파일\GamePlay">
       <UniqueIdentifier>{900f4c18-4048-410c-b9af-590420a20692}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Object\Tower">
+      <UniqueIdentifier>{c7924bed-3ac6-42b2-8b24-73d38ce9fe4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Object\Tower">
+      <UniqueIdentifier>{0736a812-f9d5-4c91-83b4-1a9a7f2c8395}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Object\UI">
+      <UniqueIdentifier>{3ac418d1-ecd9-4b81-87c1-17679f13ac06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Object\UI">
+      <UniqueIdentifier>{fe7622d1-6171-456e-b9e1-7fcdc83c464a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\GameApp.h">
@@ -89,6 +101,27 @@
     </ClInclude>
     <ClInclude Include="inc\Constant.h">
       <Filter>헤더 파일\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Tower.h">
+      <Filter>헤더 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\FireTower.h">
+      <Filter>헤더 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IceTower.h">
+      <Filter>헤더 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\LightningTower.h">
+      <Filter>헤더 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TowerPlace.h">
+      <Filter>헤더 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\UIManager.h">
+      <Filter>헤더 파일\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TowerButton.h">
+      <Filter>헤더 파일\Object\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +176,27 @@
     </ClCompile>
     <ClCompile Include="src\Enemy.cpp">
       <Filter>소스 파일\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tower.cpp">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FireTower.cpp">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IceTower.cpp">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightningTower.cpp">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TowerPlace.cpp">
+      <Filter>소스 파일\Object\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UIManager.cpp">
+      <Filter>소스 파일\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TowerButton.cpp">
+      <Filter>소스 파일\Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

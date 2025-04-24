@@ -14,6 +14,7 @@
 #include "TileMap.h"
 #include "MiniMap.h"
 #include "EnterGate.h"
+#include "GameData.h"
 
 PlayScene::~PlayScene()
 {
@@ -40,6 +41,8 @@ void PlayScene::Enter()
 	__super::Enter();
 
 	Debug::Log("Enter Play Scene - PlayScene::Enter");
+
+	GameData::Get().SetPlayStartTime();
 
 	//CreateObject<StaticBackground>(ResourceManager::Get().GetImage(L"Play", L"PlayBackground"));
 	CreateObject<ScreenTextUI>(L"Game", Vector2(200.0f, 200.0f), Gdiplus::Color(0, 0, 1), 36);

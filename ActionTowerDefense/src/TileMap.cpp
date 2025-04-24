@@ -38,10 +38,11 @@ void TileMap::Initialize()
 		wss >> m_Tiles[i];
 	}
 
-	m_TileImages.resize(2);
+	m_TileImages.resize(3);
 
 	m_TileImages[0] = ResourceManager::Get().GetImage(L"Play", L"Tile0");
 	m_TileImages[1] = ResourceManager::Get().GetImage(L"Play", L"Tile1");
+	m_TileImages[2] = ResourceManager::Get().GetImage(L"Play", L"Tile2");
 }
 
 void TileMap::Destroy()

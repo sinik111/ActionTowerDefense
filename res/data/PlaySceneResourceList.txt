@@ -5,8 +5,10 @@ Play	Image	PlayerIdle	image/Idle.png
 Play	Text	PlayerAnimationData	data/PlayerAnimationData.txt
 Play	Image	Tile0	image/Tile0.bmp
 Play	Image	Tile1	image/Tile1.bmp
+Play	Image	Tile2	image/Tile2.bmp
 Play	Image	MiniTile0	image/MiniTile0.bmp
 Play	Image	MiniTile1	image/MiniTile1.bmp
+Play	Image	MiniTile2	image/MiniTile2.bmp
 Play	Text	TileMapData	data/TileMapData.txt
 Play	Image	EnterGate	image/EnterGate.png
 Play	Text	EnterGateCreateData	data/EnterGateCreateData.txt
@@ -15,4 +17,8 @@ Play	Text	EnemyCreateData1	data/EnemyCreateData1.txt
 Play	Text	EnemyCreateData2	data/EnemyCreateData2.txt
 Play	Text	EnemyCreateData3	data/EnemyCreateData3.txt
 Play	Image	MiniMapEnterGate	image/MiniMapEnterGate.bmp
+Play	Image	MiniMapEnemy	image/MiniMapEnemy.bmp
 Play	Image	Enemy	image/Enemy.bmp
+Play	Text	EnemyMoveData1	data/EnemyMoveData1.txt
+Play	Text	EnemyMoveData2	data/EnemyMoveData2.txt
+Play	Text	EnemyMoveData3	data/EnemyMoveData3.txt

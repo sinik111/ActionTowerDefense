@@ -27,6 +27,12 @@ void Scene::Exit()
 
 void Scene::Update()
 {
+	m_Objects.insert(m_Objects.end(),
+		std::make_move_iterator(m_WaitObjects.begin()),
+		std::make_move_iterator(m_WaitObjects.end()));
+
+	m_WaitObjects.clear();
+
 	for (auto iter = m_Objects.begin(); iter != m_Objects.end();)
 	{
 		(*iter)->Update();
