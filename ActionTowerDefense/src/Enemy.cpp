@@ -7,6 +7,7 @@
 #include "GameData.h"
 #include "SceneManager.h"
 #include "RenderManager.h"
+#include "MyMath.h"
 
 Enemy::Enemy(const Vector2& position, const std::vector<Vector2>& moveData)
 	: m_pImage(nullptr), m_MoveData(moveData), m_MoveIndex(0), m_MoveSpeed(0.0f)
@@ -32,7 +33,7 @@ void Enemy::Update()
 	{
 		Vector2 destination = m_MoveData[m_MoveIndex];
 
-		if (Vector2::SquareDistance(m_Position, destination) < 0.1)
+		if (Vector2::SquareDistance(m_Position, destination) < Square(m_MoveSpeed * MyTime::DeltaTime()))
 		{
 			m_Position = destination;
 			++m_MoveIndex;

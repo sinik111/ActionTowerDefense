@@ -3,9 +3,9 @@
 constexpr float EPSILON = 0.0001f;
 
 template <typename T>
-inline T Clamp(T value, T min_val, T max_val)
+inline T Clamp(T value, T minVal, T maxVal)
 {
-	return (value < min_val) ? min_val : (value > max_val) ? max_val : value;
+	return (value < minVal) ? minVal : (value > maxVal) ? maxVal : value;
 }
 
 inline bool Contain(int pos_x, int pos_y, int rect_x, int rect_y, int rect_width, int rect_height)
@@ -17,4 +17,10 @@ inline bool Contain(int pos_x, int pos_y, int rect_x, int rect_y, int rect_width
 	}
 
 	return true;
+}
+
+template <typename T>
+inline T Square(T value)
+{
+	return value * value;
 }
