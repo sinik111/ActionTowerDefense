@@ -25,8 +25,10 @@ public:
 	Vector2 GetPosition() const;
 	int GetWidth() const;
 	int GetHeight() const;
+	Vector2 ToWorldView(const Vector2& position) const;
 	Vector2 ToCameraView(const Vector2& position) const;
 	void SetPosition(const Vector2& position);
 
-	bool IsOutOfView(const Vector2& position, int width, int height);
+	bool IsOutOfView(const Vector2& position, int width, int height) const;
+	bool IsUIOutOfView(const Vector2& position, int width, int height) const;
 };

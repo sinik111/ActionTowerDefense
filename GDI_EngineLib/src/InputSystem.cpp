@@ -2,7 +2,7 @@
 #include "InputSystem.h"
 
 InputSystem::InputSystem()
-    :m_hWnd(nullptr)
+    :m_hWnd(nullptr), m_MousePoint{}
 {
 
 }
@@ -20,6 +20,10 @@ void InputSystem::Update()
     {
         m_CurrentKeyState[i] = (GetAsyncKeyState(i) & 0x8000) != 0;
     }
+
+    GetCursorPos(&m_MousePoint);
+
+    ScreenToClient(m_hWnd, &m_MousePoint);
 }
 
 bool InputSystem::IsKeyDown(int vkey)
@@ -37,13 +41,7 @@ bool InputSystem::IsKeyReleased(int vkey)
     return m_PreviousKeyState[vkey] && !m_CurrentKeyState[vkey];
 }
 
-POINT InputSystem::GetCursorPosition()
+Vector2 InputSystem::GetCursorPosition()
 {
-    POINT point;
-
-    GetCursorPos(&point);
-
-    ScreenToClient(m_hWnd, &point);
-
-    return point;
+    return Vector2((float)m_MousePoint.x, (float)m_MousePoint.y);
 }

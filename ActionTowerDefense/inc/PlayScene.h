@@ -22,4 +22,7 @@ public:
 
 private:
 	ResultCode LoadResources();
+
+	void CreateEnterGates();
+	void CreateTowerPlaces();
 };

@@ -3,9 +3,8 @@
 #include "Singleton.h"
 #include "ResultCode.h"
 #include "Debug.h"
-
-class Scene;
-class Camera;
+#include "Camera.h"
+#include "Scene.h"
 
 class SceneManager
 	: public Singleton<SceneManager>

@@ -18,7 +18,7 @@ bool Input::IsKeyReleased(int vkey)
 	return InputSystem::Get().IsKeyReleased(vkey);
 }
 
-POINT Input::GetCursorPosition()
+Vector2 Input::GetCursorPosition()
 {
 	return InputSystem::Get().GetCursorPosition();
 }

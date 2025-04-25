@@ -16,7 +16,8 @@
 EnterGate::EnterGate(int gateNumber, int row, int column)
 	: m_pImage(nullptr), m_GateNumber(gateNumber), m_CreateIndex(0)
 {
-	m_Position = Vector2(128.0f * row + 64.0f, 128.0f * column + 64.0f);
+	m_Position = Vector2(TILE_SIZE * row + (float)TILE_SIZE / 2,
+		TILE_SIZE * column + (float)TILE_SIZE / 2);
 
 	m_RenderLayer = RenderLayer::Object;
 }
@@ -62,7 +63,7 @@ void EnterGate::Update()
 	{
 		if (m_EnemyCreateDatas[m_CreateIndex].createTime < GameData::Get().GetElapsedSeconds())
 		{
-			SceneManager::Get().GetCurrentScene()->CreateObjectLate<Enemy>(m_Position, m_MoveData);
+			SceneManager::Get().GetCurrentScene()->CreatePendingObject<Enemy>(m_Position, m_MoveData);
 
 			++m_CreateIndex;
 		}

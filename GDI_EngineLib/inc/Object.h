@@ -3,9 +3,9 @@
 #include "ResultCode.h"
 #include "Vector2.h"
 #include "Collider.h"
+#include "RenderManager.h"
 
 class Camera;
-enum class RenderLayer;
 
 class Object
 {

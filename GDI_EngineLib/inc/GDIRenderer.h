@@ -46,6 +46,7 @@ public: // 초기화, 정리
 
 public: // 그리기
 	void BeginDraw() const;
+	void DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dst_rect) const;
 	void DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dst_rect, const Gdiplus::Rect& src_rect) const;
 	void DrawRectangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect) const;
 	void DrawString(const wchar_t* text, const Gdiplus::Color& color, const Vector2& position, int size);

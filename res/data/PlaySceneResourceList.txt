@@ -22,3 +22,17 @@ Play	Image	Enemy	image/Enemy.bmp
 Play	Text	EnemyMoveData1	data/EnemyMoveData1.txt
 Play	Text	EnemyMoveData2	data/EnemyMoveData2.txt
 Play	Text	EnemyMoveData3	data/EnemyMoveData3.txt
+Play	Image	TowerButton1	image/TowerButton1.bmp
+Play	Image	TowerButton2	image/TowerButton2.bmp
+Play	Text	TowerPlaceData	data/TowerPlaceData.txt
+Play	Image	TowerPlace	image/TowerPlace.png
+Play	Image	FireTowerButtonIcon1	image/FireTowerButtonIcon1.bmp
+Play	Image	FireTowerButtonIcon2	image/FireTowerButtonIcon2.bmp
+Play	Image	FireTowerButtonIcon3	image/FireTowerButtonIcon3.bmp
+Play	Image	IceTowerButtonIcon1	image/IceTowerButtonIcon1.bmp
+Play	Image	IceTowerButtonIcon2	image/IceTowerButtonIcon2.bmp
+Play	Image	IceTowerButtonIcon3	image/IceTowerButtonIcon3.bmp
+Play	Image	LightningTowerButtonIcon1	image/LightningTowerButtonIcon1.bmp
+Play	Image	LightningTowerButtonIcon2	image/LightningTowerButtonIcon2.bmp
+Play	Image	LightningTowerButtonIcon3	image/LightningTowerButtonIcon3.bmp
+Play	Image	TowerLevelMax	image/TowerLevelMax.bmp

@@ -15,5 +15,5 @@ public:
 	// 이번 루프에 키가 놓아졌는지 확인
 	static bool IsKeyReleased(int vkey);
 
-	static POINT GetCursorPosition();
+	static Vector2 GetCursorPosition();
 };

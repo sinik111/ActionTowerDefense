@@ -19,9 +19,6 @@
     <Filter Include="헤더 파일\GameApp">
       <UniqueIdentifier>{18f2e095-ab7d-42cf-b449-bf417c806b89}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\etc">
-      <UniqueIdentifier>{c6b13884-f803-44e2-8780-e3e69dcc6dd8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Object">
       <UniqueIdentifier>{0038d52a-51c6-457f-8d07-56cb0b855a26}</UniqueIdentifier>
     </Filter>
@@ -52,19 +49,22 @@
     <Filter Include="헤더 파일\Object\UI">
       <UniqueIdentifier>{fe7622d1-6171-456e-b9e1-7fcdc83c464a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\etc">
+      <UniqueIdentifier>{c6b13884-f803-44e2-8780-e3e69dcc6dd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\GameApp.h">
       <Filter>헤더 파일\GameApp</Filter>
     </ClInclude>
     <ClInclude Include="inc\framework.h">
-      <Filter>소스 파일\etc</Filter>
+      <Filter>헤더 파일\etc</Filter>
     </ClInclude>
     <ClInclude Include="inc\resource.h">
-      <Filter>소스 파일\etc</Filter>
+      <Filter>헤더 파일\etc</Filter>
     </ClInclude>
     <ClInclude Include="inc\targetver.h">
-      <Filter>소스 파일\etc</Filter>
+      <Filter>헤더 파일\etc</Filter>
     </ClInclude>
     <ClInclude Include="inc\TitleScene.h">
       <Filter>헤더 파일\Scene</Filter>
@@ -121,6 +121,9 @@
       <Filter>헤더 파일\GamePlay</Filter>
     </ClInclude>
     <ClInclude Include="inc\TowerButton.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TowerBuildButton.h">
       <Filter>헤더 파일\Object\UI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -196,6 +199,9 @@
       <Filter>소스 파일\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="src\TowerButton.cpp">
+      <Filter>소스 파일\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TowerBuildButton.cpp">
       <Filter>소스 파일\Object\UI</Filter>
     </ClCompile>
   </ItemGroup>

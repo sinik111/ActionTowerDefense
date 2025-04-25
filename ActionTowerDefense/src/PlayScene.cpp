@@ -15,6 +15,7 @@
 #include "MiniMap.h"
 #include "EnterGate.h"
 #include "GameData.h"
+#include "TowerPlace.h"
 
 PlayScene::~PlayScene()
 {
@@ -49,17 +50,8 @@ void PlayScene::Enter()
 	CreateObject<Player>();
 	CreateObject<TileMap>();
 	CreateObject<MiniMap>();
-
-	const std::wstring& gateData = ResourceManager::Get().GetString(L"Play", L"EnterGateCreateData");
-
-	std::wstringstream wss(gateData);
-
-	while (!wss.eof())
-	{
-		int row, column, gateNumber;
-		wss >> row >> column >> gateNumber;
-		CreateObject<EnterGate>(gateNumber, row, column);
-	}
+	CreateEnterGates();
+	CreateTowerPlaces();
 }
 
 void PlayScene::Exit()
@@ -98,5 +90,33 @@ ResultCode PlayScene::LoadResources()
 	}
 
 	return ResultCode::OK;
+}
+
+void PlayScene::CreateEnterGates()
+{
+	const std::wstring& gateData = ResourceManager::Get().GetString(L"Play", L"EnterGateCreateData");
+
+	std::wstringstream wss(gateData);
+
+	while (!wss.eof())
+	{
+		int row, column, gateNumber;
+		wss >> row >> column >> gateNumber;
+		CreateObject<EnterGate>(gateNumber, row, column);
+	}
+}
+
+void PlayScene::CreateTowerPlaces()
+{
+	const std::wstring& gateData = ResourceManager::Get().GetString(L"Play", L"TowerPlaceData");
+
+	std::wstringstream wss(gateData);
+
+	while (!wss.eof())
+	{
+		int row, column;
+		wss >> row >> column;
+		CreateObject<TowerPlace>(row, column);
+	}
 }
 

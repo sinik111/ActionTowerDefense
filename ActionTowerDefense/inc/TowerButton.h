@@ -14,7 +14,10 @@ private:
 	std::wstring m_Text;
 	TowerPlace* m_pTargetTowerPlace;
 	Gdiplus::Rect m_SrcRect;
-	int m_ButtonIndex;
+	int m_CurrentImageIndex;
+	bool m_IsButtonDown;
+
+	bool m_IsBuildButtonCreated;
 
 public:
 	TowerButton(TowerPlace* pTargetTowerPlace);

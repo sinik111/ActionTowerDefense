@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Object.h"
 
-#include "RenderManager.h"
-
 Object::Object()
 	: m_IsDestroyed(false), m_RenderLayer(RenderLayer())
 {

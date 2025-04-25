@@ -12,6 +12,7 @@ private:
 	HWND m_hWnd;
 	std::bitset<256> m_CurrentKeyState;
 	std::bitset<256> m_PreviousKeyState;
+	POINT m_MousePoint;
 
 private:
 	InputSystem();
@@ -32,5 +33,5 @@ public:
 	// 이번 루프에 키가 놓아졌는지 확인
 	bool IsKeyReleased(int vkey);
 
-	POINT GetCursorPosition();
+	Vector2 GetCursorPosition();
 };

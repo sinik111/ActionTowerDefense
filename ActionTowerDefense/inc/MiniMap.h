@@ -23,8 +23,7 @@ private:
 	Gdiplus::Graphics* m_pGraphics;
 	std::vector<Gdiplus::Bitmap*> m_TileImages;
 	std::vector<short> m_Tiles;
-	Gdiplus::Rect m_DstRect;
-	Gdiplus::Rect m_SrcRect;
+	Gdiplus::Rect m_PanelRect;
 	int m_Rows;
 	int m_Columns;
 	int m_TileSize;

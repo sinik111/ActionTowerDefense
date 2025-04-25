@@ -13,9 +13,7 @@ Scene::~Scene()
 
 void Scene::Enter()
 {
-	m_pCamera = new Camera(Vector2::Zero, GDIRenderer::Get().GetWidth(), GDIRenderer::Get().GetHeight());
-
-	m_Objects.push_back(m_pCamera);
+	m_pCamera = CreateObject<Camera>(Vector2::Zero, GDIRenderer::Get().GetWidth(), GDIRenderer::Get().GetHeight());
 }
 
 void Scene::Exit()
@@ -27,26 +25,30 @@ void Scene::Exit()
 
 void Scene::Update()
 {
-	m_Objects.insert(m_Objects.end(),
-		std::make_move_iterator(m_WaitObjects.begin()),
-		std::make_move_iterator(m_WaitObjects.end()));
-
-	m_WaitObjects.clear();
-
-	for (auto iter = m_Objects.begin(); iter != m_Objects.end();)
+	if (!m_PendingCreatedObjects.empty())
 	{
-		(*iter)->Update();
+		m_Objects.insert(m_Objects.end(), std::make_move_iterator(m_PendingCreatedObjects.begin()),
+			std::make_move_iterator(m_PendingCreatedObjects.end()));
 
-		if ((*iter)->IsDestroyed())
+		m_PendingCreatedObjects.clear();
+	}
+
+	for (size_t i = 0; i < m_Objects.size(); )
+	{
+		m_Objects[i]->Update();
+
+		if (m_Objects[i]->IsDestroyed())
 		{
-			delete (*iter);
+			std::swap(m_Objects[i], m_Objects.back());
 
-			iter = m_Objects.erase(iter);
+			delete m_Objects.back();
+
+			m_Objects.pop_back();
 
 			continue;
 		}
 
-		++iter;
+		++i;
 	}
 }
 
@@ -65,6 +67,13 @@ Camera* Scene::GetCamera()
 
 void Scene::Clear()
 {
+	for (auto& object : m_PendingCreatedObjects)
+	{
+		delete object;
+	}
+
+	m_PendingCreatedObjects.clear();
+
 	for (auto& object : m_Objects)
 	{
 		delete object;

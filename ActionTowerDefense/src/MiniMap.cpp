@@ -64,20 +64,21 @@ void MiniMap::Initialize()
 
 	m_TileSize = MINI_TILE_SIZE;
 
-	m_pBuffer = new Gdiplus::Bitmap(m_Rows * m_TileSize, m_Columns * m_TileSize, PixelFormat32bppARGB);
-
-	m_pGraphics = new Gdiplus::Graphics(m_pBuffer);
-
 	int cameraWidth = SceneManager::Get().GetCurrentCamera()->GetWidth();
 	int cameraHeight = SceneManager::Get().GetCurrentCamera()->GetHeight();
 
-	m_StartPosition.x = (float)(cameraWidth - m_Rows * m_TileSize);
-	m_StartPosition.y = (float)(cameraHeight - m_Columns * m_TileSize);
+	m_StartPosition.x = (float)(cameraWidth - (m_Rows + 1) * m_TileSize);
+	m_StartPosition.y = (float)(cameraHeight - (m_Columns + 1) * m_TileSize);
+
+	m_PanelRect = Gdiplus::Rect(
+		cameraWidth - (m_Rows + 2) * m_TileSize, cameraHeight - (m_Columns + 2) * m_TileSize,
+		(m_Rows + 2) * m_TileSize, (m_Columns + 2) * m_TileSize);
+
+	m_pBuffer = new Gdiplus::Bitmap(m_PanelRect.Width, m_PanelRect.Height, PixelFormat24bppRGB);
+
+	m_pGraphics = new Gdiplus::Graphics(m_pBuffer);
 
 	ReDrawMiniMap();
-
-	m_DstRect = Gdiplus::Rect((int)m_StartPosition.x, (int)m_StartPosition.y, m_Rows * m_TileSize, m_Columns * m_TileSize);
-	m_SrcRect = Gdiplus::Rect(0, 0, m_Rows * m_TileSize, m_Columns * m_TileSize);
 }
 
 void MiniMap::Destroy()
@@ -92,7 +93,7 @@ void MiniMap::Update()
 
 void MiniMap::Render(const Camera& camera) const
 {
-	GDIRenderer::Get().DrawImage(m_pBuffer, m_DstRect, m_SrcRect);
+	GDIRenderer::Get().DrawImage(m_pBuffer, m_PanelRect);
 
 	const std::vector<MiniMapInfo>& infos = GameData::Get().GetMiniMapInfo();
 
@@ -138,8 +139,8 @@ void MiniMap::ReDrawMiniMap() const
 	{
 		Gdiplus::Bitmap* image = m_TileImages[m_Tiles[i]];
 
-		int posX = i % m_Rows * m_TileSize;
-		int posY = i / m_Rows * m_TileSize;
+		int posX = i % m_Rows * m_TileSize + m_TileSize;
+		int posY = i / m_Rows * m_TileSize + m_TileSize;
 
 		m_pGraphics->DrawImage(image, posX, posY, m_TileSize, m_TileSize);
 	}
