@@ -9,6 +9,7 @@ class Scene
 protected:
 	std::vector<Object*> m_Objects;
 	std::vector<Object*> m_PendingCreatedObjects;
+	std::vector<Object*> m_PendingDestroyedObjects;
 	Camera* m_pCamera;
 
 public:

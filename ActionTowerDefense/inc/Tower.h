@@ -10,6 +10,10 @@ class Tower :
 {
 protected:
 	Gdiplus::Bitmap* m_pImage;
+	int m_Damage;
+	int m_AttackRate;
+	int m_AttackTimer;
+	int m_Level;
 
 public:
 	Tower() = default;

@@ -27,7 +27,8 @@ void Scene::Update()
 {
 	if (!m_PendingCreatedObjects.empty())
 	{
-		m_Objects.insert(m_Objects.end(), std::make_move_iterator(m_PendingCreatedObjects.begin()),
+		m_Objects.insert(m_Objects.end(),
+			std::make_move_iterator(m_PendingCreatedObjects.begin()),
 			std::make_move_iterator(m_PendingCreatedObjects.end()));
 
 		m_PendingCreatedObjects.clear();
@@ -41,7 +42,7 @@ void Scene::Update()
 		{
 			std::swap(m_Objects[i], m_Objects.back());
 
-			delete m_Objects.back();
+			m_PendingDestroyedObjects.push_back(m_Objects.back());
 
 			m_Objects.pop_back();
 
@@ -49,6 +50,16 @@ void Scene::Update()
 		}
 
 		++i;
+	}
+
+	if (!m_PendingDestroyedObjects.empty())
+	{
+		for (auto& object : m_PendingDestroyedObjects)
+		{
+			delete object;
+		}
+
+		m_PendingDestroyedObjects.clear();
 	}
 }
 
@@ -80,4 +91,11 @@ void Scene::Clear()
 	}
 
 	m_Objects.clear();
+
+	for (auto& object : m_PendingDestroyedObjects)
+	{
+		delete object;
+	}
+
+	m_PendingDestroyedObjects.clear();
 }

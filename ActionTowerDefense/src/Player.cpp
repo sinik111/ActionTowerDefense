@@ -68,25 +68,25 @@ void Player::Update()
 
 	Vector2 direction = Vector2::Zero;
 
-	if (Input::IsKeyDown(VK_RIGHT) || Input::IsKeyDown(VK_LEFT)
-		|| Input::IsKeyDown(VK_UP) || Input::IsKeyDown(VK_DOWN))
+	if (Input::IsKeyDown('W') || Input::IsKeyDown('A')
+		|| Input::IsKeyDown('S') || Input::IsKeyDown('D'))
 	{
-		if (Input::IsKeyDown(VK_RIGHT))
+		if (Input::IsKeyDown('D'))
 		{
 			direction += Vector2::Right;
 		}
 
-		if (Input::IsKeyDown(VK_LEFT))
+		if (Input::IsKeyDown('A'))
 		{
 			direction += Vector2::Left;
 		}
 
-		if (Input::IsKeyDown(VK_UP))
+		if (Input::IsKeyDown('W'))
 		{
 			direction += Vector2::Up;
 		}
 
-		if (Input::IsKeyDown(VK_DOWN))
+		if (Input::IsKeyDown('S'))
 		{
 			direction += Vector2::Down;
 		}
@@ -98,7 +98,7 @@ void Player::Update()
 		m_next_state = PlayerState::Idle;
 	}
 
-	if (Input::IsKeyReleased('A'))
+	if (Input::IsKeyReleased(VK_RBUTTON))
 	{
 		m_next_state = PlayerState::Attack;
 	}
