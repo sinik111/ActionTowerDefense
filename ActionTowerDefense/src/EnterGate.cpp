@@ -30,11 +30,11 @@ void EnterGate::Initialize()
 
 	std::wstringstream wss(createData);
 
-	while (!wss.eof())
+	float createTime;
+	int type;
+
+	while (wss >> createTime >> type)
 	{
-		float createTime;
-		int type;
-		wss >> createTime >> type;
 		m_EnemyCreateDatas.emplace_back(createTime, type);
 	}
 
@@ -44,10 +44,9 @@ void EnterGate::Initialize()
 
 	wss.str(moveData);
 
-	while (!wss.eof())
+	float x, y;
+	while (wss >> x >> y)
 	{
-		float x, y;
-		wss >> x >> y;
 		m_MoveData.emplace_back(x * TILE_SIZE + TILE_SIZE / 2 , y * TILE_SIZE + TILE_SIZE / 2);
 	}
 }

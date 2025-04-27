@@ -26,7 +26,4 @@ public:
     void Update();
 
     float DeltaTime();
-    TimePoint GetTimestamp();
-    TimePoint GetAccumulatedTime(const TimePoint& timePoint, int second);
-    float GetElapsedTime(const TimePoint& timePoint);
 };

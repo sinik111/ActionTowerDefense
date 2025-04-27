@@ -15,6 +15,6 @@ private:
 public:
     static float DeltaTime();
     static TimePoint GetTimestamp();
-    static TimePoint GetAccumulatedTime(const TimePoint& timePoint, int second);
-    static float GetElapsedTime(const TimePoint& timePoint);
+    static TimePoint GetAccumulatedTime(const TimePoint& timePoint, int seconds);
+    static float GetElapsedSeconds(const TimePoint& timePoint);
 };

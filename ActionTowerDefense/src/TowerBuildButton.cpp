@@ -114,61 +114,42 @@ void TowerBuildButton::LoadTowerButtonImages()
 {
 	TowerState towerState = m_pTargetTowerPlace->GetTowerState();
 
-	if (towerState.type == TowerType::MAX)
+	for (int i = 0; i < (int)TowerType::MAX; ++i)
 	{
-		m_pTowerButtonImages[(int)TowerType::Fire] = ResourceManager::Get().GetImage(L"Play", L"FireTowerButtonIcon1");
-		m_pTowerButtonImages[(int)TowerType::Ice] = ResourceManager::Get().GetImage(L"Play", L"IceTowerButtonIcon1");
-		m_pTowerButtonImages[(int)TowerType::Lightning] = ResourceManager::Get().GetImage(L"Play", L"LightningTowerButtonIcon1");
-	}
-	else if (towerState.level == 3)
-	{
-		switch (towerState.type)
+		if (i == (int)towerState.type)
 		{
-		case TowerType::Fire:
-			m_pTowerButtonImages[(int)TowerType::Fire] = ResourceManager::Get().GetImage(L"Play", L"TowerLevelMax");
-			m_pTowerButtonImages[(int)TowerType::Ice] = ResourceManager::Get().GetImage(L"Play", L"IceTowerButtonIcon1");
-			m_pTowerButtonImages[(int)TowerType::Lightning] = ResourceManager::Get().GetImage(L"Play", L"LightningTowerButtonIcon1");
-			break;
-
-		case TowerType::Ice:
-			m_pTowerButtonImages[(int)TowerType::Fire] = ResourceManager::Get().GetImage(L"Play", L"FireTowerButtonIcon1");
-			m_pTowerButtonImages[(int)TowerType::Ice] = ResourceManager::Get().GetImage(L"Play", L"TowerLevelMax");
-			m_pTowerButtonImages[(int)TowerType::Lightning] = ResourceManager::Get().GetImage(L"Play", L"LightningTowerButtonIcon1");
-			break;
-
-		case TowerType::Lightning:
-			m_pTowerButtonImages[(int)TowerType::Fire] = ResourceManager::Get().GetImage(L"Play", L"FireTowerButtonIcon1");
-			m_pTowerButtonImages[(int)TowerType::Ice] = ResourceManager::Get().GetImage(L"Play", L"IceTowerButtonIcon1");
-			m_pTowerButtonImages[(int)TowerType::Lightning] = ResourceManager::Get().GetImage(L"Play", L"TowerLevelMax");
-			break;
+			if (towerState.level == 3)
+			{
+				m_pTowerButtonImages[i] = ResourceManager::Get().GetImage(L"Play", L"TowerLevelMax");
+			}
+			else
+			{
+				m_pTowerButtonImages[i] = ResourceManager::Get().GetImage(L"Play",
+					TowerTypeName(i) + L"TowerButtonIcon" + std::to_wstring(towerState.level + 1));
+			}
+		}
+		else
+		{
+			m_pTowerButtonImages[i] = ResourceManager::Get().GetImage(L"Play", TowerTypeName(i) + L"TowerButtonIcon1");
 		}
 	}
-	else
+}
+
+std::wstring TowerBuildButton::TowerTypeName(int type)
+{
+	switch (type)
 	{
-		switch (towerState.type)
-		{
-		case TowerType::Fire:
-			m_pTowerButtonImages[(int)TowerType::Fire] = ResourceManager::Get().GetImage(L"Play",
-				L"FireTowerButtonIcon" + std::to_wstring(towerState.level + 1));
-			m_pTowerButtonImages[(int)TowerType::Ice] = ResourceManager::Get().GetImage(L"Play", L"IceTowerButtonIcon1");
-			m_pTowerButtonImages[(int)TowerType::Lightning] = ResourceManager::Get().GetImage(L"Play", L"LightningTowerButtonIcon1");
-			break;
+	case (int)TowerType::Fire:
+		return std::wstring(L"Fire");
 
-		case TowerType::Ice:
-			m_pTowerButtonImages[(int)TowerType::Fire] = ResourceManager::Get().GetImage(L"Play", L"FireTowerButtonIcon1");
-			m_pTowerButtonImages[(int)TowerType::Ice] = ResourceManager::Get().GetImage(L"Play",
-				L"IceTowerButtonIcon" + std::to_wstring(towerState.level + 1));
-			m_pTowerButtonImages[(int)TowerType::Lightning] = ResourceManager::Get().GetImage(L"Play", L"LightningTowerButtonIcon1");
-			break;
+	case (int)TowerType::Ice:
+		return std::wstring(L"Ice");
 
-		case TowerType::Lightning:
-			m_pTowerButtonImages[(int)TowerType::Fire] = ResourceManager::Get().GetImage(L"Play", L"FireTowerButtonIcon1");
-			m_pTowerButtonImages[(int)TowerType::Ice] = ResourceManager::Get().GetImage(L"Play", L"IceTowerButtonIcon1");
-			m_pTowerButtonImages[(int)TowerType::Lightning] = ResourceManager::Get().GetImage(L"Play",
-				L"LightningTowerButtonIcon" + std::to_wstring(towerState.level + 1));
-			break;
-		}
+	case (int)TowerType::Lightning:
+		return std::wstring(L"Lightning");
 	}
+
+	return L"";
 }
 
 void TowerBuildButton::DrawOnBuffer()

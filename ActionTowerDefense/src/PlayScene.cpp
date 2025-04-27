@@ -98,10 +98,10 @@ void PlayScene::CreateEnterGates()
 
 	std::wstringstream wss(gateData);
 
-	while (!wss.eof())
+	int row, column, gateNumber;
+
+	while (wss >> row >> column >> gateNumber)
 	{
-		int row, column, gateNumber;
-		wss >> row >> column >> gateNumber;
 		CreateObject<EnterGate>(gateNumber, row, column);
 	}
 }
@@ -112,11 +112,10 @@ void PlayScene::CreateTowerPlaces()
 
 	std::wstringstream wss(gateData);
 
-	while (!wss.eof())
+	int row, column;
+
+	while (wss >> row >> column)
 	{
-		int row, column;
-		wss >> row >> column;
 		CreateObject<TowerPlace>(row, column);
 	}
 }
-

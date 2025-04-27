@@ -36,5 +36,6 @@ public:
 
 private:
 	void LoadTowerButtonImages();
+	std::wstring TowerTypeName(int type);
 	void DrawOnBuffer();
 };

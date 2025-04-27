@@ -37,10 +37,8 @@ void Player::Initialize()
 	float duration;
 	bool isLoop;
 
-	while (!wss.eof())
+	while (wss >> animName >> groupName >> resourceName >> frames >> duration >> isLoop)
 	{
-		wss >> animName >> groupName >> resourceName >> frames >> duration >> isLoop;
-
 		image = ResourceManager::Get().GetImage(groupName, resourceName);
 		m_animation_controller.AddAnimation(animName, new Animation(image, frames, duration, isLoop));
 	}

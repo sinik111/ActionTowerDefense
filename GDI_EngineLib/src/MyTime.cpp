@@ -13,12 +13,12 @@ TimePoint MyTime::GetTimestamp()
     return Clock::now();
 }
 
-TimePoint MyTime::GetAccumulatedTime(const TimePoint& timePoint, int second)
+TimePoint MyTime::GetAccumulatedTime(const TimePoint& timePoint, int seconds)
 {
-    return timePoint + std::chrono::seconds(1);
+    return timePoint + std::chrono::seconds(seconds);
 }
 
-float MyTime::GetElapsedTime(const TimePoint& timePoint)
+float MyTime::GetElapsedSeconds(const TimePoint& timePoint)
 {
     return Duration(Clock::now() - timePoint).count();
 }

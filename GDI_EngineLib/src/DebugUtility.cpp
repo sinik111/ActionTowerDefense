@@ -63,7 +63,7 @@ void DebugUtility::UpdateFPS(bool display)
 {
     ++m_FrameCount;
 
-    if (MyTime::GetElapsedTime(m_LastTimestamp) > 1.0f)
+    if (MyTime::GetElapsedSeconds(m_LastTimestamp) > 1.0f)
     {
         m_LastTimestamp = MyTime::GetAccumulatedTime(m_LastTimestamp, 1);
 

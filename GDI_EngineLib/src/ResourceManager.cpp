@@ -83,10 +83,9 @@ ResultCode ResourceManager::AddByData(const std::wstring& data)
 	std::wstringstream wss(data);
 
 	std::wstring groupName, resourceType, resourceName, fileName;
-	while (!wss.eof())
-	{
-		wss >> groupName >> resourceType >> resourceName >> fileName;
 
+	while (wss >> groupName >> resourceType >> resourceName >> fileName)
+	{
 		if (resourceType == L"Image")
 		{
 			Gdiplus::Bitmap* image = FileLoader::Get().LoadImageFile(fileName);

@@ -23,5 +23,5 @@ void GameData::SetPlayStartTime()
 
 float GameData::GetElapsedSeconds()
 {
-	return MyTime::GetElapsedTime(m_PlayStartTime);
+	return MyTime::GetElapsedSeconds(m_PlayStartTime);
 }
