@@ -8,12 +8,13 @@ class Scene
 {
 protected:
 	std::vector<Object*> m_Objects;
+	std::vector<Object*> m_LateUpdateObjects;
 	std::vector<Object*> m_PendingCreatedObjects;
 	std::vector<Object*> m_PendingDestroyedObjects;
 	Camera* m_pCamera;
 
 public:
-	Scene() = default;
+	Scene();
 	virtual ~Scene();
 
 	template<typename T, typename... Args>
@@ -48,6 +49,7 @@ public:
 
 public:
 	Camera* GetCamera();
+	void AddLateUpdateObject(Object* pObject);
 
 private:
 	void Clear();

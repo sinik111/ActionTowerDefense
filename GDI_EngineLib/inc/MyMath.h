@@ -1,6 +1,7 @@
 # pragma once
 
 constexpr float EPSILON = 0.0001f;
+constexpr float PI = 3.1415f;
 
 template <typename T>
 inline T Clamp(T value, T minVal, T maxVal)

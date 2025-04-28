@@ -39,5 +39,5 @@ public:
 	void Render(const Camera& camera) const override;
 
 public:
-	void Collide(Object& object, const std::wstring& groupName) override;
+	void Collide(Object* object, const std::wstring& groupName) override;
 };

@@ -1,6 +1,11 @@
 #include "framework.h"
 #include "GameData.h"
 
+GameData::GameData()
+	: m_pPlayer(nullptr)
+{
+}
+
 void GameData::RegisterMiniMapInfo(const Vector2& position, MiniMapObjectType type)
 {
 	m_MiniMapInfo.emplace_back(position, type);
@@ -24,4 +29,14 @@ void GameData::SetPlayStartTime()
 float GameData::GetElapsedSeconds()
 {
 	return MyTime::GetElapsedSeconds(m_PlayStartTime);
+}
+
+void GameData::SetPlayer(Player* pPlayer)
+{
+	m_pPlayer = pPlayer;
+}
+
+Player* GameData::GetPlayer()
+{
+	return m_pPlayer;
 }

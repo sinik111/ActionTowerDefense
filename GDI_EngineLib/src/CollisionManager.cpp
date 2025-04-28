@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "Collider.h"
 #include "Vector2.h"
+#include "MyMath.h"
 
 void CollisionManager::ClearCandidates()
 {
@@ -24,16 +25,21 @@ void CollisionManager::CheckCollision(const std::wstring& group1Name, const std:
 	{
 		for (auto object2 : group2)
 		{
-			switch (object1->GetCollider().type)
+			if (IsCircleCollide(object1->GetCollider(), object2->GetCollider()))
 			{
-			case ColliderType::AABB:
-				if (IsAABBCollide(object1->GetCollider(), object2->GetCollider()))
-				{
-					object1->Collide(*object2, group2Name);
-					object2->Collide(*object1, group1Name);
-				}
-				break;
+				object1->Collide(object2, group2Name);
+				object2->Collide(object1, group1Name);
 			}
+			//switch (object1->GetCollider().type)
+			//{
+			//case ColliderType::AABB:
+			//	if (IsAABBCollide(object1->GetCollider(), object2->GetCollider()))
+			//	{
+			//		object1->Collide(object2, group2Name);
+			//		object2->Collide(object1, group1Name);
+			//	}
+			//	break;
+			//}
 			
 		}
 	}
@@ -70,16 +76,15 @@ bool CollisionManager::CheckUIRectContainPosition(const Collider& uiRect, const 
 		uiRect.position.y + uiRect.height < position.y);
 }
 
-bool CollisionManager::IsAABBCollide(const Collider& aabb1, const Collider& aabb2)
-{
-	return !(aabb1.position.x > aabb2.position.x + aabb2.width ||
-		aabb1.position.x + aabb1.width < aabb2.position.x ||
-		aabb1.position.y > aabb2.position.y + aabb2.height ||
-		aabb1.position.y + aabb1.height < aabb2.position.y);
-}
+//bool CollisionManager::IsAABBCollide(const Collider& aabb1, const Collider& aabb2)
+//{
+//	return !(aabb1.position.x > aabb2.position.x + aabb2.width ||
+//		aabb1.position.x + aabb1.width < aabb2.position.x ||
+//		aabb1.position.y > aabb2.position.y + aabb2.height ||
+//		aabb1.position.y + aabb1.height < aabb2.position.y);
+//}
 
 bool CollisionManager::IsCircleCollide(const Collider& circle1, const Collider& circle2)
 {
-	return Vector2::SquareDistance(circle1.position, circle2.position) <=
-		(circle1.width + circle2.width) * (circle1.width + circle2.width);
+	return Vector2::SquareDistance(circle1.position, circle2.position) <= Square(circle1.radius + circle2.radius);
 }

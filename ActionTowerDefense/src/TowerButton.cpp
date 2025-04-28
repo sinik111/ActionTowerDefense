@@ -22,7 +22,7 @@ TowerButton::TowerButton(TowerPlace* pTargetTowerPlace)
 
 void TowerButton::Initialize()
 {
-	m_Collider.SetColliderInfo(ColliderType::UIRect, m_Position, Vector2::Zero, TOWER_BUTTON_SIZE, TOWER_BUTTON_SIZE);
+	m_Collider = Collider(m_Position, TOWER_BUTTON_SIZE, TOWER_BUTTON_SIZE);
 
 	m_pImages[0] = ResourceManager::Get().GetImage(L"Play", L"TowerButton1");
 	m_pImages[1] = ResourceManager::Get().GetImage(L"Play", L"TowerButton2");

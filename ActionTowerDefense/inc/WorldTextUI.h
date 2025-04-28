@@ -3,8 +3,6 @@
 #include "Object.h"
 #include "GDIRenderer.h"
 
-class Camera;
-
 class WorldTextUI :
 	public Object
 {

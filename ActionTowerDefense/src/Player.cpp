@@ -52,7 +52,9 @@ void Player::Initialize()
 
 	m_Speed = 200.0f;
 
-	m_Collider.SetColliderInfo(ColliderType::AABB, m_Position, Vector2(0.0f, 27.0f), 35.0f, 75.0f);
+	m_Collider = Collider(m_Position, 35.0f);
+
+	GameData::Get().SetPlayer(this);
 }
 
 void Player::Destroy()
@@ -146,11 +148,6 @@ void Player::Update()
 		}
 	}
 
-	if (Input::IsKeyReleased('D'))
-	{
-		//m_
-	}
-
 	if (m_current_state == PlayerState::Walk)
 	{
 		if (!direction.IsZero())
@@ -185,17 +182,11 @@ void Player::Render(const Camera& camera) const
 	dstRect.Y = (int)(cameraViewPos.y - srcRect.Height / 2);
 
 	GDIRenderer::Get().DrawImage(image, dstRect, srcRect);
-
-#ifdef _DEBUG
-	Vector2 collierCameraViewPos = camera.ToCameraView(m_Collider.position);
-
-	GDIRenderer::Get().DrawRectangle(Gdiplus::Color(0, 0, 0), Gdiplus::Rect((int)collierCameraViewPos.x, (int)collierCameraViewPos.y,
-		(int)m_Collider.width, (int)m_Collider.height));
-#endif // _DEBUG
 }
 
-void Player::Collide(Object& object, const std::wstring& groupName)
+void Player::Collide(Object* object, const std::wstring& groupName)
 {
+	Debug::Log("collide");
 	//if (groupName == L"box")
 	//{
 	//	++m_Score;

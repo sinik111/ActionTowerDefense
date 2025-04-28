@@ -38,9 +38,7 @@ void TowerBuildButton::Initialize()
 {
 	m_PanelRect = Gdiplus::Rect(248, 584, 784, 136);
 
-	Collider collider;
-	collider.SetColliderInfo(ColliderType::UIRect,
-		Vector2((float)(m_PanelRect.X + 4), (float)(m_PanelRect.Y + 4)), Vector2::Zero, 256, 128);
+	Collider collider(Vector2((float)(m_PanelRect.X + 4), (float)(m_PanelRect.Y + 4)), 256, 128);
 
 	m_ButtonCollider[0] = collider;
 
@@ -81,7 +79,7 @@ void TowerBuildButton::Update()
 
 			if (Input::IsKeyReleased(VK_LBUTTON) && m_IsButtonDown[i])
 			{
-				//TowerState towerState = m_pTargetTowerPlace->GetTowerState();
+				m_pTargetTowerPlace->UpgradeTower(TowerType(i));
 
 				Destroy();
 

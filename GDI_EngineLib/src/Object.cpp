@@ -20,6 +20,10 @@ void Object::Update()
 	}
 }
 
+void Object::LateUpdate()
+{
+}
+
 const Collider& Object::GetCollider() const
 {
 	return m_Collider;
@@ -30,7 +34,7 @@ bool Object::IsDestroyed()
 	return m_IsDestroyed;
 }
 
-void Object::Collide(Object& object, const std::wstring& groupName)
+void Object::Collide(Object* object, const std::wstring& groupName)
 {
 
 }

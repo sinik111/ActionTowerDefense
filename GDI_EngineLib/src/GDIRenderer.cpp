@@ -13,7 +13,7 @@
 GDIRenderer::GDIRenderer()
 	: m_hWnd(nullptr), m_Width(0), m_Height(0), m_FrontBufferDC(nullptr), m_BackBufferDC(nullptr),
 	m_BackBufferBitmap(nullptr), m_GdiplusToken(0), m_pBackBufferGraphics(nullptr), m_pPen(nullptr),
-	m_pFontFamily(nullptr), m_pBrush(nullptr)
+	m_pFontFamily(nullptr), m_pBrush(nullptr), m_pLinePen(nullptr)
 {
 	
 }
@@ -76,7 +76,7 @@ ResultCode GDIRenderer::Initialize(HWND hWnd, int width, int height)
 
 	m_pFontFamily = new Gdiplus::FontFamily(L"¸¼Àº °íµñ");
 
-	
+	m_pLinePen = new Gdiplus::Pen(Gdiplus::Color(0, 0, 0), 7.0f);
 
 	m_pBrush = new Gdiplus::SolidBrush(Gdiplus::Color(0, 0, 0));
 
@@ -101,6 +101,12 @@ void GDIRenderer::Shutdown()
 	{
 		delete m_pPen;
 		m_pPen = nullptr;
+	}
+
+	if (m_pLinePen != nullptr)
+	{
+		delete m_pLinePen;
+		m_pLinePen = nullptr;
 	}
 
 	if (m_pBackBufferGraphics != nullptr)
@@ -136,7 +142,7 @@ void GDIRenderer::Shutdown()
 
 void GDIRenderer::BeginDraw() const
 {
-	PatBlt(m_BackBufferDC, 0, 0, m_Width, m_Height, WHITENESS);
+	PatBlt(m_BackBufferDC, 0, 0, m_Width, m_Height, BLACKNESS);
 }
 
 void GDIRenderer::DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dst_rect) const
@@ -161,6 +167,13 @@ void GDIRenderer::DrawString(const wchar_t* text, const Gdiplus::Color& color, c
 	m_pBrush->SetColor(color);
 
 	m_pBackBufferGraphics->DrawString(text, -1, GetFont(size), Gdiplus::PointF(position.x, position.y), m_pBrush);
+}
+
+void GDIRenderer::DrawLine(const Gdiplus::Color& color, const Vector2& p1, const Vector2& p2) const
+{
+	m_pLinePen->SetColor(color);
+
+	m_pBackBufferGraphics->DrawLine(m_pLinePen, Gdiplus::PointF(p1.x, p1.y), Gdiplus::PointF(p2.x, p2.y));
 }
 
 void GDIRenderer::EndDraw() const

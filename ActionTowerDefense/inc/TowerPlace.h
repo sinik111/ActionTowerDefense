@@ -17,6 +17,8 @@ struct TowerState
 	int level = 0;
 };
 
+class Tower;
+
 class TowerPlace :
 	public Object
 {
@@ -25,6 +27,7 @@ private:
 	Gdiplus::Rect m_SrcRect;
 
 	TowerState m_TowerState;
+	Tower* m_pTower;
 
 public:
 	TowerPlace(int row, int column);
@@ -41,6 +44,5 @@ public:
 public:
 	TowerState GetTowerState();
 
-	void CreateTower(TowerType towerType);
 	void UpgradeTower(TowerType towerType);
 };

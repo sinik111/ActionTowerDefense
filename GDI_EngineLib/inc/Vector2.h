@@ -54,6 +54,8 @@ public:
 
 	static Vector2 Reflect(const Vector2& dir, const Vector2& normal);
 
+	static float LerpRatio(const Vector2& v0, const Vector2& v1, const Vector2& current);
+
 public:
 	static const Vector2 Zero;
 	static const Vector2 One;

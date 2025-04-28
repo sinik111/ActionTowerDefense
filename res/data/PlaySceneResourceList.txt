@@ -36,3 +36,8 @@ Play	Image	LightningTowerButtonIcon1	image/LightningTowerButtonIcon1.bmp
 Play	Image	LightningTowerButtonIcon2	image/LightningTowerButtonIcon2.bmp
 Play	Image	LightningTowerButtonIcon3	image/LightningTowerButtonIcon3.bmp
 Play	Image	TowerLevelMax	image/TowerLevelMax.bmp
+Play	Image	FireTower	image/FireTower.png
+Play	Image	IceTower	image/IceTower.png
+Play	Image	LightningTower	image/LightningTower.png
+Play	Image	Fireball	image/Fireball.png
+Play	Image	Iceball	image/Iceball.png

@@ -25,19 +25,23 @@ struct MiniMapInfo
 	}
 };
 
+class Player;
+
 class GameData :
 	public Singleton<GameData>
 {
 	friend class Singleton<GameData>;
 
 private:
-	GameData() = default;
+	GameData();
 	~GameData() = default;
 
 private:
 	std::vector<MiniMapInfo> m_MiniMapInfo;
 
 	TimePoint m_PlayStartTime;
+
+	Player* m_pPlayer;
 
 public:
 	void RegisterMiniMapInfo(const Vector2& position, MiniMapObjectType type);
@@ -46,4 +50,7 @@ public:
 
 	void SetPlayStartTime();
 	float GetElapsedSeconds();
+
+	void SetPlayer(Player* pPlayer);
+	Player* GetPlayer();
 };

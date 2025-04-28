@@ -4,48 +4,21 @@
 #include "Vector2.h"
 
 Collider::Collider()
-	: height(0.0f), width(0.0f), type(ColliderType())
+	: height(0), width(0), radius(0)
 {
 }
 
-void Collider::SetColliderInfo(ColliderType type, const Vector2& position, const Vector2& offset, float width, float height)
+Collider::Collider(const Vector2& position, float radius)
+	: position(position), radius(radius), height(0), width(0)
 {
-	this->type = type;
+}
 
-	switch (type)
-	{
-	case ColliderType::Circle:
-		this->position = position + offset;
-		break;
-
-	case ColliderType::AABB:
-		this->position = Vector2(position.x - width / 2, position.y - height / 2) + offset;
-		break;
-
-	case ColliderType::UIRect:
-		this->position = position;
-		break;
-	}
-
-	this->offset = offset;
-	this->width = width;
-	this->height = height;
+Collider::Collider(const Vector2& position, int width, int height)
+	: position(position), width(width), height(height), radius(0)
+{
 }
 
 void Collider::UpdateCollider(const Vector2& position)
 {
-	switch (type)
-	{
-	case ColliderType::Circle:
-		this->position = position + offset;
-		break;
-
-	case ColliderType::AABB:
-		this->position = Vector2(position.x - width / 2, position.y - height / 2) + offset;
-		break;
-
-	case ColliderType::UIRect:
-		this->position = position;
-		break;
-	}
+	this->position = position;
 }

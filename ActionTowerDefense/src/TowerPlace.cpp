@@ -5,9 +5,12 @@
 #include "ResourceManager.h"
 #include "SceneManager.h"
 #include "TowerButton.h"
+#include "FireTower.h"
+#include "IceTower.h"
+#include "LightningTower.h"
 
 TowerPlace::TowerPlace(int row, int column)
-	: m_pImage(nullptr), m_SrcRect(0, 0, TILE_SIZE, TILE_SIZE)
+	: m_pImage(nullptr), m_SrcRect(0, 0, TILE_SIZE, TILE_SIZE), m_pTower(nullptr)
 {
 	m_Position = Vector2(TILE_SIZE * row + (float)TILE_SIZE / 2,
 		TILE_SIZE * column + (float)TILE_SIZE / 2);
@@ -54,10 +57,40 @@ TowerState TowerPlace::GetTowerState()
 	return m_TowerState;
 }
 
-void TowerPlace::CreateTower(TowerType towerType)
-{
-}
-
 void TowerPlace::UpgradeTower(TowerType towerType)
 {
+	if (m_TowerState.type == TowerType::MAX || m_TowerState.type != towerType)
+	{
+		if (m_TowerState.type != TowerType::MAX && m_TowerState.type != towerType)
+		{
+			m_pTower->Destroy();
+		}
+
+		switch (towerType)
+		{
+		case TowerType::Fire:
+			m_pTower = SceneManager::Get().GetCurrentScene()->CreatePendingObject<FireTower>(m_Position);
+			break;
+		case TowerType::Ice:
+			m_pTower = SceneManager::Get().GetCurrentScene()->CreatePendingObject<IceTower>(m_Position);
+			break;
+		case TowerType::Lightning:
+			m_pTower = SceneManager::Get().GetCurrentScene()->CreatePendingObject<LightningTower>(m_Position);
+			break;
+		}
+
+		m_TowerState.type = towerType;
+		m_TowerState.level = 1;
+	}
+	else if (m_TowerState.type == towerType)
+	{
+		if (m_TowerState.level == 3)
+		{
+			return;
+		}
+
+		m_pTower->Upgrade();
+
+		++m_TowerState.level;
+	}
 }

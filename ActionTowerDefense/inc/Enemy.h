@@ -16,7 +16,12 @@ private:
 	Gdiplus::Bitmap* m_pImage;
 	const std::vector<Vector2>& m_MoveData;
 	int m_MoveIndex;
+	float m_Hp;
+	float m_MaxHp;
 	float m_MoveSpeed;
+	float m_SlowRate;
+	float m_SlowTimer;
+	bool m_IsSlowed;
 
 public:
 	Enemy(const Vector2& position, const std::vector<Vector2>& moveData);
@@ -31,5 +36,6 @@ public:
 	void Render(const Camera& camera) const override;
 
 public:
-	void Collide(Object& object, const std::wstring& groupName) override;
+	void Collide(Object* object, const std::wstring& groupName) override;
+	bool GetIsSlowed() const;
 };

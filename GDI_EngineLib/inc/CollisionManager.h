@@ -29,7 +29,7 @@ public:
 public:
 	static bool CheckUIRectContainPosition(const Collider& uiCollider, const Vector2& position);
 
-private:
-	bool IsAABBCollide(const Collider& aabb1, const Collider& aabb2);
+public:
+	//bool IsAABBCollide(const Collider& aabb1, const Collider& aabb2);
 	bool IsCircleCollide(const Collider& circle1, const Collider& circle2);
 };

@@ -5,24 +5,22 @@
 enum class ColliderType
 {
 	Circle, 
-	AABB,
-	UIRect
+	//AABB,
+	UI/*Rect*/
 };
 
 class Collider
 {
 public:
 	Vector2 position;
-	Vector2 offset;
-	float width;
-	float height;
-	ColliderType type;
+	float radius;
+	int width;
+	int height;
 
 public:
 	Collider();
-
-public:
-	void SetColliderInfo(ColliderType type, const Vector2& position, const Vector2& offset, float width, float height);
+	Collider(const Vector2& position, float radius);
+	Collider(const Vector2& position, int width, int height);
 
 	void UpdateCollider(const Vector2& position);
 };

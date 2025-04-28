@@ -217,3 +217,17 @@ Vector2 Vector2::Reflect(const Vector2& dir, const Vector2& normal)
 {
 	return Vector2(dir - normal * 2 * Dot(dir, normal));
 }
+
+float Vector2::LerpRatio(const Vector2& v0, const Vector2& v1, const Vector2& current)
+{
+	Vector2 v01 = v1 - v0;
+	Vector2 v0c = current - v0;
+
+	float squareLength = v01.SquareLength();
+	if (squareLength < EPSILON)
+	{
+		return 0.0f;
+	}
+
+	return Dot(v01, v0c) / squareLength;
+}

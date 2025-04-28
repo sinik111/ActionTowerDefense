@@ -6,6 +6,11 @@
 #include "Camera.h"
 #include "GDIRenderer.h"
 
+Scene::Scene()
+	: m_pCamera(nullptr)
+{
+}
+
 Scene::~Scene()
 {
 	Clear();
@@ -52,6 +57,16 @@ void Scene::Update()
 		++i;
 	}
 
+	if (!m_LateUpdateObjects.empty())
+	{
+		for (auto& object : m_LateUpdateObjects)
+		{
+			object->LateUpdate();
+		}
+
+		m_LateUpdateObjects.clear();
+	}
+
 	if (!m_PendingDestroyedObjects.empty())
 	{
 		for (auto& object : m_PendingDestroyedObjects)
@@ -76,6 +91,11 @@ Camera* Scene::GetCamera()
 	return m_pCamera;
 }
 
+void Scene::AddLateUpdateObject(Object* pObject)
+{
+	m_LateUpdateObjects.push_back(pObject);
+}
+
 void Scene::Clear()
 {
 	for (auto& object : m_PendingCreatedObjects)
@@ -91,6 +111,8 @@ void Scene::Clear()
 	}
 
 	m_Objects.clear();
+
+	m_LateUpdateObjects.clear();
 
 	for (auto& object : m_PendingDestroyedObjects)
 	{

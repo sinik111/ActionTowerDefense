@@ -25,11 +25,12 @@ public:
 
 public:
 	virtual void Update();
+	virtual void LateUpdate();
 	virtual void Render(const Camera& camera) const = 0;
 
 public:
 	const Collider& GetCollider() const;
 	bool IsDestroyed();
-	virtual void Collide(Object& object, const std::wstring& groupName);
+	virtual void Collide(Object* object, const std::wstring& groupName);
 	const Vector2& GetPosition() const;
 };
