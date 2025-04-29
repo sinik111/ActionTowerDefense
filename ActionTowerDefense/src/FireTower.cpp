@@ -9,6 +9,7 @@
 #include "Fireball.h"
 #include "GameData.h"
 #include "Player.h"
+#include "CollisionManager.h"
 
 FireTower::FireTower(const Vector2& position)
 	: Tower::Tower(position)
@@ -31,24 +32,28 @@ void FireTower::Destroy()
 
 void FireTower::Update()
 {
-	if (!m_pInRangeObjects.empty())
-	{
-		std::sort(m_pInRangeObjects.begin(), m_pInRangeObjects.end(),
-			[this](const Object* a, const Object* b) {
-				return this->NearestComparer(a, b);
-			});
-	}
-
 	m_AttackTimer += MyTime::DeltaTime();
 	if (m_AttackRate < m_AttackTimer)
 	{
 		if (!m_pInRangeObjects.empty())
 		{
+			std::sort(m_pInRangeObjects.begin(), m_pInRangeObjects.end(),
+				[this](const Object* a, const Object* b) {
+					return this->NearestComparer(a, b);
+				});
+
 			SceneManager::Get().GetCurrentScene()->CreatePendingObject<Fireball>(m_Position, m_Damage,
 				m_pInRangeObjects[0]);
 
 			m_AttackTimer = 0.0f;
 		}
+
+		CollisionManager::Get().RegisterGameObject(L"TowerRange", this);
+	}
+
+	if (!m_pInRangeObjects.empty())
+	{
+		m_pInRangeObjects.clear();
 	}
 
 	__super::Update();

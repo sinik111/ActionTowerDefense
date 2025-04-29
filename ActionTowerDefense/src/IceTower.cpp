@@ -7,6 +7,7 @@
 #include "MyTime.h"
 #include "ResourceManager.h"
 #include "Enemy.h"
+#include "CollisionManager.h"
 
 IceTower::IceTower(const Vector2& position)
 	: Tower::Tower(position), m_SlowRate(0.8f), m_SlowTime(3.0f),
@@ -30,31 +31,32 @@ void IceTower::Destroy()
 
 void IceTower::Update()
 {
+	if (!m_TargetObjects.empty())
+	{
+		m_TargetObjects.clear();
+	}
+
 	if (!m_pInRangeObjects.empty())
 	{
 		std::sort(m_pInRangeObjects.begin(), m_pInRangeObjects.end(),
 			[this](const Object* a, const Object* b) {
 				return this->NearestComparer(a, b);
 			});
-	}
-
-	m_TargetObjects.clear();
-
-	if (!m_pInRangeObjects.empty())
-	{
+	
 		for (int i = 0; i < m_MaxAttackCount && i < m_pInRangeObjects.size(); ++i)
 		{
 			m_TargetObjects.push_back(std::move(m_pInRangeObjects[i]));
 		}
-	}
 
-	if (!m_TargetObjects.empty())
-	{
+		m_pInRangeObjects.clear();
+
 		for (auto& object : m_TargetObjects)
 		{
 			object->Collide(this, L"Iceball");
 		}
 	}
+
+	CollisionManager::Get().RegisterGameObject(L"TowerRange", this);
 
 	__super::Update();
 }

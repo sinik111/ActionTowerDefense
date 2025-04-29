@@ -40,4 +40,4 @@ Play	Image	FireTower	image/FireTower.png
 Play	Image	IceTower	image/IceTower.png
 Play	Image	LightningTower	image/LightningTower.png
 Play	Image	Fireball	image/Fireball.png
-Play	Image	Iceball	image/Iceball.png
+Play	Image	LightningNova	image/LightningNova.png

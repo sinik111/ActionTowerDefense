@@ -52,6 +52,12 @@
     <Filter Include="헤더 파일\etc">
       <UniqueIdentifier>{c6b13884-f803-44e2-8780-e3e69dcc6dd8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Object\Map">
+      <UniqueIdentifier>{8a89fd33-f6d3-46d1-a20b-b9d6cb2ea76e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Object\Map">
+      <UniqueIdentifier>{48b37176-5490-447c-95fa-3a00091b40ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\GameApp.h">
@@ -72,23 +78,11 @@
     <ClInclude Include="inc\StaticBackground.h">
       <Filter>헤더 파일\Object</Filter>
     </ClInclude>
-    <ClInclude Include="inc\ScreenTextUI.h">
-      <Filter>헤더 파일\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\WorldTextUI.h">
-      <Filter>헤더 파일\Object</Filter>
-    </ClInclude>
     <ClInclude Include="inc\Player.h">
       <Filter>헤더 파일\Object</Filter>
     </ClInclude>
     <ClInclude Include="inc\PlayScene.h">
       <Filter>헤더 파일\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\TileMap.h">
-      <Filter>헤더 파일\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\MiniMap.h">
-      <Filter>헤더 파일\Object</Filter>
     </ClInclude>
     <ClInclude Include="inc\GameData.h">
       <Filter>헤더 파일\GamePlay</Filter>
@@ -129,6 +123,18 @@
     <ClInclude Include="inc\Fireball.h">
       <Filter>헤더 파일\Object\Tower</Filter>
     </ClInclude>
+    <ClInclude Include="inc\TileMap.h">
+      <Filter>헤더 파일\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MiniMap.h">
+      <Filter>헤더 파일\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ScreenTextUI.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\WorldTextUI.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\res\icon\ActionTowerDefense.ico">
@@ -156,23 +162,11 @@
     <ClCompile Include="src\StaticBackground.cpp">
       <Filter>소스 파일\Object</Filter>
     </ClCompile>
-    <ClCompile Include="src\ScreenTextUI.cpp">
-      <Filter>소스 파일\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="src\WorldTextUI.cpp">
-      <Filter>소스 파일\Object</Filter>
-    </ClCompile>
     <ClCompile Include="src\Player.cpp">
       <Filter>소스 파일\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\PlayScene.cpp">
       <Filter>소스 파일\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TileMap.cpp">
-      <Filter>소스 파일\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MiniMap.cpp">
-      <Filter>소스 파일\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\GameData.cpp">
       <Filter>소스 파일\GamePlay</Filter>
@@ -209,6 +203,18 @@
     </ClCompile>
     <ClCompile Include="src\Fireball.cpp">
       <Filter>소스 파일\Object\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniMap.cpp">
+      <Filter>소스 파일\Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TileMap.cpp">
+      <Filter>소스 파일\Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ScreenTextUI.cpp">
+      <Filter>소스 파일\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WorldTextUI.cpp">
+      <Filter>소스 파일\Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -45,9 +45,6 @@ void Tower::Update()
 
 			RenderManager::Get().AddObject(m_RenderLayer, this);
 		}
-
-		m_pInRangeObjects.clear();
-		CollisionManager::Get().RegisterGameObject(L"TowerRange", this);
 	}
 }
 

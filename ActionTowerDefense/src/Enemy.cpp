@@ -11,6 +11,7 @@
 #include "Fireball.h"
 #include "CollisionManager.h"
 #include "IceTower.h"
+#include "LightningTower.h"
 
 Enemy::Enemy(const Vector2& position, const std::vector<Vector2>& moveData)
 	: m_pImage(nullptr), m_MoveData(moveData), m_MoveIndex(0), m_MoveSpeed(0.0f),
@@ -110,8 +111,7 @@ void Enemy::Collide(Object* object, const std::wstring& groupName)
 			Destroy();
 		}
 	}
-
-	if (groupName == L"Iceball")
+	else if (groupName == L"Iceball")
 	{
 		IceTower* pIceTower = dynamic_cast<IceTower*>(object);
 
@@ -128,6 +128,19 @@ void Enemy::Collide(Object* object, const std::wstring& groupName)
 		}
 
 		m_IsSlowed = true;
+	}
+	else if (groupName == L"LightningNova")
+	{
+		LightningTower* pLightningTower = dynamic_cast<LightningTower*>(object);
+
+		m_Hp -= pLightningTower->GetDamage();
+
+		m_Hp = Clamp(m_Hp, 0.0f, m_MaxHp);
+
+		if (m_Hp == 0.0f)
+		{
+			Destroy();
+		}
 	}
 }
 
