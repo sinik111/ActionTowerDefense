@@ -84,6 +84,15 @@ void PlayScene::Update()
 	CollisionManager::Get().CheckCollision(L"PlayerRange", L"Enemy");
 	CollisionManager::Get().ClearCandidates();
 
+	if (GameData::Get().HasEnemyInfo())
+	{
+		EnemyInfo a = GameData::Get().GetEnemyInfo();
+
+		Debug::Log(std::to_wstring(a.hp));
+	}
+
+	GameData::Get().ClearEnemyInfo();
+
 	__super::Update();
 }
 

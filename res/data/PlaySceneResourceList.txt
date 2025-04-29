@@ -32,7 +32,9 @@ Play	Text	EnemyCreateData3	data/EnemyCreateData3.txt
 Play	Image	MiniMapEnterGate	image/MiniMapEnterGate.bmp
 Play	Image	MiniMapEnemy	image/MiniMapEnemy.bmp
 Play	Image	MiniMapTower	image/MiniMapTower.bmp
-Play	Image	Enemy	image/Enemy.bmp
+Play	Image	EnemyRectangle	image/EnemyRectangle.bmp
+Play	Image	EnemyTriangle	image/EnemyTriangle.png
+Play	Image	EnemyCircle	image/EnemyCircle.png
 Play	Text	EnemyMoveData1	data/EnemyMoveData1.txt
 Play	Text	EnemyMoveData2	data/EnemyMoveData2.txt
 Play	Text	EnemyMoveData3	data/EnemyMoveData3.txt

@@ -144,6 +144,9 @@
     <ClInclude Include="inc\GoldDisplay.h">
       <Filter>헤더 파일\Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="inc\EnemyInfoDisplay.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\res\icon\ActionTowerDefense.ico">
@@ -232,6 +235,9 @@
       <Filter>소스 파일\Object\UI</Filter>
     </ClCompile>
     <ClCompile Include="src\GoldDisplay.cpp">
+      <Filter>소스 파일\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnemyInfoDisplay.cpp">
       <Filter>소스 파일\Object\UI</Filter>
     </ClCompile>
   </ItemGroup>

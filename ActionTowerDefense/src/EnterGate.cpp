@@ -62,7 +62,8 @@ void EnterGate::Update()
 	{
 		if (m_EnemyCreateDatas[m_CreateIndex].createTime < GameData::Get().GetElapsedSeconds())
 		{
-			SceneManager::Get().GetCurrentScene()->CreatePendingObject<Enemy>(m_Position, m_MoveData);
+			SceneManager::Get().GetCurrentScene()->CreatePendingObject<Enemy>(
+				m_Position, m_MoveData, (EnemyType)m_EnemyCreateDatas[m_CreateIndex].type);
 
 			++m_CreateIndex;
 		}

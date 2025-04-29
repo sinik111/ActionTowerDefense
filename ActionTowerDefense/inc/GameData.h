@@ -25,6 +25,42 @@ struct MiniMapInfo
 	}
 };
 
+struct EnemyInfo
+{
+	int type;
+	float hp;
+	float maxHp;
+	bool isSlowed;
+	bool isShocked;
+
+	EnemyInfo()
+		: type(0), hp(0.0f), maxHp(0.0f), isSlowed(false), isShocked(false)
+	{
+
+	}
+
+	EnemyInfo(int type, float hp, float maxHp, bool isSlowed, bool isShocked)
+		: type(type), hp(hp), maxHp(maxHp), isSlowed(isSlowed), isShocked(isShocked)
+	{
+
+	}
+
+
+	bool operator==(const EnemyInfo& other)
+	{
+		if (this->type != other.type)
+			return false;
+		if ((int)this->hp != (int)other.hp)
+			return false;
+		if (this->isSlowed != other.isSlowed)
+			return false;
+		if (this->isShocked != other.isShocked)
+			return false;
+
+		return true;
+	}
+};
+
 class Player;
 class CenterCrystal;
 
@@ -45,7 +81,11 @@ private:
 	Player* m_pPlayer;
 	CenterCrystal* m_pCenterCrystal;
 
+	EnemyInfo m_EnemyInfo;
+
 	int m_Gold;
+
+	bool m_hasEnemyInfo;
 
 public:
 	void RegisterMiniMapInfo(const Vector2& position, MiniMapObjectType type);
@@ -65,6 +105,11 @@ public:
 	void AddGold(int gold);
 	bool UseGold(int gold);
 	int GetCurrentGold();
+
+	void SetEnemyInfo(const EnemyInfo& enemyInfo);
+	void ClearEnemyInfo();
+	const EnemyInfo& GetEnemyInfo();
+	bool HasEnemyInfo();
 
 public:
 	void Clear();

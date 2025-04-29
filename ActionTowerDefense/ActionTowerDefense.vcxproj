@@ -143,6 +143,7 @@
     <ClInclude Include="inc\Constant.h" />
     <ClInclude Include="inc\CrystalHp.h" />
     <ClInclude Include="inc\Enemy.h" />
+    <ClInclude Include="inc\EnemyInfoDisplay.h" />
     <ClInclude Include="inc\EnterGate.h" />
     <ClInclude Include="inc\Fireball.h" />
     <ClInclude Include="inc\FireTower.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="src\CenterCrystal.cpp" />
     <ClCompile Include="src\CrystalHp.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\EnemyInfoDisplay.cpp" />
     <ClCompile Include="src\EnterGate.cpp" />
     <ClCompile Include="src\Fireball.cpp" />
     <ClCompile Include="src\FireTower.cpp" />

@@ -14,11 +14,13 @@
 #include "LightningTower.h"
 #include "Player.h"
 #include "CenterCrystal.h"
+#include "Input.h"
 
-Enemy::Enemy(const Vector2& position, const std::vector<Vector2>& moveData)
+Enemy::Enemy(const Vector2& position, const std::vector<Vector2>& moveData, EnemyType type)
 	: m_pImage(nullptr), m_MoveData(moveData), m_MoveIndex(0), m_MoveSpeed(0.0f),
 	m_Hp(0.0f), m_MaxHp(0.0f), m_IsSlowed(false), m_SlowRate(1.0f), m_SlowTimer(0.0f),
-	m_HpPosition{}
+	m_HpPosition{}, m_Type(type), m_IsShocked(false), m_ShockTimer(0.0f),
+	m_ShockMultiplier(1.0f)
 {
 	m_Position = position;
 	m_RenderLayer = RenderLayer::Object;
@@ -26,12 +28,30 @@ Enemy::Enemy(const Vector2& position, const std::vector<Vector2>& moveData)
 
 void Enemy::Initialize()
 {
-	m_pImage = ResourceManager::Get().GetImage(L"Play", L"Enemy");
+	switch (m_Type)
+	{
+	case EnemyType::Circle:
+		m_pImage = ResourceManager::Get().GetImage(L"Play", L"EnemyCircle");
+		m_MoveSpeed = 100.0f;
+		m_Hp = 100.0f;
+		m_MaxHp = 100.0f;
+		break;
 
-	m_MoveSpeed = 100.0f;
-	m_Hp = 100.0f;
-	m_MaxHp = 100.0f;
+	case EnemyType::Rectangle:
+		m_pImage = ResourceManager::Get().GetImage(L"Play", L"EnemyRectangle");
+		m_MoveSpeed = 50.0f;
+		m_Hp = 300.0f;
+		m_MaxHp = 300.0f;
+		break;
 
+	case EnemyType::Triangle:
+		m_pImage = ResourceManager::Get().GetImage(L"Play", L"EnemyTriangle");
+		m_MoveSpeed = 200.0f;
+		m_Hp = 50.0f;
+		m_MaxHp = 50.0f;
+		break;
+	}
+	
 	m_Collider = Collider(m_Position, (float)(m_pImage->GetWidth() / 2));
 
 	m_HpPosition[0] = Vector2(-(float)(m_pImage->GetWidth() / 2), -(float)(m_pImage->GetHeight() / 2 + 10.0f));
@@ -53,6 +73,17 @@ void Enemy::Update()
 		{
 			m_IsSlowed = false;
 			m_SlowRate = 1.0f;
+		}
+	}
+
+	if (m_IsShocked)
+	{
+		m_ShockTimer -= MyTime::DeltaTime();
+
+		if (m_ShockTimer <= 0)
+		{
+			m_IsShocked = false;
+			m_ShockMultiplier = 1.0f;
 		}
 	}
 
@@ -83,8 +114,15 @@ void Enemy::Update()
 		m_Collider.UpdateCollider(m_Position);
 
 		GameData::Get().RegisterMiniMapInfo(m_Position, MiniMapObjectType::Enemy);
-		if (!SceneManager::Get().GetCurrentCamera()->IsOutOfView(m_Position, m_pImage->GetWidth(), m_pImage->GetHeight()))
+		const Camera* camera = SceneManager::Get().GetCurrentCamera();
+		if (!camera->IsOutOfView(m_Position, m_pImage->GetWidth(), m_pImage->GetHeight()))
 		{
+			Vector2 mousePos = camera->ToWorldView(Input::GetCursorPosition());
+			if (CollisionManager::Get().IsCircleCollide(m_Collider, Collider(mousePos, 1.0f)))
+			{
+				GameData::Get().SetEnemyInfo(EnemyInfo((int)m_Type, m_Hp, m_MaxHp, m_IsSlowed, m_IsShocked));
+			}
+
 			RenderManager::Get().AddObject(m_RenderLayer, this);
 		}
 
@@ -119,7 +157,7 @@ void Enemy::Collide(Object* object, const std::wstring& groupName)
 	{
 		Fireball* pFireball = dynamic_cast<Fireball*>(object);
 
-		m_Hp -= pFireball->GetDamage();
+		m_Hp -= pFireball->GetDamage() * m_ShockMultiplier;
 
 		m_Hp = Clamp(m_Hp, 0.0f, m_MaxHp);
 
@@ -134,7 +172,7 @@ void Enemy::Collide(Object* object, const std::wstring& groupName)
 	{
 		IceTower* pIceTower = dynamic_cast<IceTower*>(object);
 
-		m_Hp -= pIceTower->GetDamage();
+		m_Hp -= pIceTower->GetDamage() * m_ShockMultiplier;
 
 		m_Hp = Clamp(m_Hp, 0.0f, m_MaxHp);
 
@@ -154,7 +192,10 @@ void Enemy::Collide(Object* object, const std::wstring& groupName)
 	{
 		LightningTower* pLightningTower = dynamic_cast<LightningTower*>(object);
 
-		m_Hp -= pLightningTower->GetDamage();
+		m_IsShocked = true;
+		m_ShockTimer = 5.0f;
+
+		m_Hp -= pLightningTower->GetDamage() * m_ShockMultiplier;
 
 		m_Hp = Clamp(m_Hp, 0.0f, m_MaxHp);
 
@@ -169,7 +210,7 @@ void Enemy::Collide(Object* object, const std::wstring& groupName)
 	{
 		Player* pPlayer = dynamic_cast<Player*>(object);
 
-		m_Hp -= pPlayer->GetDamage();
+		m_Hp -= pPlayer->GetDamage() * m_ShockMultiplier;
 
 		m_Hp = Clamp(m_Hp, 0.0f, m_MaxHp);
 

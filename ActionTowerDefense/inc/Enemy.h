@@ -7,6 +7,14 @@ namespace Gdiplus
 	class Bitmap;
 }
 
+enum class EnemyType
+{
+	Circle,
+	Rectangle,
+	Triangle,
+	Max
+};
+
 class Camera;
 
 class Enemy :
@@ -22,10 +30,14 @@ private:
 	float m_MoveSpeed;
 	float m_SlowRate;
 	float m_SlowTimer;
+	float m_ShockTimer;
+	float m_ShockMultiplier;
+	EnemyType m_Type;
 	bool m_IsSlowed;
+	bool m_IsShocked;
 
 public:
-	Enemy(const Vector2& position, const std::vector<Vector2>& moveData);
+	Enemy(const Vector2& position, const std::vector<Vector2>& moveData, EnemyType type);
 	~Enemy() = default;
 
 public:

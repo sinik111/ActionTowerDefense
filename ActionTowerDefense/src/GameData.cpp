@@ -2,7 +2,8 @@
 #include "GameData.h"
 
 GameData::GameData()
-	: m_pPlayer(nullptr), m_pCenterCrystal(nullptr), m_Gold(0)
+	: m_pPlayer(nullptr), m_pCenterCrystal(nullptr), m_Gold(0), m_hasEnemyInfo(false),
+	m_EnemyInfo{}
 {
 }
 
@@ -53,7 +54,7 @@ CenterCrystal* GameData::GetCenterCrystal()
 
 void GameData::SetStartGold()
 {
-	m_Gold = 300;
+	m_Gold = 1000;
 }
 
 void GameData::AddGold(int gold)
@@ -78,10 +79,32 @@ int GameData::GetCurrentGold()
 	return m_Gold;
 }
 
+void GameData::SetEnemyInfo(const EnemyInfo& enemyInfo)
+{
+	m_EnemyInfo = enemyInfo;
+	m_hasEnemyInfo = true;
+}
+
+void GameData::ClearEnemyInfo()
+{
+	m_hasEnemyInfo = false;
+}
+
+const EnemyInfo& GameData::GetEnemyInfo()
+{
+	return m_EnemyInfo;
+}
+
+bool GameData::HasEnemyInfo()
+{
+	return m_hasEnemyInfo;
+}
+
 void GameData::Clear()
 {
 	ClearMiniMapInfo();
 	m_pPlayer = nullptr;
 	m_pCenterCrystal = nullptr;
 	m_Gold = 0;
+	m_hasEnemyInfo = false;
 }
