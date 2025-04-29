@@ -19,6 +19,7 @@ Enemy::Enemy(const Vector2& position, const std::vector<Vector2>& moveData)
 	m_HpPosition{}
 {
 	m_Position = position;
+	m_RenderLayer = RenderLayer::Object;
 }
 
 void Enemy::Initialize()
@@ -150,6 +151,19 @@ void Enemy::Collide(Object* object, const std::wstring& groupName)
 		{
 			Destroy();
 		}
+	}
+	else if (groupName == L"PlayerAttack")
+	{
+		//LightningTower* pLightningTower = dynamic_cast<LightningTower*>(object);
+
+		//m_Hp -= pLightningTower->GetDamage();
+
+		//m_Hp = Clamp(m_Hp, 0.0f, m_MaxHp);
+
+		//if (m_Hp == 0.0f)
+		//{
+			Destroy();
+		//}
 	}
 }
 

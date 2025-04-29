@@ -1,3 +1,8 @@
-Attack	Play	PlayerAttack	9	0.5	0
-Idle	Play	PlayerIdle	7	1.0	1
-Walk	Play	PlayerWalk	12	1.0	1
+IdleDown	Play	1	1.0	1	PlayerDown0
+IdleUp	Play	1	1.0	1	PlayerUp0
+IdleRight	Play	1	1.0	1	PlayerRight0
+IdleLeft	Play	1	1.0	1	PlayerLeft0
+WalkDown	Play	4	0.3	1	PlayerDown0	PlayerDown1	PlayerDown2	PlayerDown3
+WalkUp	Play	4	0.3	1	PlayerUp0	PlayerUp1	PlayerUp2	PlayerUp3
+WalkRight	Play	4	0.3	1	PlayerRight0	PlayerRight1	PlayerRight2	PlayerRight3
+WalkLeft	Play	4	0.3	1	PlayerLeft0	PlayerLeft1	PlayerLeft2	PlayerLeft3

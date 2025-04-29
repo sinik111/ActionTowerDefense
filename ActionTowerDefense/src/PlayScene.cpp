@@ -72,6 +72,7 @@ void PlayScene::Unload()
 void PlayScene::Update()
 {
 	CollisionManager::Get().CheckCollision(L"TowerRange", L"Enemy");
+	CollisionManager::Get().CheckCollision(L"PlayerRange", L"Enemy");
 	CollisionManager::Get().ClearCandidates();
 
 	__super::Update();

@@ -2,15 +2,33 @@
 
 #include "Object.h"
 #include "AnimationController.h"
+#include "GDIRenderer.h"
 
 class Camera;
 
-enum class PlayerState
+enum class PlayerAnimState
 {
-	Idle,
-	Walk,
-	Attack,
-	None
+	IdleDown,
+	IdleUp,
+	IdleRight,
+	IdleLeft,
+	WalkDown,
+	WalkUp,
+	WalkRight,
+	WalkLeft
+};
+
+enum class AttackPositionType
+{
+	Up,
+	Down,
+	Left,
+	Right,
+	LeftUp,
+	RightUp,
+	LeftDown,
+	RightDown,
+	Max
 };
 
 class Player
@@ -19,12 +37,25 @@ class Player
 private:
 	AnimationController m_animation_controller;
 
-	PlayerState m_current_state;
-	PlayerState m_next_state;
+	std::vector<Object*> m_pInRangeObjects;
+	Gdiplus::Bitmap* m_pAttackImage[(int)AttackPositionType::Max];
+	Collider m_AttackCollider;
+	Vector2 m_AttackDirection[(int)AttackPositionType::Max];
+
+	AttackPositionType m_CurrentDirection;
+
+	PlayerAnimState m_current_state;
+	PlayerAnimState m_next_state;
+
+	float m_ColliderDistance;
+	float m_ImageDistance;
+
+	float m_AttackDuration;
+	float m_AttackDurationTimer;
+	bool m_IsStartAttack;
+	bool m_IsCollide;
 
 	float m_Speed;
-
-	int m_Score;
 
 public:
 	Player();
