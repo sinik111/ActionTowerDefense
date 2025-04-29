@@ -25,9 +25,6 @@
     <Filter Include="헤더 파일\Object">
       <UniqueIdentifier>{ac8dff85-8618-40d7-9e0f-2071fa79911b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Scene">
-      <UniqueIdentifier>{d66223d5-6e5a-46b4-8d6c-ccbffaada635}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일\Scene">
       <UniqueIdentifier>{570d0df0-bfdc-4ae8-ac3b-3da53fa9ea65}</UniqueIdentifier>
     </Filter>
@@ -39,9 +36,6 @@
     </Filter>
     <Filter Include="소스 파일\Object\Tower">
       <UniqueIdentifier>{c7924bed-3ac6-42b2-8b24-73d38ce9fe4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\Object\Tower">
-      <UniqueIdentifier>{0736a812-f9d5-4c91-83b4-1a9a7f2c8395}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Object\UI">
       <UniqueIdentifier>{3ac418d1-ecd9-4b81-87c1-17679f13ac06}</UniqueIdentifier>
@@ -57,6 +51,12 @@
     </Filter>
     <Filter Include="헤더 파일\Object\Map">
       <UniqueIdentifier>{48b37176-5490-447c-95fa-3a00091b40ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Object\Tower">
+      <UniqueIdentifier>{0736a812-f9d5-4c91-83b4-1a9a7f2c8395}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Scene">
+      <UniqueIdentifier>{d66223d5-6e5a-46b4-8d6c-ccbffaada635}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -45,9 +45,9 @@ void Tower::Update()
 			}
 
 			RenderManager::Get().AddObject(m_RenderLayer, this);
-
-			GameData::Get().RegisterMiniMapInfo(m_Position, MiniMapObjectType::Tower);
 		}
+
+		GameData::Get().RegisterMiniMapInfo(m_Position, MiniMapObjectType::Tower);
 	}
 }
 
