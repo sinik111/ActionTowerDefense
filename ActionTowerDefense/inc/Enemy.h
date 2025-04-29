@@ -15,6 +15,7 @@ class Enemy :
 private:
 	Gdiplus::Bitmap* m_pImage;
 	const std::vector<Vector2>& m_MoveData;
+	Vector2 m_HpPosition[2];
 	int m_MoveIndex;
 	float m_Hp;
 	float m_MaxHp;

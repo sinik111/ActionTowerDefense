@@ -15,7 +15,8 @@
 
 Enemy::Enemy(const Vector2& position, const std::vector<Vector2>& moveData)
 	: m_pImage(nullptr), m_MoveData(moveData), m_MoveIndex(0), m_MoveSpeed(0.0f),
-	m_Hp(0.0f), m_MaxHp(0.0f), m_IsSlowed(false), m_SlowRate(1.0f), m_SlowTimer(0.0f)
+	m_Hp(0.0f), m_MaxHp(0.0f), m_IsSlowed(false), m_SlowRate(1.0f), m_SlowTimer(0.0f),
+	m_HpPosition{}
 {
 	m_Position = position;
 }
@@ -29,6 +30,9 @@ void Enemy::Initialize()
 	m_MaxHp = 100.0f;
 
 	m_Collider = Collider(m_Position, (float)(m_pImage->GetWidth() / 2));
+
+	m_HpPosition[0] = Vector2(-(float)(m_pImage->GetWidth() / 2), -(float)(m_pImage->GetHeight() / 2 + 10.0f));
+	m_HpPosition[1] = Vector2((float)(m_pImage->GetWidth() / 2), -(float)(m_pImage->GetHeight() / 2 + 10.0f));
 }
 
 void Enemy::Destroy()
@@ -94,6 +98,11 @@ void Enemy::Render(const Camera& camera) const
 	dstRect.Y = (int)(cameraViewPos.y - srcRect.Height / 2);
 
 	GDIRenderer::Get().DrawImage(m_pImage, dstRect, srcRect);
+
+	Vector2 lineStart = m_HpPosition[0] + cameraViewPos;
+	Vector2 lineEnd = Vector2::Lerp(m_HpPosition[0], m_HpPosition[1], m_Hp / m_MaxHp) + cameraViewPos;
+
+	GDIRenderer::Get().DrawLine(Gdiplus::Color(255, 0, 0), 4.0f, lineStart, lineEnd);
 }
 
 void Enemy::Collide(Object* object, const std::wstring& groupName)

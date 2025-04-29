@@ -51,7 +51,7 @@ public: // ±×¸®±â
 	void DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dst_rect, const Gdiplus::Rect& src_rect) const;
 	void DrawRectangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect) const;
 	void DrawString(const wchar_t* text, const Gdiplus::Color& color, const Vector2& position, int size);
-	void DrawLine(const Gdiplus::Color& color, const Vector2& p1, const Vector2& p2) const;
+	void DrawLine(const Gdiplus::Color& color, float width, const Vector2& p1, const Vector2& p2) const;
 	void EndDraw() const;
 
 public:

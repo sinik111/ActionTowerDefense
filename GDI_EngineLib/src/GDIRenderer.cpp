@@ -76,7 +76,7 @@ ResultCode GDIRenderer::Initialize(HWND hWnd, int width, int height)
 
 	m_pFontFamily = new Gdiplus::FontFamily(L"¸¼Àº °íµñ");
 
-	m_pLinePen = new Gdiplus::Pen(Gdiplus::Color(0, 0, 0), 7.0f);
+	m_pLinePen = new Gdiplus::Pen(Gdiplus::Color(0, 0, 0), 1.0f);
 
 	m_pBrush = new Gdiplus::SolidBrush(Gdiplus::Color(0, 0, 0));
 
@@ -169,9 +169,10 @@ void GDIRenderer::DrawString(const wchar_t* text, const Gdiplus::Color& color, c
 	m_pBackBufferGraphics->DrawString(text, -1, GetFont(size), Gdiplus::PointF(position.x, position.y), m_pBrush);
 }
 
-void GDIRenderer::DrawLine(const Gdiplus::Color& color, const Vector2& p1, const Vector2& p2) const
+void GDIRenderer::DrawLine(const Gdiplus::Color& color, float width, const Vector2& p1, const Vector2& p2) const
 {
 	m_pLinePen->SetColor(color);
+	m_pLinePen->SetWidth(width);
 
 	m_pBackBufferGraphics->DrawLine(m_pLinePen, Gdiplus::PointF(p1.x, p1.y), Gdiplus::PointF(p2.x, p2.y));
 }
