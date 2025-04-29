@@ -56,6 +56,7 @@ private:
 	bool m_IsCollide;
 
 	float m_Speed;
+	float m_Damage;
 
 public:
 	Player();
@@ -71,4 +72,6 @@ public:
 
 public:
 	void Collide(Object* object, const std::wstring& groupName) override;
+
+	float GetDamage() const;
 };

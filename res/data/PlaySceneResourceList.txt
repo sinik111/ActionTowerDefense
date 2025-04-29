@@ -31,6 +31,7 @@ Play	Text	EnemyCreateData2	data/EnemyCreateData2.txt
 Play	Text	EnemyCreateData3	data/EnemyCreateData3.txt
 Play	Image	MiniMapEnterGate	image/MiniMapEnterGate.bmp
 Play	Image	MiniMapEnemy	image/MiniMapEnemy.bmp
+Play	Image	MiniMapTower	image/MiniMapTower.bmp
 Play	Image	Enemy	image/Enemy.bmp
 Play	Text	EnemyMoveData1	data/EnemyMoveData1.txt
 Play	Text	EnemyMoveData2	data/EnemyMoveData2.txt
@@ -62,3 +63,7 @@ Play	Image	AttackRight	image/AttackRight.png
 Play	Image	AttackRightDown	image/AttackRightDown.png
 Play	Image	AttackRightUp	image/AttackRightUp.png
 Play	Image	AttackUp	image/AttackUp.png
+Play	Image	CenterCrystal	image/CenterCrystal.png
+Play	Image	CenterCrystalRotate	image/CenterCrystalRotate.png
+Play	Image	CrystalHp	image/CrystalHp.png
+Play	Image	Gold	image/Gold.png

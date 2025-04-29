@@ -12,6 +12,8 @@
 #include "CollisionManager.h"
 #include "IceTower.h"
 #include "LightningTower.h"
+#include "Player.h"
+#include "CenterCrystal.h"
 
 Enemy::Enemy(const Vector2& position, const std::vector<Vector2>& moveData)
 	: m_pImage(nullptr), m_MoveData(moveData), m_MoveIndex(0), m_MoveSpeed(0.0f),
@@ -70,6 +72,11 @@ void Enemy::Update()
 			m_Position += direction * m_MoveSpeed * m_SlowRate * MyTime::DeltaTime();
 		}
 	}
+	else
+	{
+		Destroy();
+		GameData::Get().GetCenterCrystal()->TakeDamage();
+	}
 
 	if (!m_IsDestroyed)
 	{
@@ -118,6 +125,8 @@ void Enemy::Collide(Object* object, const std::wstring& groupName)
 
 		if (m_Hp == 0.0f)
 		{
+			GameData::Get().AddGold(10);
+
 			Destroy();
 		}
 	}
@@ -134,6 +143,8 @@ void Enemy::Collide(Object* object, const std::wstring& groupName)
 
 		if (m_Hp == 0.0f)
 		{
+			GameData::Get().AddGold(10);
+
 			Destroy();
 		}
 
@@ -149,21 +160,25 @@ void Enemy::Collide(Object* object, const std::wstring& groupName)
 
 		if (m_Hp == 0.0f)
 		{
+			GameData::Get().AddGold(10);
+
 			Destroy();
 		}
 	}
 	else if (groupName == L"PlayerAttack")
 	{
-		//LightningTower* pLightningTower = dynamic_cast<LightningTower*>(object);
+		Player* pPlayer = dynamic_cast<Player*>(object);
 
-		//m_Hp -= pLightningTower->GetDamage();
+		m_Hp -= pPlayer->GetDamage();
 
-		//m_Hp = Clamp(m_Hp, 0.0f, m_MaxHp);
+		m_Hp = Clamp(m_Hp, 0.0f, m_MaxHp);
 
-		//if (m_Hp == 0.0f)
-		//{
+		if (m_Hp == 0.0f)
+		{
+			GameData::Get().AddGold(10);
+
 			Destroy();
-		//}
+		}
 	}
 }
 

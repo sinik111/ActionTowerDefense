@@ -169,6 +169,13 @@ void GDIRenderer::DrawString(const wchar_t* text, const Gdiplus::Color& color, c
 	m_pBackBufferGraphics->DrawString(text, -1, GetFont(size), Gdiplus::PointF(position.x, position.y), m_pBrush);
 }
 
+void GDIRenderer::DrawString(Gdiplus::Graphics* graphics, const wchar_t* text, const Gdiplus::Color& color, Gdiplus::PointF& point, int size)
+{
+	m_pBrush->SetColor(color);
+
+	graphics->DrawString(text, -1, GetFont(size), point, m_pBrush);
+}
+
 void GDIRenderer::DrawLine(const Gdiplus::Color& color, float width, const Vector2& p1, const Vector2& p2) const
 {
 	m_pLinePen->SetColor(color);

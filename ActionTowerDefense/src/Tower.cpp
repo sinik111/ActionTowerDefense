@@ -6,6 +6,7 @@
 #include "SceneManager.h"
 #include "MyTime.h"
 #include "CollisionManager.h"
+#include "GameData.h"
 
 Tower::Tower(const Vector2& position)
 	: m_pImage(nullptr), m_Damage(0), m_AttackRate(0.0f), m_AttackTimer(0.0f),
@@ -44,6 +45,8 @@ void Tower::Update()
 			}
 
 			RenderManager::Get().AddObject(m_RenderLayer, this);
+
+			GameData::Get().RegisterMiniMapInfo(m_Position, MiniMapObjectType::Tower);
 		}
 	}
 }

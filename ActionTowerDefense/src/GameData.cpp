@@ -2,7 +2,7 @@
 #include "GameData.h"
 
 GameData::GameData()
-	: m_pPlayer(nullptr)
+	: m_pPlayer(nullptr), m_pCenterCrystal(nullptr), m_Gold(0)
 {
 }
 
@@ -39,4 +39,49 @@ void GameData::SetPlayer(Player* pPlayer)
 Player* GameData::GetPlayer()
 {
 	return m_pPlayer;
+}
+
+void GameData::SetCenterCrystal(CenterCrystal* pCenterCrystal)
+{
+	m_pCenterCrystal = pCenterCrystal;
+}
+
+CenterCrystal* GameData::GetCenterCrystal()
+{
+	return m_pCenterCrystal;
+}
+
+void GameData::SetStartGold()
+{
+	m_Gold = 300;
+}
+
+void GameData::AddGold(int gold)
+{
+	m_Gold += gold;
+}
+
+bool GameData::UseGold(int gold)
+{
+	if (m_Gold < gold)
+	{
+		return false;
+	}
+
+	m_Gold -= gold;
+
+	return true;
+}
+
+int GameData::GetCurrentGold()
+{
+	return m_Gold;
+}
+
+void GameData::Clear()
+{
+	ClearMiniMapInfo();
+	m_pPlayer = nullptr;
+	m_pCenterCrystal = nullptr;
+	m_Gold = 0;
 }

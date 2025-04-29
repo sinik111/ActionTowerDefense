@@ -12,9 +12,12 @@ private:
 	std::wstring m_Text;
 	Gdiplus::Color m_Color;
 	int m_Size;
+	float m_Timer;
+	bool m_HasTimer;
 
 public:
-	ScreenTextUI(const std::wstring& text, const Vector2& position, const Gdiplus::Color& color, int size);
+	ScreenTextUI(const std::wstring& text, const Vector2& position,
+		const Gdiplus::Color& color, int size, float timer = -1);
 	~ScreenTextUI() = default;
 
 public:

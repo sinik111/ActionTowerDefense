@@ -8,6 +8,8 @@
 #include "FireTower.h"
 #include "IceTower.h"
 #include "LightningTower.h"
+#include "GameData.h"
+#include "ScreenTextUI.h"
 
 TowerPlace::TowerPlace(int row, int column)
 	: m_pImage(nullptr), m_SrcRect(0, 0, TILE_SIZE, TILE_SIZE), m_pTower(nullptr)
@@ -61,6 +63,14 @@ void TowerPlace::UpgradeTower(TowerType towerType)
 {
 	if (m_TowerState.type == TowerType::MAX || m_TowerState.type != towerType)
 	{
+		if (!GameData::Get().UseGold(100))
+		{
+			SceneManager::Get().GetCurrentScene()->CreatePendingObject<ScreenTextUI>(
+				L"골드가 부족합니다", Vector2(540.0f, 400.0f), Gdiplus::Color::Red, 24, 2.0f);
+
+			return;
+		}
+
 		if (m_TowerState.type != TowerType::MAX && m_TowerState.type != towerType)
 		{
 			m_pTower->Destroy();
@@ -86,6 +96,14 @@ void TowerPlace::UpgradeTower(TowerType towerType)
 	{
 		if (m_TowerState.level == 3)
 		{
+			return;
+		}
+
+		if (!GameData::Get().UseGold(100))
+		{
+			SceneManager::Get().GetCurrentScene()->CreatePendingObject<ScreenTextUI>(
+				L"골드가 부족합니다", Vector2(540.0f, 400.0f), Gdiplus::Color::Red, 24, 2.0f);
+
 			return;
 		}
 

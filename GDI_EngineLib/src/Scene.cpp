@@ -5,6 +5,7 @@
 #include "RenderManager.h"
 #include "Camera.h"
 #include "GDIRenderer.h"
+#include "CollisionManager.h"
 
 Scene::Scene()
 	: m_pCamera(nullptr)
@@ -24,6 +25,7 @@ void Scene::Enter()
 void Scene::Exit()
 {
 	RenderManager::Get().ClearObjects();
+	CollisionManager::Get().ClearCandidates();
 
 	Clear();
 }

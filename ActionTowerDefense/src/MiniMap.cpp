@@ -15,7 +15,7 @@
 MiniMap::MiniMap()
 	: m_pBuffer(nullptr), m_pGraphics(nullptr), m_Rows(0), m_Columns(0),
 	m_TileSize(0), m_pMiniMapPlayer(nullptr), m_StartPosition(Vector2::Zero),
-	m_pMiniMapEnterGate(nullptr), m_pMiniMapEnemy(nullptr)
+	m_pMiniMapEnterGate(nullptr), m_pMiniMapEnemy(nullptr), m_pMiniMapTower(nullptr)
 {
 }
 
@@ -41,6 +41,7 @@ void MiniMap::Initialize()
 	m_pMiniMapPlayer = ResourceManager::Get().GetImage(L"Play", L"MiniMapPlayer");
 	m_pMiniMapEnterGate = ResourceManager::Get().GetImage(L"Play", L"MiniMapEnterGate");
 	m_pMiniMapEnemy = ResourceManager::Get().GetImage(L"Play", L"MiniMapEnemy");
+	m_pMiniMapTower = ResourceManager::Get().GetImage(L"Play", L"MiniMapTower");
 
 	m_Rows = MAP_SIZE;
 	m_Columns = MAP_SIZE;
@@ -116,6 +117,10 @@ void MiniMap::Render(const Camera& camera) const
 
 		case MiniMapObjectType::Enemy:
 			current = m_pMiniMapEnemy;
+			break;
+
+		case MiniMapObjectType::Tower:
+			current = m_pMiniMapTower;
 			break;
 		}
 

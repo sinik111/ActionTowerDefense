@@ -17,6 +17,9 @@
 #include "GameData.h"
 #include "TowerPlace.h"
 #include "CollisionManager.h"
+#include "CenterCrystal.h"
+#include "CrystalHp.h"
+#include "GoldDisplay.h"
 
 PlayScene::~PlayScene()
 {
@@ -45,18 +48,24 @@ void PlayScene::Enter()
 	Debug::Log("Enter Play Scene - PlayScene::Enter");
 
 	GameData::Get().SetPlayStartTime();
+	GameData::Get().SetStartGold();
 
 	//CreateObject<StaticBackground>(ResourceManager::Get().GetImage(L"Play", L"PlayBackground"));
 	CreateObject<ScreenTextUI>(L"Game", Vector2(200.0f, 200.0f), Gdiplus::Color(0, 0, 1), 36);
 	CreateObject<Player>();
 	CreateObject<TileMap>();
 	CreateObject<MiniMap>();
+	CreateObject<CenterCrystal>();
+	CreateObject<CrystalHp>();
+	CreateObject<GoldDisplay>();
 	CreateEnterGates();
 	CreateTowerPlaces();
 }
 
 void PlayScene::Exit()
 {
+	GameData::Get().Clear();
+
 	Debug::Log("Exit Play Scene - PlayScene::Exit");
 
 	__super::Exit();

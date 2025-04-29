@@ -26,6 +26,7 @@ struct MiniMapInfo
 };
 
 class Player;
+class CenterCrystal;
 
 class GameData :
 	public Singleton<GameData>
@@ -42,6 +43,9 @@ private:
 	TimePoint m_PlayStartTime;
 
 	Player* m_pPlayer;
+	CenterCrystal* m_pCenterCrystal;
+
+	int m_Gold;
 
 public:
 	void RegisterMiniMapInfo(const Vector2& position, MiniMapObjectType type);
@@ -53,4 +57,15 @@ public:
 
 	void SetPlayer(Player* pPlayer);
 	Player* GetPlayer();
+
+	void SetCenterCrystal(CenterCrystal* pCenterCrystal);
+	CenterCrystal* GetCenterCrystal();
+
+	void SetStartGold();
+	void AddGold(int gold);
+	bool UseGold(int gold);
+	int GetCurrentGold();
+
+public:
+	void Clear();
 };

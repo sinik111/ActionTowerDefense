@@ -15,12 +15,13 @@
 #include "RenderManager.h"
 #include "SceneManager.h"
 #include "GameData.h"
+#include "Constant.h"
 
 Player::Player()
 	: m_Speed(0.0f), m_current_state(PlayerAnimState::IdleDown), m_next_state(PlayerAnimState::IdleDown),
 	m_AttackDirection{}, m_pAttackImage{}, m_ColliderDistance(0.0f), m_ImageDistance(0.0f),
 	m_AttackDuration(0.2f), m_IsStartAttack(false), m_IsCollide(false), m_AttackDurationTimer(0.0f),
-	m_CurrentDirection(AttackPositionType::Max)
+	m_CurrentDirection(AttackPositionType::Max), m_Damage(10.0f)
 {
 	m_RenderLayer = RenderLayer::Object;
 }
@@ -55,9 +56,9 @@ void Player::Initialize()
 
 	m_animation_controller.PlayAnimation(L"IdleDown");
 
-	m_Position = Vector2(128 * 29 / 2, 128 * 29 / 2);
+	m_Position = Vector2(TILE_SIZE * MAP_SIZE / 2 - TILE_SIZE, TILE_SIZE * MAP_SIZE / 2);
 
-	m_Speed = 200.0f;
+	m_Speed = 300.0f;
 
 	m_Collider = Collider(m_Position, 300.0f);
 
@@ -205,6 +206,26 @@ void Player::Update()
 	if (!direction.IsZero())
 	{
 		m_Position += direction.Normalized() * m_Speed * MyTime::DeltaTime();
+
+		if (m_Position.x < 0.0f)
+		{
+			m_Position.x = 0.0f;
+		}
+
+		if (m_Position.y < 0.0f)
+		{
+			m_Position.y = 0.0f;
+		}
+
+		if (m_Position.y > TILE_SIZE * MAP_SIZE)
+		{
+			m_Position.y = TILE_SIZE * MAP_SIZE;
+		}
+
+		if (m_Position.x > TILE_SIZE * MAP_SIZE)
+		{
+			m_Position.x = TILE_SIZE * MAP_SIZE;
+		}
 	}
 
 	SceneManager::Get().GetCurrentCamera()->SetPosition(m_Position);
@@ -360,4 +381,9 @@ void Player::Collide(Object* object, const std::wstring& groupName)
 	{
 		m_pInRangeObjects.push_back(object);
 	}
+}
+
+float Player::GetDamage() const
+{
+	return m_Damage;
 }
