@@ -27,6 +27,7 @@
 *.so
 *.so.*
 *.dylib
+!fmod.dll
 
 # Executables
 *.exe
