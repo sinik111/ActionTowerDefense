@@ -71,10 +71,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -175,13 +175,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\res\icon\ActionTowerDefense.ico" />
-    <Image Include="..\res\icon\small.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\res\icon\ActionTowerDefense.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="src\CenterCrystal.cpp" />
     <ClCompile Include="src\CrystalHp.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
@@ -208,6 +201,13 @@
     <ClCompile Include="src\TowerPlace.cpp" />
     <ClCompile Include="src\UIManager.cpp" />
     <ClCompile Include="src\WorldTextUI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res\icon\ActionTowerDefense.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\icon\ActionTowerDefense.ico" />
+    <Image Include="res\icon\small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
