@@ -20,21 +20,21 @@ public:
 	template<typename T, typename... Args>
 	T* CreateObject(Args&&... args)
 	{
-		Object* pObject = new T(std::forward<Args>(args)...);
+		T* pObject = new T(std::forward<Args>(args)...);
 		m_Objects.push_back(pObject);
 		pObject->Initialize();
 
-		return (T*)pObject;
+		return pObject;
 	}
 
 	template<typename T, typename... Args>
 	T* CreatePendingObject(Args&&... args)
 	{
-		Object* pObject = new T(std::forward<Args>(args)...);
+		T* pObject = new T(std::forward<Args>(args)...);
 		m_PendingCreatedObjects.push_back(pObject);
 		pObject->Initialize();
 
-		return (T*)pObject;
+		return pObject;
 	}
 
 public:

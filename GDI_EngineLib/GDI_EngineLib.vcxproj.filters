@@ -42,13 +42,7 @@
     <ClInclude Include="inc\MyTime.h">
       <Filter>헤더 파일\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="inc\InputSystem.h">
-      <Filter>헤더 파일\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="inc\Debug.h">
-      <Filter>헤더 파일\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\DebugUtility.h">
       <Filter>헤더 파일\Utility</Filter>
     </ClInclude>
     <ClInclude Include="inc\FileLoader.h">
@@ -67,9 +61,6 @@
       <Filter>헤더 파일\Utility</Filter>
     </ClInclude>
     <ClInclude Include="inc\Input.h">
-      <Filter>헤더 파일\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\MyTimeSystem.h">
       <Filter>헤더 파일\Utility</Filter>
     </ClInclude>
     <ClInclude Include="inc\Animation.h">
@@ -99,19 +90,28 @@
     <ClInclude Include="inc\WinApp.h">
       <Filter>헤더 파일\Core</Filter>
     </ClInclude>
-    <ClInclude Include="inc\framework.h">
-      <Filter>헤더 파일\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\pch.h">
-      <Filter>헤더 파일\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\ResourceManager.h">
-      <Filter>헤더 파일\etc</Filter>
-    </ClInclude>
     <ClInclude Include="inc\RenderManager.h">
       <Filter>헤더 파일\Core</Filter>
     </ClInclude>
     <ClInclude Include="inc\Camera.h">
+      <Filter>헤더 파일\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\framework.h">
+      <Filter>헤더 파일\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\pch.h">
+      <Filter>헤더 파일\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\InputSystem.h">
+      <Filter>헤더 파일\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\MyTimeSystem.h">
+      <Filter>헤더 파일\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="internal\DebugUtility.h">
+      <Filter>헤더 파일\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ResourceManager.h">
       <Filter>헤더 파일\Core</Filter>
     </ClInclude>
   </ItemGroup>

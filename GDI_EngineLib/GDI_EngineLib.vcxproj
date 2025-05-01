@@ -148,17 +148,12 @@
     <ClInclude Include="inc\Collider.h" />
     <ClInclude Include="inc\CollisionManager.h" />
     <ClInclude Include="inc\Debug.h" />
-    <ClInclude Include="inc\DebugUtility.h" />
     <ClInclude Include="inc\FileLoader.h" />
-    <ClInclude Include="inc\framework.h" />
     <ClInclude Include="inc\GDIRenderer.h" />
     <ClInclude Include="inc\Input.h" />
-    <ClInclude Include="inc\InputSystem.h" />
     <ClInclude Include="inc\MyMath.h" />
     <ClInclude Include="inc\MyTime.h" />
-    <ClInclude Include="inc\MyTimeSystem.h" />
     <ClInclude Include="inc\Object.h" />
-    <ClInclude Include="inc\pch.h" />
     <ClInclude Include="inc\RenderManager.h" />
     <ClInclude Include="inc\ResourceManager.h" />
     <ClInclude Include="inc\ResultCode.h" />
@@ -167,6 +162,11 @@
     <ClInclude Include="inc\Singleton.h" />
     <ClInclude Include="inc\Vector2.h" />
     <ClInclude Include="inc\WinApp.h" />
+    <ClInclude Include="internal\DebugUtility.h" />
+    <ClInclude Include="internal\framework.h" />
+    <ClInclude Include="internal\InputSystem.h" />
+    <ClInclude Include="internal\MyTimeSystem.h" />
+    <ClInclude Include="internal\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Animation.cpp" />
