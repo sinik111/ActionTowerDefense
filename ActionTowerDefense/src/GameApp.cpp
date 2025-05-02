@@ -37,7 +37,7 @@ ResultCode GameApp::Initialize()
 		return ResultCode::FAIL;
 	}
 
-	rc = FileLoader::Get().Initialize(m_ModulePath, L"bin", L"res");
+	rc = FileLoader::Get().Initialize(m_ModulePath, L"bin", L"resource");
 	if (rc != ResultCode::OK)
 	{
 		Debug::Log("FileLoader initialize fail - GameApp::Initialize");

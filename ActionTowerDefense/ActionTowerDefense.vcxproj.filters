@@ -229,16 +229,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="res\icon\ActionTowerDefense.rc">
+    <Image Include="resource\icon\ActionTowerDefense.ico">
       <Filter>리소스 파일</Filter>
-    </ResourceCompile>
+    </Image>
+    <Image Include="resource\icon\small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\icon\small.ico">
+    <ResourceCompile Include="resource\icon\ActionTowerDefense.rc">
       <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="res\icon\ActionTowerDefense.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -110,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)inc\;$(SolutionDir)GDI_EngineLib\inc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\;$(SolutionDir)GDI_EngineLib\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)inc\;$(SolutionDir)GDI_EngineLib\inc\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\;$(SolutionDir)GDI_EngineLib\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -203,11 +203,11 @@
     <ClCompile Include="src\WorldTextUI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="res\icon\ActionTowerDefense.rc" />
+    <Image Include="resource\icon\ActionTowerDefense.ico" />
+    <Image Include="resource\icon\small.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\icon\ActionTowerDefense.ico" />
-    <Image Include="res\icon\small.ico" />
+    <ResourceCompile Include="resource\icon\ActionTowerDefense.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
