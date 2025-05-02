@@ -21,14 +21,12 @@
 *.a
 *.la
 *.lo
-!fmod_vc.lib
 
 # Shared objects (inc. Windows DLLs)
 *.dll
 *.so
 *.so.*
 *.dylib
-!fmod.dll
 
 # Executables
 *.exe
@@ -56,6 +54,9 @@ dkms.conf
 *.log
 *.recipe
 
+# My Extra
 /.vs
 /ActionTowerDefense/x64
 /GDI_EngineLib/x64
+!fmod.dll
+!fmod_vc.lib
