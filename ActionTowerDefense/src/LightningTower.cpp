@@ -10,10 +10,11 @@
 
 LightningTower::LightningTower(const Vector2& position)
 	: Tower::Tower(position), m_pAttackImage(nullptr), m_AttackDuration(0.3f),
-	m_IsStartAttack(false), m_IsCollide(false), m_AttackDurationTimer(0.0f)
+	m_IsStartAttack(false), m_IsCollide(false), m_AttackDurationTimer(0.0f),
+	m_Multiplier(1.1f)
 {
 	m_AttackRate = 1.0f;
-	m_Damage = 100;
+	m_Damage = 10.0f;
 }
 
 void LightningTower::Initialize()
@@ -96,17 +97,24 @@ void LightningTower::Upgrade()
 
 	if (m_Level == 2)
 	{
-		m_Damage = 40;
+		m_Damage = 20.0f;
 		m_AttackRate = 0.8f;
+		m_Multiplier = 1.3f;
 	}
 	else if (m_Level == 3)
 	{
-		m_Damage = 50;
+		m_Damage = 30.0f;
 		m_AttackRate = 0.5f;
+		m_Multiplier = 1.5f;
 	}
 }
 
 float LightningTower::GetDamage()
 {
 	return m_Damage;
+}
+
+float LightningTower::GetMulitplier()
+{
+	return m_Multiplier;
 }

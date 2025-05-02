@@ -152,7 +152,7 @@ std::wstring TowerBuildButton::TowerTypeName(int type)
 
 void TowerBuildButton::DrawOnBuffer()
 {
-	m_pGraphics->Clear(Gdiplus::Color(0, 0, 0));
+	m_pGraphics->Clear(Gdiplus::Color::LightSteelBlue);
 
 	for (int i = 0; i < (int)TowerType::MAX; ++i)
 	{

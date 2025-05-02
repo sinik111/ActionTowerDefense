@@ -14,7 +14,7 @@ Tower::Tower(const Vector2& position)
 {
 	m_Position = position - Vector2::Up;
 	m_RenderLayer = RenderLayer::Object;
-	m_RotateRadius = 20.0f;
+	m_RotateRadius = 15.0f;
 	m_RotateSpeed = PI * 2.0f / 2.0f;
 }
 
@@ -36,8 +36,8 @@ void Tower::Update()
 		{
 			for (int i = 0; i < m_Level; ++i)
 			{
-				float x = m_Position.x + m_RotateRadius * cosf(m_Radians[i]);
-				float y = m_Position.y + m_RotateRadius * sinf(m_Radians[i]);
+				float x = m_Position.x + (m_RotateRadius * 2.0f) * cosf(m_Radians[i]);
+				float y = m_Position.y - 10.0f + m_RotateRadius * sinf(m_Radians[i]);
 
 				m_ImagePosition[i] = Vector2(x, y);
 

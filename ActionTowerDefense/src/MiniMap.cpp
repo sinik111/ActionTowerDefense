@@ -138,7 +138,7 @@ void MiniMap::Render(const Camera& camera) const
 
 void MiniMap::ReDrawMiniMap() const
 {
-	m_pGraphics->Clear(Gdiplus::Color(0, 0, 0));
+	m_pGraphics->Clear(Gdiplus::Color::LightSteelBlue);
 
 	for (int i = 0; i < m_Rows * m_Columns; ++i)
 	{

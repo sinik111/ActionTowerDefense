@@ -20,6 +20,7 @@
 #include "CenterCrystal.h"
 #include "CrystalHp.h"
 #include "GoldDisplay.h"
+#include "EnemyInfoDisplay.h"
 
 PlayScene::~PlayScene()
 {
@@ -58,6 +59,7 @@ void PlayScene::Enter()
 	CreateObject<CenterCrystal>();
 	CreateObject<CrystalHp>();
 	CreateObject<GoldDisplay>();
+	CreateObject<EnemyInfoDisplay>();
 	CreateEnterGates();
 	CreateTowerPlaces();
 }
@@ -83,13 +85,6 @@ void PlayScene::Update()
 	CollisionManager::Get().CheckCollision(L"TowerRange", L"Enemy");
 	CollisionManager::Get().CheckCollision(L"PlayerRange", L"Enemy");
 	CollisionManager::Get().ClearCandidates();
-
-	if (GameData::Get().HasEnemyInfo())
-	{
-		EnemyInfo a = GameData::Get().GetEnemyInfo();
-
-		Debug::Log(std::to_wstring(a.hp));
-	}
 
 	GameData::Get().ClearEnemyInfo();
 

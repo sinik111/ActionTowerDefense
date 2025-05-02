@@ -53,6 +53,7 @@ public: // ±×¸®±â
 	void DrawString(const wchar_t* text, const Gdiplus::Color& color, const Vector2& position, int size);
 	void DrawString(Gdiplus::Graphics* graphics, const wchar_t* text, const Gdiplus::Color& color, Gdiplus::PointF& point, int size);
 	void DrawLine(const Gdiplus::Color& color, float width, const Vector2& p1, const Vector2& p2) const;
+	void DrawLine(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, float width, const Gdiplus::PointF& p1, const Gdiplus::PointF& p2) const;
 	void EndDraw() const;
 
 public:

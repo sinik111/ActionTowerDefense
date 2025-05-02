@@ -120,7 +120,8 @@ void Enemy::Update()
 			Vector2 mousePos = camera->ToWorldView(Input::GetCursorPosition());
 			if (CollisionManager::Get().IsCircleCollide(m_Collider, Collider(mousePos, 1.0f)))
 			{
-				GameData::Get().SetEnemyInfo(EnemyInfo((int)m_Type, m_Hp, m_MaxHp, m_IsSlowed, m_IsShocked));
+				GameData::Get().SetEnemyInfo(EnemyInfo((int)m_Type, m_Hp, m_MaxHp, m_MoveSpeed,
+					m_SlowRate,m_ShockMultiplier, m_IsSlowed, m_IsShocked));
 			}
 
 			RenderManager::Get().AddObject(m_RenderLayer, this);
@@ -196,6 +197,8 @@ void Enemy::Collide(Object* object, const std::wstring& groupName)
 		m_ShockTimer = 5.0f;
 
 		m_Hp -= pLightningTower->GetDamage() * m_ShockMultiplier;
+
+		m_ShockMultiplier = pLightningTower->GetMulitplier();
 
 		m_Hp = Clamp(m_Hp, 0.0f, m_MaxHp);
 

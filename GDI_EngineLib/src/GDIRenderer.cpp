@@ -184,6 +184,14 @@ void GDIRenderer::DrawLine(const Gdiplus::Color& color, float width, const Vecto
 	m_pBackBufferGraphics->DrawLine(m_pLinePen, Gdiplus::PointF(p1.x, p1.y), Gdiplus::PointF(p2.x, p2.y));
 }
 
+void GDIRenderer::DrawLine(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, float width, const Gdiplus::PointF& p1, const Gdiplus::PointF& p2) const
+{
+	m_pLinePen->SetColor(color);
+	m_pLinePen->SetWidth(width);
+
+	graphics->DrawLine(m_pLinePen, p1, p2);
+}
+
 void GDIRenderer::EndDraw() const
 {
 	BitBlt(m_FrontBufferDC, 0, 0, m_Width, m_Height, m_BackBufferDC, 0, 0, SRCCOPY);

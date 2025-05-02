@@ -30,17 +30,24 @@ struct EnemyInfo
 	int type;
 	float hp;
 	float maxHp;
+	float speed;
+	float slowRate;
+	float multiplier;
 	bool isSlowed;
 	bool isShocked;
 
 	EnemyInfo()
-		: type(0), hp(0.0f), maxHp(0.0f), isSlowed(false), isShocked(false)
+		: type(0), hp(0.0f), maxHp(0.0f), speed(0.0f), slowRate(0.0f),
+		multiplier(0.0f), isSlowed(false), isShocked(false)
 	{
 
 	}
 
-	EnemyInfo(int type, float hp, float maxHp, bool isSlowed, bool isShocked)
-		: type(type), hp(hp), maxHp(maxHp), isSlowed(isSlowed), isShocked(isShocked)
+	EnemyInfo(int type, float hp, float maxHp, float speed,
+		float slowRate, float multiplier, bool isSlowed, bool isShocked)
+		: type(type), hp(hp), maxHp(maxHp), speed(speed),
+		slowRate(slowRate), multiplier(multiplier), isSlowed(isSlowed),
+		isShocked(isShocked)
 	{
 
 	}

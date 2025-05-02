@@ -12,6 +12,7 @@ private:
 	Gdiplus::Bitmap* m_pAttackImage;
 	float m_AttackDuration;
 	float m_AttackDurationTimer;
+	float m_Multiplier;
 	bool m_IsStartAttack;
 	bool m_IsCollide;
 
@@ -30,4 +31,5 @@ public:
 public:
 	void Upgrade() override;
 	float GetDamage();
+	float GetMulitplier();
 };
