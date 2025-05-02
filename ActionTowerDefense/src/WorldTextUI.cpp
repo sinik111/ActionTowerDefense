@@ -31,5 +31,6 @@ void WorldTextUI::Render(const Camera& camera) const
 {
 	Vector2 cameraViewPos = camera.ToCameraView(m_Position);
 
-	GDIRenderer::Get().DrawString(m_Text.c_str(), m_Color, cameraViewPos, m_Size);
+	GDIRenderer::Get().DrawString(m_Text.c_str(), m_Color,
+		Gdiplus::PointF(cameraViewPos.x, cameraViewPos.y), m_Size);
 }

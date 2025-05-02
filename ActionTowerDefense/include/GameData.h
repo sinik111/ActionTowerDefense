@@ -9,8 +9,7 @@ enum class MiniMapObjectType
 	Player,
 	Enemy,
 	Tower,
-	EnterGate,
-	ExitGate
+	Max
 };
 
 struct MiniMapInfo

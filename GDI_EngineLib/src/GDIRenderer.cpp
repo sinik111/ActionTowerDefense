@@ -6,14 +6,13 @@
 
 #include "Debug.h"
 #include "ResultCode.h"
-#include "Vector2.h"
 
 #pragma comment(lib, "gdiplus.lib")
 
 GDIRenderer::GDIRenderer()
 	: m_hWnd(nullptr), m_Width(0), m_Height(0), m_FrontBufferDC(nullptr), m_BackBufferDC(nullptr),
-	m_BackBufferBitmap(nullptr), m_GdiplusToken(0), m_pBackBufferGraphics(nullptr), m_pPen(nullptr),
-	m_pFontFamily(nullptr), m_pBrush(nullptr), m_pLinePen(nullptr)
+	m_BackBufferBitmap(nullptr), m_GdiplusToken(0), m_pBackBufferGraphics(nullptr),
+	m_pFontFamily(nullptr)
 {
 	
 }
@@ -71,14 +70,8 @@ ResultCode GDIRenderer::Initialize(HWND hWnd, int width, int height)
 
 	m_pBackBufferGraphics->SetSmoothingMode(Gdiplus::SmoothingModeNone);
 	m_pBackBufferGraphics->SetInterpolationMode(Gdiplus::InterpolationModeLowQuality);
-	//m_pBackBufferGraphics->SetCompositingMode(Gdiplus::CompositingModeSourceCopy);
-	m_pPen = new Gdiplus::Pen(Gdiplus::Color(0, 0, 0));
 
 	m_pFontFamily = new Gdiplus::FontFamily(L"¸¼Àº °íµñ");
-
-	m_pLinePen = new Gdiplus::Pen(Gdiplus::Color(0, 0, 0), 1.0f);
-
-	m_pBrush = new Gdiplus::SolidBrush(Gdiplus::Color(0, 0, 0));
 
 	return ResultCode::OK;
 }
@@ -97,17 +90,20 @@ void GDIRenderer::Shutdown()
 		m_pFontFamily = nullptr;
 	}
 
-	if (m_pPen != nullptr)
+	for (auto pens : m_pPens)
 	{
-		delete m_pPen;
-		m_pPen = nullptr;
+		for (auto pair : pens.second)
+		{
+			delete pair.second;
+		}
 	}
+	m_pPens.clear();
 
-	if (m_pLinePen != nullptr)
+	for (auto pair : m_pBrushes)
 	{
-		delete m_pLinePen;
-		m_pLinePen = nullptr;
+		delete pair.second;
 	}
+	m_pBrushes.clear();
 
 	if (m_pBackBufferGraphics != nullptr)
 	{
@@ -145,51 +141,83 @@ void GDIRenderer::BeginDraw() const
 	PatBlt(m_BackBufferDC, 0, 0, m_Width, m_Height, BLACKNESS);
 }
 
-void GDIRenderer::DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dst_rect) const
+void GDIRenderer::DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dstRect)
 {
-	m_pBackBufferGraphics->DrawImage(image, dst_rect);
+	m_pBackBufferGraphics->DrawImage(image, dstRect);
 }
 
-void GDIRenderer::DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dst_rect, const Gdiplus::Rect& src_rect) const
+void GDIRenderer::DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dstRect, const Gdiplus::Rect& srcRect)
 {
-	m_pBackBufferGraphics->DrawImage(image, dst_rect, src_rect.X, src_rect.Y, src_rect.Width, src_rect.Height, Gdiplus::UnitPixel);
+	m_pBackBufferGraphics->DrawImage(image, dstRect, srcRect.X, srcRect.Y, srcRect.Width, srcRect.Height, Gdiplus::UnitPixel);
 }
 
-void GDIRenderer::DrawRectangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect) const
+void GDIRenderer::DrawRectangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect)
 {
-	m_pPen->SetColor(color);
-
-	m_pBackBufferGraphics->DrawRectangle(m_pPen, rect);
+	m_pBackBufferGraphics->DrawRectangle(GetPen(color, 1), rect);
 }
 
-void GDIRenderer::DrawString(const wchar_t* text, const Gdiplus::Color& color, const Vector2& position, int size)
+void GDIRenderer::DrawFillRectangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect)
 {
-	m_pBrush->SetColor(color);
-
-	m_pBackBufferGraphics->DrawString(text, -1, GetFont(size), Gdiplus::PointF(position.x, position.y), m_pBrush);
+	m_pBackBufferGraphics->FillRectangle(GetBrush(color), rect);
 }
 
-void GDIRenderer::DrawString(Gdiplus::Graphics* graphics, const wchar_t* text, const Gdiplus::Color& color, Gdiplus::PointF& point, int size)
+void GDIRenderer::DrawFillRectangle(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, const Gdiplus::Rect& rect)
 {
-	m_pBrush->SetColor(color);
-
-	graphics->DrawString(text, -1, GetFont(size), point, m_pBrush);
+	graphics->FillRectangle(GetBrush(color), rect);
 }
 
-void GDIRenderer::DrawLine(const Gdiplus::Color& color, float width, const Vector2& p1, const Vector2& p2) const
+void GDIRenderer::DrawFillTriangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect)
 {
-	m_pLinePen->SetColor(color);
-	m_pLinePen->SetWidth(width);
+	Gdiplus::Point point[3] =
+	{
+		{ rect.X, rect.Y + rect.Height },
+		{ rect.X + rect.Width, rect.Y + rect.Height },
+		{ rect.X + rect.Width / 2, rect.Y }
+	};
 
-	m_pBackBufferGraphics->DrawLine(m_pLinePen, Gdiplus::PointF(p1.x, p1.y), Gdiplus::PointF(p2.x, p2.y));
+	m_pBackBufferGraphics->FillPolygon(GetBrush(color), point, 3);
 }
 
-void GDIRenderer::DrawLine(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, float width, const Gdiplus::PointF& p1, const Gdiplus::PointF& p2) const
+void GDIRenderer::DrawFillTriangle(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, const Gdiplus::Rect& rect)
 {
-	m_pLinePen->SetColor(color);
-	m_pLinePen->SetWidth(width);
+	Gdiplus::Point point[3] =
+	{
+		{ rect.X, rect.Y + rect.Height },
+		{ rect.X + rect.Width, rect.Y + rect.Height },
+		{ rect.X + rect.Width / 2, rect.Y }
+	};
 
-	graphics->DrawLine(m_pLinePen, p1, p2);
+	graphics->FillPolygon(GetBrush(color), point, 3);
+}
+
+void GDIRenderer::DrawFillCircle(const Gdiplus::Color& color, const Gdiplus::Rect& rect)
+{
+	m_pBackBufferGraphics->FillEllipse(GetBrush(color), rect);
+}
+
+void GDIRenderer::DrawFillCircle(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, const Gdiplus::Rect& rect)
+{
+	graphics->FillEllipse(GetBrush(color), rect);
+}
+
+void GDIRenderer::DrawString(const wchar_t* text, const Gdiplus::Color& color, const Gdiplus::PointF& point, int size)
+{
+	m_pBackBufferGraphics->DrawString(text, -1, GetFont(size), point, GetBrush(color));
+}
+
+void GDIRenderer::DrawString(Gdiplus::Graphics* graphics, const wchar_t* text, const Gdiplus::Color& color, const Gdiplus::PointF& point, int size)
+{
+	graphics->DrawString(text, -1, GetFont(size), point, GetBrush(color));
+}
+
+void GDIRenderer::DrawLine(const Gdiplus::Color& color, int width, const Gdiplus::Point& p1, const Gdiplus::Point& p2)
+{
+	m_pBackBufferGraphics->DrawLine(GetPen(color, width), p1, p2);
+}
+
+void GDIRenderer::DrawLine(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, int width, const Gdiplus::Point& p1, const Gdiplus::Point& p2)
+{
+	graphics->DrawLine(GetPen(color, width), p1, p2);
 }
 
 void GDIRenderer::EndDraw() const
@@ -225,4 +253,39 @@ Gdiplus::Font* GDIRenderer::GetFont(int size)
 	m_pFonts[size] = pFont;
 
 	return pFont;
+}
+
+Gdiplus::Pen* GDIRenderer::GetPen(const Gdiplus::Color& color, int size)
+{
+	Gdiplus::ARGB argb = color.GetValue();
+
+	auto& penMap = m_pPens[argb];
+	auto iter = penMap.find(size);
+	if (iter != penMap.end())
+	{
+		return iter->second;
+	}
+
+	Gdiplus::Pen* pPen = new Gdiplus::Pen(color, (float)size);
+
+	penMap[size] = pPen;
+
+	return pPen;
+}
+
+Gdiplus::SolidBrush* GDIRenderer::GetBrush(const Gdiplus::Color& color)
+{
+	Gdiplus::ARGB argb = color.GetValue();
+
+	auto iter = m_pBrushes.find(argb);
+	if (iter != m_pBrushes.end())
+	{
+		return iter->second;
+	}
+
+	Gdiplus::SolidBrush* pBrush = new Gdiplus::SolidBrush(color);
+
+	m_pBrushes[argb] = pBrush;
+
+	return pBrush;
 }

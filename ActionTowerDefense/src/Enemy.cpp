@@ -15,9 +15,10 @@
 #include "Player.h"
 #include "CenterCrystal.h"
 #include "Input.h"
+#include "Constant.h"
 
 Enemy::Enemy(const Vector2& position, const std::vector<Vector2>& moveData, EnemyType type)
-	: m_pImage(nullptr), m_MoveData(moveData), m_MoveIndex(0), m_MoveSpeed(0.0f),
+	: m_MoveData(moveData), m_MoveIndex(0), m_MoveSpeed(0.0f),
 	m_Hp(0.0f), m_MaxHp(0.0f), m_IsSlowed(false), m_SlowRate(1.0f), m_SlowTimer(0.0f),
 	m_HpPosition{}, m_Type(type), m_IsShocked(false), m_ShockTimer(0.0f),
 	m_ShockMultiplier(1.0f)
@@ -31,31 +32,31 @@ void Enemy::Initialize()
 	switch (m_Type)
 	{
 	case EnemyType::Circle:
-		m_pImage = ResourceManager::Get().GetImage(L"Play", L"EnemyCircle");
+		m_Color = Gdiplus::Color(0, 0, 255);
 		m_MoveSpeed = 100.0f;
 		m_Hp = 100.0f;
 		m_MaxHp = 100.0f;
 		break;
 
 	case EnemyType::Rectangle:
-		m_pImage = ResourceManager::Get().GetImage(L"Play", L"EnemyRectangle");
+		m_Color = Gdiplus::Color(255, 130, 0);
 		m_MoveSpeed = 50.0f;
 		m_Hp = 300.0f;
 		m_MaxHp = 300.0f;
 		break;
 
 	case EnemyType::Triangle:
-		m_pImage = ResourceManager::Get().GetImage(L"Play", L"EnemyTriangle");
+		m_Color = Gdiplus::Color(0, 255, 0);
 		m_MoveSpeed = 200.0f;
 		m_Hp = 50.0f;
 		m_MaxHp = 50.0f;
 		break;
 	}
 	
-	m_Collider = Collider(m_Position, (float)(m_pImage->GetWidth() / 2));
+	m_Collider = Collider(m_Position, (float)(ENEMY_SIZE / 2));
 
-	m_HpPosition[0] = Vector2(-(float)(m_pImage->GetWidth() / 2), -(float)(m_pImage->GetHeight() / 2 + 10.0f));
-	m_HpPosition[1] = Vector2((float)(m_pImage->GetWidth() / 2), -(float)(m_pImage->GetHeight() / 2 + 10.0f));
+	m_HpPosition[0] = Vector2(-(float)(ENEMY_SIZE / 2), -(float)(ENEMY_SIZE / 2 + 10.0f));
+	m_HpPosition[1] = Vector2((float)(ENEMY_SIZE / 2), -(float)(ENEMY_SIZE / 2 + 10.0f));
 }
 
 void Enemy::Destroy()
@@ -115,7 +116,7 @@ void Enemy::Update()
 
 		GameData::Get().RegisterMiniMapInfo(m_Position, MiniMapObjectType::Enemy);
 		const Camera* camera = SceneManager::Get().GetCurrentCamera();
-		if (!camera->IsOutOfView(m_Position, m_pImage->GetWidth(), m_pImage->GetHeight()))
+		if (!camera->IsOutOfView(m_Position, ENEMY_SIZE, ENEMY_SIZE))
 		{
 			Vector2 mousePos = camera->ToWorldView(Input::GetCursorPosition());
 			if (CollisionManager::Get().IsCircleCollide(m_Collider, Collider(mousePos, 1.0f)))
@@ -133,23 +134,35 @@ void Enemy::Update()
 
 void Enemy::Render(const Camera& camera) const
 {
-	Gdiplus::Rect dstRect, srcRect;
-	srcRect.X = 0;
-	srcRect.Y = 0;
-	dstRect.Width = srcRect.Width = m_pImage->GetWidth();
-	dstRect.Height = srcRect.Height = m_pImage->GetHeight();
-
 	Vector2 cameraViewPos = camera.ToCameraView(m_Position);
 
-	dstRect.X = (int)(cameraViewPos.x - srcRect.Width / 2);
-	dstRect.Y = (int)(cameraViewPos.y - srcRect.Height / 2);
+	Gdiplus::Rect dstRect;
+	dstRect.X = (int)(cameraViewPos.x - ENEMY_SIZE / 2);
+	dstRect.Y = (int)(cameraViewPos.y - ENEMY_SIZE / 2);
+	dstRect.Width = ENEMY_SIZE;
+	dstRect.Height = ENEMY_SIZE;
 
-	GDIRenderer::Get().DrawImage(m_pImage, dstRect, srcRect);
+	switch (m_Type)
+	{
+	case EnemyType::Circle:
+		GDIRenderer::Get().DrawFillCircle(m_Color, dstRect);
+		break;
 
+	case EnemyType::Rectangle:
+		GDIRenderer::Get().DrawFillRectangle(m_Color, dstRect);
+		break;
+
+	case EnemyType::Triangle:
+		GDIRenderer::Get().DrawFillTriangle(m_Color, dstRect);
+		break;
+	}
+	
 	Vector2 lineStart = m_HpPosition[0] + cameraViewPos;
 	Vector2 lineEnd = Vector2::Lerp(m_HpPosition[0], m_HpPosition[1], m_Hp / m_MaxHp) + cameraViewPos;
 
-	GDIRenderer::Get().DrawLine(Gdiplus::Color(255, 0, 0), 4.0f, lineStart, lineEnd);
+	GDIRenderer::Get().DrawLine(Gdiplus::Color(255, 0, 0), 4,
+		Gdiplus::Point((int)lineStart.x, (int)lineStart.y),
+		Gdiplus::Point((int)lineEnd.x, (int)lineEnd.y));
 }
 
 void Enemy::Collide(Object* object, const std::wstring& groupName)

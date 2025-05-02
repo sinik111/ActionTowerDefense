@@ -26,23 +26,9 @@ void EnterGate::Initialize()
 {
 	m_pImage = ResourceManager::Get().GetImage(L"Play", L"EnterGate");
 
-	const std::wstring& createData = ResourceManager::Get().GetString(L"Play", L"EnemyCreateData" + std::to_wstring(m_GateNumber));
-
-	std::wstringstream wss(createData);
-
-	float createTime;
-	int type;
-
-	while (wss >> createTime >> type)
-	{
-		m_EnemyCreateDatas.emplace_back(createTime, type);
-	}
-
-	wss.clear();
-
 	const std::wstring& moveData = ResourceManager::Get().GetString(L"Play", L"EnemyMoveData" + std::to_wstring(m_GateNumber));
 
-	wss.str(moveData);
+	std::wstringstream wss(moveData);
 
 	float x, y;
 	while (wss >> x >> y)
@@ -58,18 +44,17 @@ void EnterGate::Destroy()
 
 void EnterGate::Update()
 {
-	if (m_CreateIndex < m_EnemyCreateDatas.size())
-	{
-		if (m_EnemyCreateDatas[m_CreateIndex].createTime < GameData::Get().GetElapsedSeconds())
-		{
-			SceneManager::Get().GetCurrentScene()->CreatePendingObject<Enemy>(
-				m_Position, m_MoveData, (EnemyType)m_EnemyCreateDatas[m_CreateIndex].type);
+	//if (m_CreateIndex < m_EnemyCreateDatas.size())
+	//{
+	//	if (m_EnemyCreateDatas[m_CreateIndex].createTime < GameData::Get().GetElapsedSeconds())
+	//	{
+	//		SceneManager::Get().GetCurrentScene()->CreatePendingObject<Enemy>(
+	//			m_Position, m_MoveData, (EnemyType)m_EnemyCreateDatas[m_CreateIndex].type);
 
-			++m_CreateIndex;
-		}
-	}
-	
-	GameData::Get().RegisterMiniMapInfo(m_Position, MiniMapObjectType::EnterGate);
+	//		++m_CreateIndex;
+	//	}
+	//}
+
 	if (!SceneManager::Get().GetCurrentCamera()->IsOutOfView(m_Position, m_pImage->GetWidth(), m_pImage->GetHeight()))
 	{
 		RenderManager::Get().AddObject(m_RenderLayer, this);

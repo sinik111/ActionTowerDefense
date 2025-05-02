@@ -9,7 +9,7 @@ class EnemyInfoDisplay :
 	public Object
 {
 private:
-	Gdiplus::Bitmap* m_pImages[(int)EnemyType::Max];
+	Gdiplus::Color m_Colors[(int)EnemyType::Max];
 	Gdiplus::Bitmap* m_pBuffer;
 	Gdiplus::Graphics* m_pGraphics;
 
@@ -21,8 +21,8 @@ private:
 
 	Gdiplus::PointF m_NameTextPoint;
 	Gdiplus::PointF m_InfoTextPoint;
-	Gdiplus::PointF m_HpStartPoint;
-	Gdiplus::PointF m_HpEndPoint;
+	Gdiplus::Point m_HpStartPoint;
+	Gdiplus::Point m_HpEndPoint;
 
 	EnemyInfo m_EnemyInfo;
 

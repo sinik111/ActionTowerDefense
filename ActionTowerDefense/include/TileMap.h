@@ -6,15 +6,26 @@
 class Camera;
 enum class ResultCode;
 
+enum class TileType
+{
+	Field,
+	Path,
+	TowerPlace,
+	Gate,
+	Crystal,
+	Max
+};
+
 class TileMap :
 	public Object
 {
 private:
-	std::vector<Gdiplus::Bitmap*> m_TileImages;
-	std::vector<short> m_Tiles;
-	Gdiplus::Rect m_SrcRect;
+	Gdiplus::Color m_TileColors[(int)TileType::Max];
+	std::vector<char> m_Tiles;
 	int m_Rows;
 	int m_Columns;
+	int m_Level;
+	int m_GateCounter;
 
 public:
 	TileMap();
@@ -27,4 +38,10 @@ public:
 public:
 	void Update() override;
 	void Render(const Camera& camera) const override;
+
+public:
+	void SetLevel(int level);
+
+private:
+	void SetMap();
 };

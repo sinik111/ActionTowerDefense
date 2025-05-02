@@ -22,6 +22,11 @@
 #include "GoldDisplay.h"
 #include "EnemyInfoDisplay.h"
 
+PlayScene::PlayScene()
+	: m_pTileMap(nullptr), m_pMiniMap(nullptr)
+{
+}
+
 PlayScene::~PlayScene()
 {
 	Unload();
@@ -51,17 +56,14 @@ void PlayScene::Enter()
 	GameData::Get().SetPlayStartTime();
 	GameData::Get().SetStartGold();
 
-	//CreateObject<StaticBackground>(ResourceManager::Get().GetImage(L"Play", L"PlayBackground"));
 	CreateObject<ScreenTextUI>(L"Game", Vector2(200.0f, 200.0f), Gdiplus::Color(0, 0, 1), 36);
 	CreateObject<Player>();
-	CreateObject<TileMap>();
-	CreateObject<MiniMap>();
+	m_pTileMap = CreateObject<TileMap>();
+	m_pMiniMap = CreateObject<MiniMap>();
 	CreateObject<CenterCrystal>();
 	CreateObject<CrystalHp>();
 	CreateObject<GoldDisplay>();
 	CreateObject<EnemyInfoDisplay>();
-	CreateEnterGates();
-	CreateTowerPlaces();
 }
 
 void PlayScene::Exit()

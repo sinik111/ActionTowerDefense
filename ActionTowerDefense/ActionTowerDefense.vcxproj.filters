@@ -60,92 +60,89 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inc\GameApp.h">
+    <ClInclude Include="include\TitleScene.h">
+      <Filter>헤더 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PlayScene.h">
+      <Filter>헤더 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CenterCrystal.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Enemy.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EnterGate.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Player.h">
+      <Filter>헤더 파일\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CrystalHp.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EnemyInfoDisplay.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GoldDisplay.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ScreenTextUI.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StaticBackground.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TowerBuildButton.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TowerButton.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Fireball.h">
+      <Filter>헤더 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FireTower.h">
+      <Filter>헤더 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IceTower.h">
+      <Filter>헤더 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LightningTower.h">
+      <Filter>헤더 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Tower.h">
+      <Filter>헤더 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TowerPlace.h">
+      <Filter>헤더 파일\Object\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WorldTextUI.h">
+      <Filter>헤더 파일\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TileMap.h">
+      <Filter>헤더 파일\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MiniMap.h">
+      <Filter>헤더 파일\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="include\framework.h">
+      <Filter>헤더 파일\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="include\resource.h">
+      <Filter>헤더 파일\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="include\targetver.h">
+      <Filter>헤더 파일\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameApp.h">
       <Filter>헤더 파일\GameApp</Filter>
     </ClInclude>
-    <ClInclude Include="inc\framework.h">
-      <Filter>헤더 파일\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\resource.h">
-      <Filter>헤더 파일\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\targetver.h">
-      <Filter>헤더 파일\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\TitleScene.h">
-      <Filter>헤더 파일\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\StaticBackground.h">
-      <Filter>헤더 파일\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Player.h">
-      <Filter>헤더 파일\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\PlayScene.h">
-      <Filter>헤더 파일\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GameData.h">
+    <ClInclude Include="include\Constant.h">
       <Filter>헤더 파일\GamePlay</Filter>
     </ClInclude>
-    <ClInclude Include="inc\EnterGate.h">
-      <Filter>헤더 파일\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Enemy.h">
-      <Filter>헤더 파일\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Constant.h">
+    <ClInclude Include="include\GameData.h">
       <Filter>헤더 파일\GamePlay</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Tower.h">
-      <Filter>헤더 파일\Object\Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\FireTower.h">
-      <Filter>헤더 파일\Object\Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\IceTower.h">
-      <Filter>헤더 파일\Object\Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\LightningTower.h">
-      <Filter>헤더 파일\Object\Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\TowerPlace.h">
-      <Filter>헤더 파일\Object\Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\UIManager.h">
-      <Filter>헤더 파일\GamePlay</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\TowerButton.h">
-      <Filter>헤더 파일\Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\TowerBuildButton.h">
-      <Filter>헤더 파일\Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\Fireball.h">
-      <Filter>헤더 파일\Object\Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\TileMap.h">
-      <Filter>헤더 파일\Object\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\MiniMap.h">
-      <Filter>헤더 파일\Object\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\ScreenTextUI.h">
-      <Filter>헤더 파일\Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\WorldTextUI.h">
-      <Filter>헤더 파일\Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\CenterCrystal.h">
-      <Filter>헤더 파일\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\CrystalHp.h">
-      <Filter>헤더 파일\Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\GoldDisplay.h">
-      <Filter>헤더 파일\Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\EnemyInfoDisplay.h">
-      <Filter>헤더 파일\Object\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -190,9 +187,6 @@
     </ClCompile>
     <ClCompile Include="src\TowerPlace.cpp">
       <Filter>소스 파일\Object\Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="src\UIManager.cpp">
-      <Filter>소스 파일\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="src\TowerButton.cpp">
       <Filter>소스 파일\Object\UI</Filter>

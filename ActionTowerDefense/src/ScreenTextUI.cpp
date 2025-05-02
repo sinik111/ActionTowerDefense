@@ -47,5 +47,6 @@ void ScreenTextUI::Update()
 
 void ScreenTextUI::Render(const Camera& camera) const
 {
-	GDIRenderer::Get().DrawString(m_Text.c_str(), m_Color, m_Position, m_Size);
+	GDIRenderer::Get().DrawString(m_Text.c_str(), m_Color,
+		Gdiplus::PointF(m_Position.x, m_Position.y), m_Size);
 }

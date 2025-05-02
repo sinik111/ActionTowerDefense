@@ -139,35 +139,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="inc\CenterCrystal.h" />
-    <ClInclude Include="inc\Constant.h" />
-    <ClInclude Include="inc\CrystalHp.h" />
-    <ClInclude Include="inc\Enemy.h" />
-    <ClInclude Include="inc\EnemyInfoDisplay.h" />
-    <ClInclude Include="inc\EnterGate.h" />
-    <ClInclude Include="inc\Fireball.h" />
-    <ClInclude Include="inc\FireTower.h" />
-    <ClInclude Include="inc\GameData.h" />
-    <ClInclude Include="inc\GoldDisplay.h" />
-    <ClInclude Include="inc\IceTower.h" />
-    <ClInclude Include="inc\LightningTower.h" />
-    <ClInclude Include="inc\MiniMap.h" />
-    <ClInclude Include="inc\Player.h" />
-    <ClInclude Include="inc\PlayScene.h" />
-    <ClInclude Include="inc\StaticBackground.h" />
-    <ClInclude Include="inc\framework.h" />
-    <ClInclude Include="inc\GameApp.h" />
-    <ClInclude Include="inc\resource.h" />
-    <ClInclude Include="inc\targetver.h" />
-    <ClInclude Include="inc\ScreenTextUI.h" />
-    <ClInclude Include="inc\TileMap.h" />
-    <ClInclude Include="inc\TitleScene.h" />
-    <ClInclude Include="inc\Tower.h" />
-    <ClInclude Include="inc\TowerBuildButton.h" />
-    <ClInclude Include="inc\TowerButton.h" />
-    <ClInclude Include="inc\TowerPlace.h" />
-    <ClInclude Include="inc\UIManager.h" />
-    <ClInclude Include="inc\WorldTextUI.h" />
+    <ClInclude Include="include\CenterCrystal.h" />
+    <ClInclude Include="include\Constant.h" />
+    <ClInclude Include="include\CrystalHp.h" />
+    <ClInclude Include="include\Enemy.h" />
+    <ClInclude Include="include\EnemyInfoDisplay.h" />
+    <ClInclude Include="include\EnterGate.h" />
+    <ClInclude Include="include\Fireball.h" />
+    <ClInclude Include="include\FireTower.h" />
+    <ClInclude Include="include\framework.h" />
+    <ClInclude Include="include\GameApp.h" />
+    <ClInclude Include="include\GameData.h" />
+    <ClInclude Include="include\GoldDisplay.h" />
+    <ClInclude Include="include\IceTower.h" />
+    <ClInclude Include="include\LightningTower.h" />
+    <ClInclude Include="include\MiniMap.h" />
+    <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\PlayScene.h" />
+    <ClInclude Include="include\resource.h" />
+    <ClInclude Include="include\ScreenTextUI.h" />
+    <ClInclude Include="include\StaticBackground.h" />
+    <ClInclude Include="include\targetver.h" />
+    <ClInclude Include="include\TileMap.h" />
+    <ClInclude Include="include\TitleScene.h" />
+    <ClInclude Include="include\Tower.h" />
+    <ClInclude Include="include\TowerBuildButton.h" />
+    <ClInclude Include="include\TowerButton.h" />
+    <ClInclude Include="include\TowerPlace.h" />
+    <ClInclude Include="include\WorldTextUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GDI_EngineLib\GDI_EngineLib.vcxproj">
@@ -199,7 +198,6 @@
     <ClCompile Include="src\TowerBuildButton.cpp" />
     <ClCompile Include="src\TowerButton.cpp" />
     <ClCompile Include="src\TowerPlace.cpp" />
-    <ClCompile Include="src\UIManager.cpp" />
     <ClCompile Include="src\WorldTextUI.cpp" />
   </ItemGroup>
   <ItemGroup>

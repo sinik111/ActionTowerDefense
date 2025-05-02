@@ -69,7 +69,9 @@ void IceTower::Render(const Camera& camera) const
 			Vector2 cameraViewPos = camera.ToCameraView(m_Position);
 			Vector2 cameraViewTargetPos = camera.ToCameraView(object->GetPosition());
 
-			GDIRenderer::Get().DrawLine(Gdiplus::Color(218, 255, 255), 7.0f,cameraViewPos, cameraViewTargetPos);
+			GDIRenderer::Get().DrawLine(Gdiplus::Color(218, 255, 255), 7,
+				Gdiplus::Point((int)cameraViewPos.x, (int)cameraViewPos.y),
+				Gdiplus::Point((int)cameraViewTargetPos.x, (int)cameraViewTargetPos.y));
 		}
 	}
 

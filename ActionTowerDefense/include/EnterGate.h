@@ -26,7 +26,6 @@ class EnterGate :
 {
 private:
 	Gdiplus::Bitmap* m_pImage;
-	std::vector<EnemyCreateData> m_EnemyCreateDatas;
 	std::vector<Vector2> m_MoveData;
 	int m_GateNumber;
 	int m_CreateIndex;

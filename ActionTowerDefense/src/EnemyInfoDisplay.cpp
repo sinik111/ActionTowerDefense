@@ -6,10 +6,11 @@
 #include "GameData.h"
 #include "Enemy.h"
 #include "SceneManager.h"
+#include "Constant.h"
 
 EnemyInfoDisplay::EnemyInfoDisplay()
-	: m_pBuffer(nullptr), m_pGraphics(nullptr), m_pImages{}, m_NameTextSize(18),
-	m_InfoTextSize(14), m_HasEnemyInfo(false)
+	: m_pBuffer(nullptr), m_pGraphics(nullptr), m_NameTextSize(18),
+	m_InfoTextSize(16), m_HasEnemyInfo(false)
 {
 	m_RenderLayer = RenderLayer::ScreenUI;
 }
@@ -31,18 +32,18 @@ EnemyInfoDisplay::~EnemyInfoDisplay()
 
 void EnemyInfoDisplay::Initialize()
 {
-	m_pImages[(int)EnemyType::Circle] = ResourceManager::Get().GetImage(L"Play", L"EnemyCircle");
-	m_pImages[(int)EnemyType::Rectangle] = ResourceManager::Get().GetImage(L"Play", L"EnemyRectangle");
-	m_pImages[(int)EnemyType::Triangle] = ResourceManager::Get().GetImage(L"Play", L"EnemyTriangle");
-
+	m_Colors[(int)EnemyType::Circle] = Gdiplus::Color(0, 0, 255);
+	m_Colors[(int)EnemyType::Rectangle] = Gdiplus::Color(255, 130, 0);
+	m_Colors[(int)EnemyType::Triangle] = Gdiplus::Color(0, 255, 0);
+	
 	m_PanelRect = Gdiplus::Rect(0, 472, 248, 248);
 	
 	m_NameTextPoint = Gdiplus::PointF(87.0f, 10.0f);
 	m_InfoTextPoint = Gdiplus::PointF(5.0f, 150.0f);
-	m_ImageDstRect = Gdiplus::Rect(90, 60, m_pImages[0]->GetWidth(), m_pImages[0]->GetHeight());
+	m_ImageDstRect = Gdiplus::Rect(90, 60, ENEMY_SIZE, ENEMY_SIZE);
 
-	m_HpStartPoint = Gdiplus::PointF(100.0f, 160.0f);
-	m_HpEndPoint = Gdiplus::PointF(100.0f, 160.0f);
+	m_HpStartPoint = Gdiplus::Point(110, 160);
+	m_HpEndPoint = Gdiplus::Point(110, 160);
 
 	m_pBuffer = new Gdiplus::Bitmap(m_PanelRect.Width, m_PanelRect.Height, PixelFormat24bppRGB);
 
@@ -122,7 +123,7 @@ void EnemyInfoDisplay::LateUpdate()
 			m_InfoText += L"\n";
 		}
 
-		m_HpEndPoint.X = m_HpStartPoint.X + 100.0f * (info.hp / info.maxHp);
+		m_HpEndPoint.X = (int)(m_HpStartPoint.X + 100.0f * (info.hp / info.maxHp));
 
 		m_HasEnemyInfo = true;
 
@@ -140,9 +141,24 @@ void EnemyInfoDisplay::DrawOnBuffer()
 	m_pGraphics->Clear(Gdiplus::Color::LightSteelBlue);
 
 	GDIRenderer::Get().DrawString(m_pGraphics, m_TypeName.c_str(), Gdiplus::Color::Black, m_NameTextPoint, m_NameTextSize);
-	m_pGraphics->DrawImage(m_pImages[m_EnemyInfo.type], m_ImageDstRect);
+
+	switch ((EnemyType)m_EnemyInfo.type)
+	{
+	case EnemyType::Circle:
+		GDIRenderer::Get().DrawFillCircle(m_pGraphics, m_Colors[m_EnemyInfo.type], m_ImageDstRect);
+		break;
+
+	case EnemyType::Rectangle:
+		GDIRenderer::Get().DrawFillRectangle(m_pGraphics, m_Colors[m_EnemyInfo.type], m_ImageDstRect);
+		break;
+
+	case EnemyType::Triangle:
+		GDIRenderer::Get().DrawFillTriangle(m_pGraphics, m_Colors[m_EnemyInfo.type], m_ImageDstRect);
+		break;
+	}
+
 	GDIRenderer::Get().DrawString(m_pGraphics, m_InfoText.c_str(), Gdiplus::Color::Black, m_InfoTextPoint, m_InfoTextSize);
-	GDIRenderer::Get().DrawLine(m_pGraphics, Gdiplus::Color(255, 0, 0), 4.0f, m_HpStartPoint, m_HpEndPoint);
+	GDIRenderer::Get().DrawLine(m_pGraphics, Gdiplus::Color(255, 0, 0), 4, m_HpStartPoint, m_HpEndPoint);
 }
 
 void EnemyInfoDisplay::ClearBuffer()

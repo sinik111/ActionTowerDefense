@@ -210,6 +210,8 @@ Vector2 Vector2::Direction(const Vector2& dst, const Vector2& src)
 
 Vector2 Vector2::Lerp(const Vector2& v0, const Vector2& v1, float t)
 {
+	t = Clamp(t, 0.0f, 1.0f);
+
 	return Vector2(v0.x * (1.0f - t) + v1.x * t, v0.y * (1.0f - t) + v1.y * t);
 }
 

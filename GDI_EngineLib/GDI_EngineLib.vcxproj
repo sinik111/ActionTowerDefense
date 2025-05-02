@@ -148,26 +148,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="inc\Animation.h" />
-    <ClInclude Include="inc\AnimationController.h" />
-    <ClInclude Include="inc\Camera.h" />
-    <ClInclude Include="inc\Collider.h" />
-    <ClInclude Include="inc\CollisionManager.h" />
-    <ClInclude Include="inc\Debug.h" />
-    <ClInclude Include="inc\FileLoader.h" />
-    <ClInclude Include="inc\GDIRenderer.h" />
-    <ClInclude Include="inc\Input.h" />
-    <ClInclude Include="inc\MyMath.h" />
-    <ClInclude Include="inc\MyTime.h" />
-    <ClInclude Include="inc\Object.h" />
-    <ClInclude Include="inc\RenderManager.h" />
-    <ClInclude Include="inc\ResourceManager.h" />
-    <ClInclude Include="inc\ResultCode.h" />
-    <ClInclude Include="inc\Scene.h" />
-    <ClInclude Include="inc\SceneManager.h" />
-    <ClInclude Include="inc\Singleton.h" />
-    <ClInclude Include="inc\Vector2.h" />
-    <ClInclude Include="inc\WinApp.h" />
+    <ClInclude Include="include\Animation.h" />
+    <ClInclude Include="include\AnimationController.h" />
+    <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\Collider.h" />
+    <ClInclude Include="include\CollisionManager.h" />
+    <ClInclude Include="include\Debug.h" />
+    <ClInclude Include="include\FileLoader.h" />
+    <ClInclude Include="include\GDIRenderer.h" />
+    <ClInclude Include="include\Input.h" />
+    <ClInclude Include="include\MyMath.h" />
+    <ClInclude Include="include\MyTime.h" />
+    <ClInclude Include="include\Object.h" />
+    <ClInclude Include="include\RenderManager.h" />
+    <ClInclude Include="include\ResourceManager.h" />
+    <ClInclude Include="include\ResultCode.h" />
+    <ClInclude Include="include\Scene.h" />
+    <ClInclude Include="include\SceneManager.h" />
+    <ClInclude Include="include\Singleton.h" />
+    <ClInclude Include="include\Vector2.h" />
+    <ClInclude Include="include\WinApp.h" />
     <ClInclude Include="internal\DebugUtility.h" />
     <ClInclude Include="internal\framework.h" />
     <ClInclude Include="internal\InputSystem.h" />

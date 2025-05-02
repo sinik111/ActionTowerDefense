@@ -3,12 +3,18 @@
 #include "Scene.h"
 
 enum class ResultCode;
+class TileMap;
+class MiniMap;
 
 class PlayScene :
 	public Scene
 {
+private:
+	TileMap* m_pTileMap;
+	MiniMap* m_pMiniMap;
+
 public:
-	PlayScene() = default;
+	PlayScene();
 	~PlayScene();
 
 public:

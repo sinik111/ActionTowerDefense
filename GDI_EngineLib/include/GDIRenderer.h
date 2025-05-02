@@ -7,12 +7,12 @@
 
 enum class ResultCode;
 
-class Vector2;
-
 class GDIRenderer
 	: public Singleton<GDIRenderer>
 {
 	friend class Singleton<GDIRenderer>;
+
+	using PenWidthMap = std::unordered_map<int, Gdiplus::Pen*>;
 
 private:
 	// 윈도우 정보
@@ -31,11 +31,11 @@ private:
 	Gdiplus::Graphics* m_pBackBufferGraphics;
 
 	// 그리기 도구
-	Gdiplus::Pen* m_pPen;
-	Gdiplus::Pen* m_pLinePen;
 	Gdiplus::FontFamily* m_pFontFamily;
+
 	std::unordered_map<int, Gdiplus::Font*> m_pFonts;
-	Gdiplus::SolidBrush* m_pBrush;
+	std::unordered_map<Gdiplus::ARGB, Gdiplus::SolidBrush*> m_pBrushes;
+	std::unordered_map<Gdiplus::ARGB, PenWidthMap> m_pPens;
 
 private: // 생성자, 소멸자
 	GDIRenderer();
@@ -47,13 +47,19 @@ public: // 초기화, 정리
 
 public: // 그리기
 	void BeginDraw() const;
-	void DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dst_rect) const;
-	void DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dst_rect, const Gdiplus::Rect& src_rect) const;
-	void DrawRectangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect) const;
-	void DrawString(const wchar_t* text, const Gdiplus::Color& color, const Vector2& position, int size);
-	void DrawString(Gdiplus::Graphics* graphics, const wchar_t* text, const Gdiplus::Color& color, Gdiplus::PointF& point, int size);
-	void DrawLine(const Gdiplus::Color& color, float width, const Vector2& p1, const Vector2& p2) const;
-	void DrawLine(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, float width, const Gdiplus::PointF& p1, const Gdiplus::PointF& p2) const;
+	void DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dstRect);
+	void DrawImage(Gdiplus::Bitmap* image, const Gdiplus::Rect& dstRect, const Gdiplus::Rect& srcRect);
+	void DrawRectangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect);
+	void DrawFillRectangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect);
+	void DrawFillRectangle(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, const Gdiplus::Rect& rect);
+	void DrawFillTriangle(const Gdiplus::Color& color, const Gdiplus::Rect& rect);
+	void DrawFillTriangle(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, const Gdiplus::Rect& rect);
+	void DrawFillCircle(const Gdiplus::Color& color, const Gdiplus::Rect& rect);
+	void DrawFillCircle(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, const Gdiplus::Rect& rect);
+	void DrawString(const wchar_t* text, const Gdiplus::Color& color, const Gdiplus::PointF& point, int size);
+	void DrawString(Gdiplus::Graphics* graphics, const wchar_t* text, const Gdiplus::Color& color, const Gdiplus::PointF& point, int size);
+	void DrawLine(const Gdiplus::Color& color, int width, const Gdiplus::Point& p1, const Gdiplus::Point& p2);
+	void DrawLine(Gdiplus::Graphics* graphics, const Gdiplus::Color& color, int width, const Gdiplus::Point& p1, const Gdiplus::Point& p2);
 	void EndDraw() const;
 
 public:
@@ -63,4 +69,6 @@ public:
 
 private:
 	Gdiplus::Font* GetFont(int size);
+	Gdiplus::Pen* GetPen(const Gdiplus::Color& color, int size);
+	Gdiplus::SolidBrush* GetBrush(const Gdiplus::Color& color);
 };

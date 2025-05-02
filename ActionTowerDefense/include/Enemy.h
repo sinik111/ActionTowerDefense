@@ -1,11 +1,7 @@
 #pragma once
 
 #include "Object.h"
-
-namespace Gdiplus
-{
-	class Bitmap;
-}
+#include "GDIRenderer.h"
 
 enum class EnemyType
 {
@@ -21,7 +17,6 @@ class Enemy :
 	public Object
 {
 private:
-	Gdiplus::Bitmap* m_pImage;
 	const std::vector<Vector2>& m_MoveData;
 	Vector2 m_HpPosition[2];
 	int m_MoveIndex;
@@ -32,6 +27,7 @@ private:
 	float m_SlowTimer;
 	float m_ShockTimer;
 	float m_ShockMultiplier;
+	Gdiplus::Color m_Color;
 	EnemyType m_Type;
 	bool m_IsSlowed;
 	bool m_IsShocked;

@@ -14,8 +14,7 @@
 
 MiniMap::MiniMap()
 	: m_pBuffer(nullptr), m_pGraphics(nullptr), m_Rows(0), m_Columns(0),
-	m_TileSize(0), m_pMiniMapPlayer(nullptr), m_StartPosition(Vector2::Zero),
-	m_pMiniMapEnterGate(nullptr), m_pMiniMapEnemy(nullptr), m_pMiniMapTower(nullptr)
+	m_TileSize(0), m_StartPosition(Vector2::Zero), m_Level(1)
 {
 }
 
@@ -38,32 +37,23 @@ void MiniMap::Initialize()
 {
 	m_RenderLayer = RenderLayer::ScreenUI;
 
-	m_pMiniMapPlayer = ResourceManager::Get().GetImage(L"Play", L"MiniMapPlayer");
-	m_pMiniMapEnterGate = ResourceManager::Get().GetImage(L"Play", L"MiniMapEnterGate");
-	m_pMiniMapEnemy = ResourceManager::Get().GetImage(L"Play", L"MiniMapEnemy");
-	m_pMiniMapTower = ResourceManager::Get().GetImage(L"Play", L"MiniMapTower");
+	m_ObjectColors[(int)MiniMapObjectType::Player] = Gdiplus::Color(34, 177, 76);
+	m_ObjectColors[(int)MiniMapObjectType::Enemy] = Gdiplus::Color(255, 0, 0);
+	m_ObjectColors[(int)MiniMapObjectType::Tower] = Gdiplus::Color(255, 255, 0);
 
 	m_Rows = MAP_SIZE;
 	m_Columns = MAP_SIZE;
 
-	const std::wstring& data = ResourceManager::Get().GetString(L"Play", L"TileMapData");
-
-	std::wstringstream wss(data);
-
 	m_Tiles.resize(m_Rows * m_Columns);
 
-	for (int i = 0; i < m_Rows * m_Columns; ++i)
-	{
-		wss >> m_Tiles[i];
-	}
-
-	m_TileImages.resize(3);
-
-	m_TileImages[0] = ResourceManager::Get().GetImage(L"Play", L"MiniTile0");
-	m_TileImages[1] = ResourceManager::Get().GetImage(L"Play", L"MiniTile1");
-	m_TileImages[2] = ResourceManager::Get().GetImage(L"Play", L"MiniTile2");
+	m_TileColors[(int)TileType::Field] = Gdiplus::Color(239, 228, 176);
+	m_TileColors[(int)TileType::Path] = Gdiplus::Color(185, 122, 87);
+	m_TileColors[(int)TileType::TowerPlace] = Gdiplus::Color(163, 73, 164);
+	m_TileColors[(int)TileType::Gate] = Gdiplus::Color(0, 162, 232);
+	m_TileColors[(int)TileType::Crystal] = Gdiplus::Color(194, 255, 192);
 
 	m_TileSize = MINI_TILE_SIZE;
+
 
 	int cameraWidth = SceneManager::Get().GetCurrentCamera()->GetWidth();
 	int cameraHeight = SceneManager::Get().GetCurrentCamera()->GetHeight();
@@ -79,7 +69,7 @@ void MiniMap::Initialize()
 
 	m_pGraphics = new Gdiplus::Graphics(m_pBuffer);
 
-	ReDrawMiniMap();
+	SetMinimap();
 }
 
 void MiniMap::Destroy()
@@ -104,36 +94,34 @@ void MiniMap::Render(const Camera& camera) const
 
 		Vector2 miniPosition = m_StartPosition + info.position * scale;
 
-		Gdiplus::Bitmap* current = nullptr;
+		Gdiplus::Rect dstRect(
+			(int)miniPosition.x - MINI_MAP_OBJECT_SIZE / 2,
+			(int)miniPosition.y - MINI_MAP_OBJECT_SIZE / 2,
+			MINI_MAP_OBJECT_SIZE, MINI_MAP_OBJECT_SIZE);
+
 		switch (info.type)
 		{
 		case MiniMapObjectType::Player:
-			current = m_pMiniMapPlayer;
-			break;
-
-		case MiniMapObjectType::EnterGate:
-			current = m_pMiniMapEnterGate;
+			GDIRenderer::Get().DrawFillRectangle(m_ObjectColors[(int)MiniMapObjectType::Player], dstRect);
 			break;
 
 		case MiniMapObjectType::Enemy:
-			current = m_pMiniMapEnemy;
+			GDIRenderer::Get().DrawFillRectangle(m_ObjectColors[(int)MiniMapObjectType::Enemy], dstRect);
 			break;
 
 		case MiniMapObjectType::Tower:
-			current = m_pMiniMapTower;
+			GDIRenderer::Get().DrawFillRectangle(m_ObjectColors[(int)MiniMapObjectType::Tower], dstRect);
 			break;
 		}
-
-		Gdiplus::Rect srcRect(0, 0, current->GetWidth(), current->GetHeight());
-		Gdiplus::Rect dstRect(
-			(int)miniPosition.x - srcRect.Width / 2,
-			(int)miniPosition.y - srcRect.Height / 2,
-			srcRect.Width, srcRect.Height);
-
-		GDIRenderer::Get().DrawImage(current, dstRect, srcRect);
 	}
 
 	GameData::Get().ClearMiniMapInfo();
+}
+
+void MiniMap::SetLevel(int level)
+{
+	m_Level = level;
+	SetMinimap();
 }
 
 void MiniMap::ReDrawMiniMap() const
@@ -142,11 +130,28 @@ void MiniMap::ReDrawMiniMap() const
 
 	for (int i = 0; i < m_Rows * m_Columns; ++i)
 	{
-		Gdiplus::Bitmap* image = m_TileImages[m_Tiles[i]];
+		Gdiplus::Rect dstRect(
+			(int)i % m_Rows * m_TileSize + m_TileSize,
+			(int)i / m_Rows * m_TileSize + m_TileSize,
+			m_TileSize, m_TileSize);
 
-		int posX = i % m_Rows * m_TileSize + m_TileSize;
-		int posY = i / m_Rows * m_TileSize + m_TileSize;
-
-		m_pGraphics->DrawImage(image, posX, posY, m_TileSize, m_TileSize);
+		GDIRenderer::Get().DrawFillRectangle(m_pGraphics, m_TileColors[m_Tiles[i]], dstRect);
 	}
+}
+
+void MiniMap::SetMinimap()
+{
+	const std::wstring& data = ResourceManager::Get().GetString(L"Play", L"TileMapData" + std::to_wstring(m_Level));
+
+	std::wstringstream wss(data);
+
+	for (int i = 0; i < m_Rows * m_Columns; ++i)
+	{
+		int tileNumber;
+		wss >> tileNumber;
+
+		m_Tiles[i] = tileNumber;
+	}
+
+	ReDrawMiniMap();
 }
