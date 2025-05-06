@@ -16,6 +16,7 @@
 #include "SceneManager.h"
 #include "GameData.h"
 #include "Constant.h"
+#include "SoundManager.h"
 
 Player::Player()
 	: m_Speed(0.0f), m_current_state(PlayerAnimState::IdleDown), m_next_state(PlayerAnimState::IdleDown),
@@ -236,6 +237,8 @@ void Player::Update()
 	{
 		if (Input::IsKeyReleased(VK_RBUTTON))
 		{
+			SoundManager::Get().PlaySound(L"Attack", 0.1f);
+
 			m_IsStartAttack = true;
 
 			Vector2 mousePos = Input::GetCursorPosition();

@@ -9,6 +9,7 @@
 #include "InputSystem.h"
 #include "MyTimeSystem.h"
 #include "RenderManager.h"
+#include "SoundManager.h"
 
 WinApp::WinApp()
 	: m_hWnd(nullptr), m_hInstance(nullptr), m_Width(0), m_Height(0),
@@ -173,6 +174,8 @@ void WinApp::Update()
 	InputSystem::Get().Update();
 
 	SceneManager::Get().Update();
+
+	SoundManager::Get().Update();
 }
 
 void WinApp::Render()

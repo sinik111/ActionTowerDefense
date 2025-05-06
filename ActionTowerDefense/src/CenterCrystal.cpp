@@ -8,6 +8,7 @@
 #include "GameData.h"
 #include "SceneManager.h"
 #include "MyMath.h"
+#include "ScreenTextUI.h"
 
 CenterCrystal::CenterCrystal()
 	: m_Hp(5), m_pImage{}, m_RotateRadius(40.0f), m_RotateSpeed(PI * 2.0f / 6.0f),
@@ -16,7 +17,7 @@ CenterCrystal::CenterCrystal()
 	GameData::Get().SetCenterCrystal(this);
 
 	m_RenderLayer = RenderLayer::Object;
-	m_Position = Vector2(TILE_SIZE * MAP_SIZE / 2, TILE_SIZE * MAP_SIZE / 2);
+	m_Position = Vector2(TILE_SIZE * MAP_SIZE / 2, TILE_SIZE * MAP_SIZE / 2 - 40.0f);
 	m_Radians[0] = 0.0f;
 	m_Radians[1] = PI * 2.0f * (1.0f / 5.0f);
 	m_Radians[2] = PI * 2.0f * (2.0f / 5.0f);
@@ -131,7 +132,17 @@ void CenterCrystal::TakeDamage()
 			break;
 
 		case 0:
-			// defeat
+			SceneManager::Get().GetCurrentScene()->CreatePendingObject<ScreenTextUI>(
+				L"패배했습니다. 크리스탈이 모두 파괴됐습니다.", Vector2(400.0f, 200.0f), Gdiplus::Color::Red, 24, 10.0f);
+			SceneManager::Get().GetCurrentScene()->CreatePendingObject<ScreenTextUI>(
+				L"10초 후 메인화면으로 돌아갑니다.", Vector2(440.0f, 230.0f), Gdiplus::Color::Red, 24, 10.0f);
+			SceneManager::Get().GetCurrentScene()->CreatePendingObject<ScreenTextUI>(
+				L"SPACE를 누르면 바로 돌아갑니다.", Vector2(445.0f, 260.0f), Gdiplus::Color::Red, 24, 10.0f);
+
+			GameData::Get().SetEndStartTime();
+			GameData::Get().UpdateEndTime();
+			GameData::Get().SetCurrentGameState(GameState::Defeat);
+
 			break;
 		}
 	}

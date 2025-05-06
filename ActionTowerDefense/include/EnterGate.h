@@ -29,6 +29,11 @@ private:
 	std::vector<Vector2> m_MoveData;
 	int m_GateNumber;
 	int m_CreateIndex;
+	int m_BurstCounter;
+	float m_SpawnTimer;
+	float m_BurstTimer;
+	float m_BurstRate;
+	bool m_IsSpawning;
 	
 public:
 	EnterGate(int gateNumber, int row, int column);

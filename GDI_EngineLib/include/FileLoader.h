@@ -15,6 +15,7 @@ class FileLoader
 	friend class Singleton<FileLoader>;
 private:
 	std::wstring m_ResourcePath;
+	std::string m_ResourcePathS;
 
 private:
 	FileLoader() = default;
@@ -25,4 +26,6 @@ public:
 
 	std::wstring LoadTextFile(const std::wstring& fileName);
 	Gdiplus::Bitmap* LoadImageFile(const std::wstring& fileName);
+	
+	std::string GetPath();
 };

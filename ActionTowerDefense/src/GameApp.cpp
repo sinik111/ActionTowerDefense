@@ -7,6 +7,7 @@
 #include "TitleScene.h"
 #include "SceneManager.h"
 #include "PlayScene.h"
+#include "SoundManager.h"
 
 ResultCode GameApp::Initialize()
 {
@@ -44,6 +45,14 @@ ResultCode GameApp::Initialize()
 
 		return ResultCode::FAIL;
 	}
+
+	std::string path = FileLoader::Get().GetPath();
+
+	SoundManager::Get().CreateSound(path + "sound/PlayBGM.mp3", L"PlayBGM");
+	SoundManager::Get().CreateSound(path + "sound/Lightning.mp3", L"Lightning");
+	SoundManager::Get().CreateSound(path + "sound/Fireball.mp3", L"Fireball");
+	SoundManager::Get().CreateSound(path + "sound/TitleBGM.mp3", L"TitleBGM");
+	SoundManager::Get().CreateSound(path + "sound/Attack.mp3", L"Attack");
 
 	SceneManager::Get().CreateScene<TitleScene>(L"TitleScene");
 	SceneManager::Get().CreateScene<PlayScene>(L"PlayScene");

@@ -34,7 +34,7 @@ private:
 
 public:
 	Enemy(const Vector2& position, const std::vector<Vector2>& moveData, EnemyType type);
-	~Enemy() = default;
+	~Enemy();
 
 public:
 	void Initialize() override;

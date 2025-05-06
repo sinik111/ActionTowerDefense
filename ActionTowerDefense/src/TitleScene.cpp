@@ -12,6 +12,7 @@
 #include "ScreenTextUI.h"
 #include "Input.h"
 #include "SceneManager.h"
+#include "SoundManager.h"
 
 TitleScene::~TitleScene()
 {
@@ -39,18 +40,18 @@ void TitleScene::Enter()
 
 	Debug::Log("Enter Title Scene - TitleScene::Enter");
 
-	StaticBackground* pBg = new StaticBackground(ResourceManager::Get().GetImage(L"Title", L"TitleBackground"));
-	pBg->Initialize();
-	m_Objects.push_back(pBg);
+	SoundManager::Get().PlayBGM(L"TitleBGM", 0.1f);
 
-	ScreenTextUI* pTextUI = new ScreenTextUI(L"Game", Vector2(100.0f, 100.0f), Gdiplus::Color(0, 1, 0), 24);
-	pTextUI->Initialize();
-	m_Objects.push_back(pTextUI);
+	CreateObject<StaticBackground>(ResourceManager::Get().GetImage(L"Title", L"TitleImage"));
+
+	CreateObject<ScreenTextUI>(L"게임을 시작하려면 Enter를 누르세요.", Vector2(430.0f, 500.0f), Gdiplus::Color(0, 0, 0), 24);
 }
 
 void TitleScene::Exit()
 {
 	Debug::Log("Exit Title Scene - TitleScene::Exit");
+
+	SoundManager::Get().StopBGM();
 
 	__super::Exit();
 }
@@ -64,7 +65,7 @@ void TitleScene::Unload()
 
 void TitleScene::Update()
 {
-	if (Input::IsKeyReleased('1'))
+	if (Input::IsKeyReleased(VK_RETURN))
 	{
 		SceneManager::Get().ChangeScene(L"PlayScene");
 	}

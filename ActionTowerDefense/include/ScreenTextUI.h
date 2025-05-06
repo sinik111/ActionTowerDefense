@@ -17,7 +17,7 @@ private:
 
 public:
 	ScreenTextUI(const std::wstring& text, const Vector2& position,
-		const Gdiplus::Color& color, int size, float timer = -1);
+		const Gdiplus::Color& color, int size, float timer = -1.0f);
 	~ScreenTextUI() = default;
 
 public:

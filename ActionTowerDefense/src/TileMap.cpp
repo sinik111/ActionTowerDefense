@@ -14,9 +14,14 @@
 #include "SceneManager.h"
 #include "TowerPlace.h"
 #include "EnterGate.h"
+#include "Input.h"
+#include "GameData.h"
+#include "ScreenTextUI.h"
 
 TileMap::TileMap()
-	: m_Rows(0), m_Columns(0), m_Level(1), m_GateCounter(1)
+	: m_Rows(0), m_Columns(0), m_Level(1), m_GateCounter(1),
+	m_IsFirstLoad(true), m_DidFirstWarning(false),
+	m_DidSecondWarning(false)
 {
 }
 
@@ -47,6 +52,37 @@ void TileMap::Destroy()
 
 void TileMap::Update()
 {
+	if (m_Level == 1)
+	{
+		if (!m_DidFirstWarning && GameData::Get().GetRemainPlayTime() < 250)
+		{
+			SceneManager::Get().GetCurrentScene()->CreatePendingObject<ScreenTextUI>(
+				L"10초 후 포탈이 추가로 생성됩니다.", Vector2(430.0f, 150.0f), Gdiplus::Color::Red, 24, 5.0f);
+
+			m_DidFirstWarning = true;
+		}
+
+		if (GameData::Get().GetRemainPlayTime() < 240)
+		{
+			SetLevel(2);
+		}
+	}
+	else if (m_Level == 2)
+	{
+		if (!m_DidSecondWarning && GameData::Get().GetRemainPlayTime() < 190)
+		{
+			SceneManager::Get().GetCurrentScene()->CreatePendingObject<ScreenTextUI>(
+				L"10초 후 포탈이 추가로 생성됩니다.", Vector2(430.0f, 150.0f), Gdiplus::Color::Red, 24, 5.0f);
+
+			m_DidSecondWarning = true;
+		}
+
+		if (GameData::Get().GetRemainPlayTime() < 180)
+		{
+			SetLevel(3);
+		}
+	}
+
 	__super::Update();
 }
 
@@ -103,8 +139,10 @@ void TileMap::SetMap()
 
 		wss >> tileType;
 		
-		if (m_Level == 1)
+		if (m_IsFirstLoad)
 		{
+			m_IsFirstLoad = false;
+
 			m_Tiles[i] = tileType;
 
 			switch (tileType)

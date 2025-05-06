@@ -25,6 +25,13 @@ Enemy::Enemy(const Vector2& position, const std::vector<Vector2>& moveData, Enem
 {
 	m_Position = position;
 	m_RenderLayer = RenderLayer::Object;
+
+	GameData::Get().IncreaseEnemyCount();
+}
+
+Enemy::~Enemy()
+{
+	GameData::Get().DecreaseEnemyCount();
 }
 
 void Enemy::Initialize()

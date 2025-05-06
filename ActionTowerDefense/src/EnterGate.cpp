@@ -12,9 +12,12 @@
 #include "Scene.h"
 #include "Enemy.h"
 #include "Constant.h"
+#include "Random.h"
+#include "Debug.h"
 
 EnterGate::EnterGate(int gateNumber, int row, int column)
-	: m_pImage(nullptr), m_GateNumber(gateNumber), m_CreateIndex(0)
+	: m_pImage(nullptr), m_GateNumber(gateNumber), m_CreateIndex(0), m_SpawnTimer(0.0f),
+	m_IsSpawning(false), m_BurstCounter(0), m_BurstTimer(0.0f), m_BurstRate(0.5f)
 {
 	m_Position = Vector2(TILE_SIZE * row + (float)TILE_SIZE / 2,
 		TILE_SIZE * column + (float)TILE_SIZE / 2);
@@ -44,23 +47,44 @@ void EnterGate::Destroy()
 
 void EnterGate::Update()
 {
-	//if (m_CreateIndex < m_EnemyCreateDatas.size())
-	//{
-	//	if (m_EnemyCreateDatas[m_CreateIndex].createTime < GameData::Get().GetElapsedSeconds())
-	//	{
-	//		SceneManager::Get().GetCurrentScene()->CreatePendingObject<Enemy>(
-	//			m_Position, m_MoveData, (EnemyType)m_EnemyCreateDatas[m_CreateIndex].type);
+	if (GameData::Get().GetCurrentGameState() == GameState::Play &&
+		GameData::Get().GetRemainPlayTime() > 0)
+	{
+		if (!m_IsSpawning)
+		{
+			m_SpawnTimer += MyTime::DeltaTime();
 
-	//		++m_CreateIndex;
-	//	}
-	//}
+			if (m_SpawnTimer > GameData::Get().GetCurrentSpawnRate())
+			{
+				m_IsSpawning = true;
+				m_SpawnTimer = 0.0f;
+			}
+		}
 
+		if (m_IsSpawning)
+		{
+			m_BurstTimer += MyTime::DeltaTime();
+
+			if (m_BurstTimer > m_BurstRate)
+			{
+				SceneManager::Get().GetCurrentScene()->CreatePendingObject<Enemy>(m_Position, m_MoveData, (EnemyType)Random::Int(0, 2));
+				m_BurstTimer = 0.0f;
+
+				++m_BurstCounter;
+
+				if (m_BurstCounter == GameData::Get().GetCurrentSpawnBurst())
+				{
+					m_IsSpawning = false;
+					m_BurstCounter = 0;
+				}
+			}
+		}
+	}
+	
 	if (!SceneManager::Get().GetCurrentCamera()->IsOutOfView(m_Position, m_pImage->GetWidth(), m_pImage->GetHeight()))
 	{
 		RenderManager::Get().AddObject(m_RenderLayer, this);
 	}
-
-	//__super::Update();
 }
 
 void EnterGate::Render(const Camera& camera) const
@@ -77,6 +101,4 @@ void EnterGate::Render(const Camera& camera) const
 	dstRect.Y = (int)(cameraViewPos.y - srcRect.Height / 2);
 
 	GDIRenderer::Get().DrawImage(m_pImage, dstRect, srcRect);
-
-	//Debug::Log("Draw");
 }

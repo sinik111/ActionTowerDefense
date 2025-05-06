@@ -23,7 +23,7 @@ void AnimationController::AddAnimation(const std::wstring& name, Animation* anim
 {
 	if (m_Animations.find(name) != m_Animations.end())
 	{
-		Debug::Log(L"Already has same name. name: " + name + L" AnimationController::AddAnimation");
+		//Debug::Log(L"Already has same name. name: " + name + L" AnimationController::AddAnimation");
 
 		return;
 	}
@@ -35,7 +35,7 @@ void AnimationController::PlayAnimation(const std::wstring& name)
 {
 	if (m_Animations.find(name) == m_Animations.end())
 	{
-		Debug::Log(L"No animation. name: " + name + L" AnimationController::PlayAnimation");
+		//Debug::Log(L"No animation. name: " + name + L" AnimationController::PlayAnimation");
 
 		return;
 	}
@@ -45,7 +45,7 @@ void AnimationController::PlayAnimation(const std::wstring& name)
 		m_pCurrentAnimation->Reset();
 	}
 
-	Debug::Log(L"Play animation. name: " + name + L" AnimationController::PlayAnimation");
+	//Debug::Log(L"Play animation. name: " + name + L" AnimationController::PlayAnimation");
 
 	m_pCurrentAnimation = m_Animations[name];
 

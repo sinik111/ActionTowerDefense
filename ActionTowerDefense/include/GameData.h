@@ -4,6 +4,14 @@
 #include "Vector2.h"
 #include "MyTime.h"
 
+enum class GameState
+{
+	Ready,
+	Play,
+	Victory,
+	Defeat
+};
+
 enum class MiniMapObjectType
 {
 	Player,
@@ -76,30 +84,58 @@ class GameData :
 	friend class Singleton<GameData>;
 
 private:
-	GameData();
-	~GameData() = default;
-
-private:
 	std::vector<MiniMapInfo> m_MiniMapInfo;
 
-	TimePoint m_PlayStartTime;
+	TimePoint m_ReadyTimePoint;
+	TimePoint m_PlayTimePoint;
+	TimePoint m_EndTimePoint;
 
 	Player* m_pPlayer;
 	CenterCrystal* m_pCenterCrystal;
 
+	GameState m_GameState;
+
 	EnemyInfo m_EnemyInfo;
 
 	int m_Gold;
+	float m_CurrentSpawnRate;
+	int m_CurrentSpawnBurst;
+
+	const int m_TotalReadyTime;
+	int m_RemainReadyTime;
+
+	const int m_TotalPlayTime;
+	int m_RemainPlayTime;
+
+	const int m_TotalEndTime;
+	int m_RemainEndTime;
+
+	int m_EnemyCount;
 
 	bool m_hasEnemyInfo;
+
+private:
+	GameData();
+	~GameData() = default;
 
 public:
 	void RegisterMiniMapInfo(const Vector2& position, MiniMapObjectType type);
 	const std::vector<MiniMapInfo>& GetMiniMapInfo();
 	void ClearMiniMapInfo();
 
+	void SetReadyStartTime();
+	int GetRemainReadyTime();
+
 	void SetPlayStartTime();
 	float GetElapsedSeconds();
+	int GetRemainPlayTime();
+
+	int GetRemainEndTime();
+	void SetEndStartTime();
+
+	void UpdatePlayTime();
+	void UpdateReadyTime();
+	void UpdateEndTime();
 
 	void SetPlayer(Player* pPlayer);
 	Player* GetPlayer();
@@ -117,6 +153,16 @@ public:
 	const EnemyInfo& GetEnemyInfo();
 	bool HasEnemyInfo();
 
+	float GetCurrentSpawnRate();
+	int GetCurrentSpawnBurst();
+
+	GameState GetCurrentGameState();
+	void SetCurrentGameState(GameState state);
+
+	void IncreaseEnemyCount();
+	void DecreaseEnemyCount();
+	int GetEnemyCount();
+
 public:
-	void Clear();
+	void Reset();
 };

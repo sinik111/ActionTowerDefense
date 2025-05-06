@@ -172,20 +172,17 @@ bool Vector2::IsZero() const
 
 float Vector2::AngleToUp() const
 {
-	constexpr float PI = 3.14159265f;
+	Vector2 n = this->Normalized();
 
-	Vector2 n = this->Normalized(); // 단위 벡터로 정규화
-
-	// atan2(x, y): 위쪽 기준으로 시계방향 각도
-	float radians = atan2(n.x, -n.y); // 주의: (x, y) 순서 (Up이 기준이므로)
-	float degrees = radians * (180.0f / PI); // 라디안 → 도
+	float radians = atan2(n.x, -n.y);
+	float degrees = radians * (180.0f / PI);
 
 	if (degrees < 0.0f)
 	{
 		degrees += 360.0f;
 	}
 
-	return degrees; // 0 ~ 360도 범위
+	return degrees;
 }
 
 float Vector2::Dot(const Vector2& v1, const Vector2& v2)

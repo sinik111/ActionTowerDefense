@@ -32,17 +32,17 @@ void CrystalHp::Initialize()
 {
 	m_pImage = ResourceManager::Get().GetImage(L"Play", L"CrystalHp");
 
-	m_Text = L"Crystal HP ";
+	m_Text = L"Crystals";
 
-	m_TextPoint = Gdiplus::PointF(25.0f, 10.0f);
+	m_TextPoint = Gdiplus::PointF(10.0f, 10.0f);
 
-	m_PanelRect = Gdiplus::Rect(0, 0, 500, 70);
+	m_PanelRect = Gdiplus::Rect(0, 0, 400, 70);
 
-	m_HpPositions[0] = Gdiplus::Rect(200, 10, m_pImage->GetWidth(), m_pImage->GetHeight());
-	m_HpPositions[1] = Gdiplus::Rect(250, 10, m_pImage->GetWidth(), m_pImage->GetHeight());
-	m_HpPositions[2] = Gdiplus::Rect(300, 10, m_pImage->GetWidth(), m_pImage->GetHeight());
-	m_HpPositions[3] = Gdiplus::Rect(350, 10, m_pImage->GetWidth(), m_pImage->GetHeight());
-	m_HpPositions[4] = Gdiplus::Rect(400, 10, m_pImage->GetWidth(), m_pImage->GetHeight());
+	m_HpPositions[0] = Gdiplus::Rect(130, 10, m_pImage->GetWidth(), m_pImage->GetHeight());
+	m_HpPositions[1] = Gdiplus::Rect(180, 10, m_pImage->GetWidth(), m_pImage->GetHeight());
+	m_HpPositions[2] = Gdiplus::Rect(230, 10, m_pImage->GetWidth(), m_pImage->GetHeight());
+	m_HpPositions[3] = Gdiplus::Rect(280, 10, m_pImage->GetWidth(), m_pImage->GetHeight());
+	m_HpPositions[4] = Gdiplus::Rect(330, 10, m_pImage->GetWidth(), m_pImage->GetHeight());
 		
 	m_pBuffer = new Gdiplus::Bitmap(m_PanelRect.Width, m_PanelRect.Height, PixelFormat24bppRGB);
 

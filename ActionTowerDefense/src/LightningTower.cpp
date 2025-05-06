@@ -7,6 +7,7 @@
 #include "MyTime.h"
 #include "ResourceManager.h"
 #include "CollisionManager.h"
+#include "SoundManager.h"
 
 LightningTower::LightningTower(const Vector2& position)
 	: Tower::Tower(position), m_pAttackImage(nullptr), m_AttackDuration(0.3f),
@@ -14,7 +15,7 @@ LightningTower::LightningTower(const Vector2& position)
 	m_Multiplier(1.1f)
 {
 	m_AttackRate = 1.0f;
-	m_Damage = 10.0f;
+	m_Damage = 5.0f;
 }
 
 void LightningTower::Initialize()
@@ -37,6 +38,11 @@ void LightningTower::Update()
 		m_AttackTimer += MyTime::DeltaTime();
 		if (m_AttackRate < m_AttackTimer)
 		{
+			if (!SceneManager::Get().GetCurrentCamera()->IsOutOfView(m_Position, m_pImage->GetWidth(), m_pImage->GetHeight()))
+			{
+				SoundManager::Get().PlaySound(L"Lightning", 0.05f);
+			}
+
 			m_AttackTimer = 0.0f;
 			m_IsStartAttack = true;
 		}
@@ -97,14 +103,14 @@ void LightningTower::Upgrade()
 
 	if (m_Level == 2)
 	{
-		m_Damage = 20.0f;
-		m_AttackRate = 0.8f;
+		m_Damage = 10.0f;
+		m_AttackRate = 0.9f;
 		m_Multiplier = 1.3f;
 	}
 	else if (m_Level == 3)
 	{
-		m_Damage = 30.0f;
-		m_AttackRate = 0.5f;
+		m_Damage = 15.0f;
+		m_AttackRate = 0.8f;
 		m_Multiplier = 1.5f;
 	}
 }

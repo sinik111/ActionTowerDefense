@@ -27,6 +27,11 @@ private:
 	int m_Level;
 	int m_GateCounter;
 
+	bool m_IsFirstLoad;
+
+	bool m_DidFirstWarning;
+	bool m_DidSecondWarning;
+
 public:
 	TileMap();
 	~TileMap() = default;

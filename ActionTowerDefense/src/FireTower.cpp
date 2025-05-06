@@ -10,6 +10,7 @@
 #include "GameData.h"
 #include "Player.h"
 #include "CollisionManager.h"
+#include "SoundManager.h"
 
 FireTower::FireTower(const Vector2& position)
 	: Tower::Tower(position)
@@ -37,6 +38,11 @@ void FireTower::Update()
 	{
 		if (!m_pInRangeObjects.empty())
 		{
+			if (!SceneManager::Get().GetCurrentCamera()->IsOutOfView(m_Position, m_pImage->GetWidth(), m_pImage->GetHeight()))
+			{
+				SoundManager::Get().PlaySound(L"Fireball", 0.05f);
+			}
+
 			std::sort(m_pInRangeObjects.begin(), m_pInRangeObjects.end(),
 				[this](const Object* a, const Object* b) {
 					return this->NearestComparer(a, b);
@@ -71,12 +77,12 @@ void FireTower::Upgrade()
 	if (m_Level == 2)
 	{
 		m_Damage = 50;
-		//m_AttackRate = 0.8f;
+		m_AttackRate = 0.9f;
 	}
 	else if (m_Level == 3)
 	{
 		m_Damage = 70;
-		//m_AttackRate = 0.5f;
+		m_AttackRate = 0.8f;
 	}
 }
 

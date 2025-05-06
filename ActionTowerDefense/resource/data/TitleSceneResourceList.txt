@@ -1,1 +1,1 @@
-Title	Image	TitleBackground	image/title.png
+Title	Image	TitleImage	image/Title.bmp

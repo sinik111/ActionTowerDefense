@@ -5,6 +5,8 @@
 #include <gdiplus.h>
 #include <sstream>
 
+#include "../lib/fmod/inc/fmod.hpp"
+
 #include "Debug.h"
 #include "ResultCode.h"
 #include "FileLoader.h"

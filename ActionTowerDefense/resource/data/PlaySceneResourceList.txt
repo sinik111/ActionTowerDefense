@@ -29,6 +29,8 @@ Play	Text	EnemyMoveData7	data/EnemyMoveData7.txt
 Play	Text	EnemyMoveData8	data/EnemyMoveData8.txt
 Play	Text	EnemyMoveData9	data/EnemyMoveData9.txt
 Play	Text	EnemyMoveData10	data/EnemyMoveData10.txt
+Play	Text	EnemyMoveData11	data/EnemyMoveData11.txt
+Play	Text	EnemyMoveData12	data/EnemyMoveData12.txt
 Play	Image	TowerButton1	image/TowerButton1.bmp
 Play	Image	TowerButton2	image/TowerButton2.bmp
 Play	Image	TowerPlace	image/TowerPlace.png

@@ -46,6 +46,13 @@ ResultCode FileLoader::Initialize(const std::wstring& modulePath, const std::wst
 
 	m_ResourcePath += std::wstring(L"\\" + resourceFolderName + L"\\");
 
+	int size = WideCharToMultiByte(CP_ACP, 0, m_ResourcePath.c_str(), -1, nullptr, 0, nullptr, nullptr);
+	std::string result(size, 0);
+	WideCharToMultiByte(CP_ACP, 0, m_ResourcePath.c_str(), -1, &result[0], size, nullptr, nullptr);
+	result.pop_back(); // null 문자 제거
+
+	m_ResourcePathS = result;
+
 	return ResultCode::OK;
 }
 
@@ -87,4 +94,9 @@ Gdiplus::Bitmap* FileLoader::LoadImageFile(const std::wstring& fileName)
 	}
 
 	return image;
+}
+
+std::string FileLoader::GetPath()
+{
+	return m_ResourcePathS;
 }

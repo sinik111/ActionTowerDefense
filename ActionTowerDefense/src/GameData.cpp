@@ -3,7 +3,10 @@
 
 GameData::GameData()
 	: m_pPlayer(nullptr), m_pCenterCrystal(nullptr), m_Gold(0), m_hasEnemyInfo(false),
-	m_EnemyInfo{}
+	m_EnemyInfo{}, m_CurrentSpawnRate(5.0f), m_CurrentSpawnBurst(10),
+	m_GameState(GameState::Ready), m_RemainPlayTime(300), m_RemainReadyTime(30),
+	m_EnemyCount(0), m_RemainEndTime(10), m_TotalPlayTime(300), m_TotalEndTime(10),
+	m_TotalReadyTime(30)
 {
 }
 
@@ -22,14 +25,54 @@ void GameData::ClearMiniMapInfo()
 	m_MiniMapInfo.clear();
 }
 
+void GameData::SetReadyStartTime()
+{
+	m_ReadyTimePoint = Clock::now();
+}
+
+int GameData::GetRemainReadyTime()
+{
+	return m_RemainReadyTime;
+}
+
 void GameData::SetPlayStartTime()
 {
-	m_PlayStartTime = Clock::now();
+	m_PlayTimePoint = Clock::now();
 }
 
 float GameData::GetElapsedSeconds()
 {
-	return MyTime::GetElapsedSeconds(m_PlayStartTime);
+	return MyTime::GetElapsedSeconds(m_PlayTimePoint);
+}
+
+int GameData::GetRemainPlayTime()
+{
+	return m_RemainPlayTime;
+}
+
+int GameData::GetRemainEndTime()
+{
+	return m_RemainEndTime;
+}
+
+void GameData::SetEndStartTime()
+{
+	m_EndTimePoint = Clock::now();
+}
+
+void GameData::UpdatePlayTime()
+{
+	m_RemainPlayTime = m_TotalPlayTime - (int)MyTime::GetElapsedSeconds(m_PlayTimePoint);
+}
+
+void GameData::UpdateReadyTime()
+{
+	m_RemainReadyTime = m_TotalReadyTime - (int)MyTime::GetElapsedSeconds(m_ReadyTimePoint);
+}
+
+void GameData::UpdateEndTime()
+{
+	m_RemainEndTime = m_TotalEndTime - (int)MyTime::GetElapsedSeconds(m_EndTimePoint);
 }
 
 void GameData::SetPlayer(Player* pPlayer)
@@ -100,11 +143,53 @@ bool GameData::HasEnemyInfo()
 	return m_hasEnemyInfo;
 }
 
-void GameData::Clear()
+float GameData::GetCurrentSpawnRate()
+{
+	return m_CurrentSpawnRate;
+}
+
+int GameData::GetCurrentSpawnBurst()
+{
+	return m_CurrentSpawnBurst;
+}
+
+GameState GameData::GetCurrentGameState()
+{
+	return m_GameState;
+}
+
+void GameData::SetCurrentGameState(GameState state)
+{
+	m_GameState = state;
+}
+
+void GameData::IncreaseEnemyCount()
+{
+	++m_EnemyCount;
+}
+
+void GameData::DecreaseEnemyCount()
+{
+	--m_EnemyCount;
+}
+
+int GameData::GetEnemyCount()
+{
+	return m_EnemyCount;
+}
+
+void GameData::Reset()
 {
 	ClearMiniMapInfo();
 	m_pPlayer = nullptr;
 	m_pCenterCrystal = nullptr;
 	m_Gold = 0;
 	m_hasEnemyInfo = false;
+	m_CurrentSpawnRate = 5.0f;
+	m_CurrentSpawnBurst = 10;
+	m_GameState = GameState::Ready;
+	m_RemainPlayTime = 300;
+	m_RemainReadyTime = 30;
+	m_RemainEndTime = 30;
+	m_EnemyCount = 0;
 }

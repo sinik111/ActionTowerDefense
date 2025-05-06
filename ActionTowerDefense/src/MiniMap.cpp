@@ -11,6 +11,7 @@
 #include "SceneManager.h"
 #include "GameData.h"
 #include "Constant.h"
+#include "Input.h"
 
 MiniMap::MiniMap()
 	: m_pBuffer(nullptr), m_pGraphics(nullptr), m_Rows(0), m_Columns(0),
@@ -79,6 +80,31 @@ void MiniMap::Destroy()
 
 void MiniMap::Update()
 {
+	if (m_Level == 1)
+	{
+		if (GameData::Get().GetRemainPlayTime() < 240)
+		{
+			SetLevel(2);
+		}
+	}
+	else if (m_Level == 2)
+	{
+		if (GameData::Get().GetRemainPlayTime() < 180)
+		{
+			SetLevel(3);
+		}
+	}
+
+	/*if (Input::IsKeyReleased('2'))
+	{
+		SetLevel(2);
+	}
+
+	if (Input::IsKeyReleased('3'))
+	{
+		SetLevel(3);
+	}*/
+
 	__super::Update();
 }
 
