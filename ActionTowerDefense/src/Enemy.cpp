@@ -41,24 +41,57 @@ void Enemy::Initialize()
 	case EnemyType::Circle:
 		m_Color = Gdiplus::Color(0, 0, 255);
 		m_MoveSpeed = 100.0f;
-		m_Hp = 100.0f;
-		m_MaxHp = 100.0f;
+
+		if (GameData::Get().GetRemainPlayTime() <= 60)
+		{
+			m_Hp = 300.0f;
+		}
+		else if (GameData::Get().GetRemainPlayTime() <= 180)
+		{
+			m_Hp = 200.0f;
+		}
+		else
+		{
+			m_Hp = 100.0f;
+		}
 		break;
 
 	case EnemyType::Rectangle:
 		m_Color = Gdiplus::Color(255, 130, 0);
 		m_MoveSpeed = 50.0f;
-		m_Hp = 300.0f;
-		m_MaxHp = 300.0f;
+		if (GameData::Get().GetRemainPlayTime() <= 60)
+		{
+			m_Hp = 600.0f;
+		}
+		else if (GameData::Get().GetRemainPlayTime() <= 180)
+		{
+			m_Hp = 450.0f;
+		}
+		else
+		{
+			m_Hp = 300.0f;
+		}
 		break;
 
 	case EnemyType::Triangle:
 		m_Color = Gdiplus::Color(0, 255, 0);
 		m_MoveSpeed = 200.0f;
-		m_Hp = 50.0f;
-		m_MaxHp = 50.0f;
+		if (GameData::Get().GetRemainPlayTime() <= 60)
+		{
+			m_Hp = 150.0f;
+		}
+		else if (GameData::Get().GetRemainPlayTime() <= 180)
+		{
+			m_Hp = 100.0f;
+		}
+		else
+		{
+			m_Hp = 50.0f;
+		}
 		break;
 	}
+
+	m_MaxHp = m_Hp;
 	
 	m_Collider = Collider(m_Position, (float)(ENEMY_SIZE / 2));
 

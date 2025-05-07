@@ -148,6 +148,11 @@ float GameData::GetCurrentSpawnRate()
 	return m_CurrentSpawnRate;
 }
 
+void GameData::SetCurrentSpawnRate(float rate)
+{
+	m_CurrentSpawnRate = rate;
+}
+
 int GameData::GetCurrentSpawnBurst()
 {
 	return m_CurrentSpawnBurst;

@@ -121,6 +121,11 @@ void PlayScene::Update()
 		GameData::Get().UpdateReadyTime();
 		break;
 	case GameState::Play:
+		if (GameData::Get().GetRemainPlayTime() <= 120)
+		{
+			GameData::Get().SetCurrentSpawnRate(2.0f);
+		}
+
 		if (GameData::Get().GetRemainPlayTime() <= 0)
 		{
 			if (GameData::Get().GetEnemyCount() == 0)

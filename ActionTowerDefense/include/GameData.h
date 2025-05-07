@@ -154,6 +154,7 @@ public:
 	bool HasEnemyInfo();
 
 	float GetCurrentSpawnRate();
+	void SetCurrentSpawnRate(float rate);
 	int GetCurrentSpawnBurst();
 
 	GameState GetCurrentGameState();

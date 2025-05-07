@@ -13,7 +13,7 @@ IceTower::IceTower(const Vector2& position)
 	: Tower::Tower(position), m_SlowRate(0.8f), m_SlowTime(1.0f),
 	m_MaxAttackCount(3)
 {
-	m_Damage = 5.0f;
+	m_Damage = 3.0f;
 }
 
 void IceTower::Initialize()
@@ -84,13 +84,13 @@ void IceTower::Upgrade()
 
 	if (m_Level == 2)
 	{
-		m_Damage = 10.f;
+		m_Damage = 5.f;
 		m_SlowRate = 0.65f;
 		m_MaxAttackCount = 5;
 	}
 	else if (m_Level == 3)
 	{
-		m_Damage = 15.f;
+		m_Damage = 7.f;
 		m_SlowRate = 0.5f;
 		m_MaxAttackCount = 7;
 	}
